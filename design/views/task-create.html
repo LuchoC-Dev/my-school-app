@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Task Create</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px 7px">
+          <span style="font-size:13px;color:#9A8B77">Cancelar</span>
+          <span style="font-size:16px;font-weight:700">Nueva tarea</span>
+          <span style="font-size:14px;font-weight:700;color:#4A7FB5">Crear</span>
+        </div>
+        <div class="s-div"></div>
+
+        <!-- Nombre (required) -->
+        <div style="padding:12px 14px 8px">
+          <div style="font-size:16px;color:#BFAF9A;border-bottom:1.5px dashed #BFAF9A;padding-bottom:8px">
+            Nombre de la tarea...
+          </div>
+        </div>
+
+        <!-- Materia (required) -->
+        <div class="form-field">
+          <div class="form-label">Materia</div>
+          <div class="form-select">
+            <span style="color:#9A8B77">Seleccionar materia...</span>
+            <span style="color:#BFAF9A">›</span>
+          </div>
+        </div>
+
+        <!-- Proyecto (optional) -->
+        <div class="form-field">
+          <div class="form-label">Proyecto <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-select">
+            <span style="color:#9A8B77">Sin proyecto</span>
+            <span style="color:#BFAF9A">›</span>
+          </div>
+        </div>
+
+        <!-- Fecha de entrega (optional) -->
+        <div class="form-field">
+          <div class="form-label">Fecha de entrega <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-select">
+            <span style="color:#9A8B77">📅 Sin fecha</span>
+            <span style="color:#BFAF9A">›</span>
+          </div>
+        </div>
+
+        <div style="height:16px"></div>
+        <div class="create-btn">Crear tarea ✓</div>
+
+        <!-- Note about cancel behavior -->
+        <div style="text-align:center;font-size:11px;color:#9A8B77;padding:8px 14px">
+          Si cancelás sin crear, la tarea se descarta
+        </div>
+
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">✏️ Task Create</div>
+  <div class="ann-line"></div>
+  <div class="ann-box">
+    Vista idéntica a Task-View pero en <strong>modo edición</strong>. Si se cancela sin guardar → la tarea se elimina / descarta.
+  </div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Solo el nombre es requerido</div>
+        <div class="sub">Materia, proyecto y fecha son opcionales. El botón "Crear" se habilita en cuanto hay un nombre</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Selector de materia</div>
+        <div class="sub">Tap abre bottom sheet con lista de materias existentes</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Selector de proyecto opcional</div>
+        <div class="sub">Tap abre bottom sheet con proyectos de la materia seleccionada</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Cancelar → descarta</div>
+        <div class="sub">No se crea ni guarda nada. Texto de advertencia al pie lo aclara</div>
+      </div>
+    </li>
+  </ul>
+  <div class="ann-note">
+    Cuando se usa como <strong>modo edición</strong> de una tarea existente (desde Task-View → ✏️), el header cambia a "Guardar" en lugar de "Crear", y cancelar solo descarta los cambios, no la tarea.
+  </div>
+</div>
+
+</body>
+</html>

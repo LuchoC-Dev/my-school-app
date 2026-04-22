@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Project List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">📋 Actividades</div>
+        </div>
+
+        <!-- Sub-tabs -->
+        <div class="act-tabs">
+          <div class="act-tab">Tareas</div>
+          <div class="act-tab active">Proyectos</div>
+        </div>
+
+        <div style="height:6px"></div>
+
+        <!-- Project card: 2 tasks (< 3, no "ver más") -->
+        <div class="proj-card">
+          <div class="proj-card-hdr">
+            <div class="proj-card-name">TP Final — Integrales</div>
+            <div class="proj-card-date">30 May</div>
+          </div>
+          <div class="proj-card-meta">
+            <span class="tag tw">Matemática</span>
+            <span style="font-size:10px;color:#9A8B77">2 de 2 pendientes</span>
+          </div>
+          <div class="proj-task-list">
+            <div class="proj-task-item">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Resolver ejercicios 1 al 5</span>
+              <span style="margin-left:auto;font-size:10px;color:#D4753A">28 May</span>
+            </div>
+            <div class="proj-task-item">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Redactar conclusiones</span>
+              <span style="margin-left:auto;font-size:10px;color:#9A8B77">30 May</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project card: 5 tasks (muestra 3, "ver más" para las 2 restantes) -->
+        <div class="proj-card">
+          <div class="proj-card-hdr">
+            <div class="proj-card-name">TP Historia WWI</div>
+            <div class="proj-card-date">10 Jun</div>
+          </div>
+          <div class="proj-card-meta">
+            <span class="tag tw">Historia</span>
+            <span style="font-size:10px;color:#9A8B77">5 de 5 pendientes</span>
+          </div>
+          <div class="proj-task-list">
+            <div class="proj-task-item">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Investigar causas WWI</span>
+              <span style="margin-left:auto;font-size:10px;color:#D4753A">1 Jun</span>
+            </div>
+            <div class="proj-task-item">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Buscar fuentes bibliográficas</span>
+              <span style="margin-left:auto;font-size:10px;color:#9A8B77">5 Jun</span>
+            </div>
+            <div class="proj-task-item">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Redactar introducción</span>
+              <span style="margin-left:auto;font-size:10px;color:#9A8B77">7 Jun</span>
+            </div>
+            <div class="see-more-btn">
+              <span>Ver 2 más</span>
+              <span>▾</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project card: completed -->
+        <div class="proj-card" style="opacity:.65">
+          <div class="proj-card-hdr">
+            <div class="proj-card-name" style="text-decoration:line-through;color:#9A8B77">Parcial 1 — Álgebra</div>
+            <div style="font-size:10px;color:#5A9E6A">✓ Completado</div>
+          </div>
+          <div class="proj-card-meta">
+            <span class="tag tw">Matemática</span>
+            <span style="font-size:10px;color:#9A8B77">3 tareas</span>
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="fab">+</div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📁 Project List</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Tarjeta de proyecto con tareas</div>
+        <div class="sub">Muestra las 3 tareas con fecha de vencimiento más próxima. Si hay más de 3 → aparece "Ver N más"</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Expansión de 10 en 10</div>
+        <div class="sub">Cada tap en "Ver más" muestra 10 tareas adicionales hasta mostrarlas todas</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Tag de materia en cada proyecto</div>
+        <div class="sub">Identifica a qué materia pertenece de un vistazo</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Proyectos completados</div>
+        <div class="sub">Aparecen al final, opacos, sin lista de tareas expandida</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">5</div>
+      <div class="ann-text">
+        <div class="main">FAB (+) → Project-Create</div>
+        <div class="sub">Crea un nuevo proyecto</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

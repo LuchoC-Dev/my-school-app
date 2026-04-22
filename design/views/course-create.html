@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Course Create</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px 7px">
+          <span style="font-size:13px;color:#9A8B77">Cancelar</span>
+          <span style="font-size:16px;font-weight:700">Nueva materia</span>
+          <span style="font-size:14px;font-weight:700;color:#4A7FB5">Crear</span>
+        </div>
+        <div class="s-div"></div>
+
+        <!-- Nombre (required) -->
+        <div style="padding:12px 14px 8px">
+          <div style="font-size:16px;color:#BFAF9A;border-bottom:1.5px dashed #BFAF9A;padding-bottom:8px">
+            Nombre de la materia...
+          </div>
+        </div>
+
+        <div style="height:4px"></div>
+
+        <!-- Descripción (optional) -->
+        <div class="form-field">
+          <div class="form-label">Descripción <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-textarea">Agregá una descripción o notas sobre la materia...</div>
+        </div>
+
+        <!-- Profesor (optional) -->
+        <div class="form-field">
+          <div class="form-label">Profesor/a <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-input placeholder">Nombre del/la profesor/a...</div>
+        </div>
+
+        <div style="height:16px"></div>
+        <div class="create-btn">Crear materia ✓</div>
+
+      </div>
+    </div>
+    <div class="app-tab-bar">
+      <div class="app-tab active"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">🏫 Course Create</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Nombre prominente</div>
+        <div class="sub">El único campo requerido. Input grande con dashed underline, igual al patrón de Task-Create</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Descripción opcional</div>
+        <div class="sub">Textarea con fondo dashed — señal visual de que es secundario / opcional</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Profesor/a opcional</div>
+        <div class="sub">Campo de texto simple. Etiquetado explícitamente como opcional para no generar dudas</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Cancelar → descarta todo</div>
+        <div class="sub">No se guarda nada si se cancela. Igual que Task-Create</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

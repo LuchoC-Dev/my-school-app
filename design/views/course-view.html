@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Course View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <!-- Nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
+          <span style="font-size:13px;color:#4A7FB5">‹ Materias</span>
+          <div class="s-icon-btn">✏️</div>
+        </div>
+
+        <!-- Course info box -->
+        <div class="course-info-box">
+          <div class="course-info-name">Matemática</div>
+          <div class="course-info-row">👤 Prof. García</div>
+          <div class="course-info-desc">Álgebra y cálculo diferencial. Cursada los Lunes y Miércoles.</div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Pending activities -->
+        <div class="sec-lbl">⏳ PENDIENTES · 3</div>
+
+        <!-- Project card (collapsible, expanded state) -->
+        <div class="collapse-card">
+          <div class="collapse-hdr">
+            <div class="cb" style="flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="collapse-hdr-title">📁 TP Final — Integrales</div>
+              <div class="collapse-meta">vence 30 May · 2 tareas</div>
+            </div>
+            <div class="collapse-chevron">▾</div>
+          </div>
+          <div class="collapse-body">
+            <div class="collapse-task">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Resolver ejercicios 1 al 5</span>
+              <span style="font-size:10px;color:#9A8B77;margin-left:auto">28 May</span>
+            </div>
+            <div class="collapse-task">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span>Redactar conclusiones</span>
+              <span style="font-size:10px;color:#9A8B77;margin-left:auto">30 May</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project card (collapsed state) -->
+        <div class="collapse-card">
+          <div class="collapse-hdr">
+            <div class="cb" style="flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="collapse-hdr-title">📁 Parcial 2</div>
+              <div class="collapse-meta">vence 15 Jun · 3 tareas</div>
+            </div>
+            <div class="collapse-chevron">›</div>
+          </div>
+        </div>
+
+        <!-- Standalone task -->
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Leer capítulo 4 — Límites</div>
+            <div class="t-sub">sin fecha</div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Completed activities -->
+        <div class="sec-lbl">✅ COMPLETADAS · 2</div>
+
+        <div class="task-row">
+          <div class="cb done">✓</div>
+          <div class="t-title done" style="flex:1">Entregar TP 1</div>
+        </div>
+
+        <div class="task-row">
+          <div class="cb done">✓</div>
+          <div class="t-title done" style="flex:1">Parcial 1</div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <!-- FAB -->
+    <div class="fab">+</div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab active"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">🏫 Course View</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Info box del curso</div>
+        <div class="sub">Nombre, profesor y descripción agrupados. El ícono ✏️ en el header abre modo edición</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Proyectos colapsables</div>
+        <div class="sub">▾ = expandido (se ven las tareas internas) · › = colapsado. El borde del card diferencia proyectos de tareas sueltas</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Tareas sueltas entre proyectos</div>
+        <div class="sub">Mismo estilo de task-row que en el resto de la app, sin ningún contenedor extra</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">FAB (+) → nueva actividad</div>
+        <div class="sub">Abre bottom sheet para elegir: Tarea o Proyecto</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">5</div>
+      <div class="ann-text">
+        <div class="main">Sección completadas al fondo</div>
+        <div class="sub">Separada visualmente. Proyectos completados también aparecen aquí colapsados</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

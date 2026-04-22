@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Task List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">📋 Actividades</div>
+        </div>
+
+        <!-- Sub-tabs -->
+        <div class="act-tabs">
+          <div class="act-tab active">Tareas</div>
+          <div class="act-tab">Proyectos</div>
+        </div>
+
+        <div class="search">🔍 Buscar tarea...</div>
+
+        <!-- Filters by course -->
+        <div class="filters">
+          <div class="fc active">Todas</div>
+          <div class="fc">Matemática</div>
+          <div class="fc">Historia</div>
+          <div class="fc">Física</div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <div class="sec-lbl">PENDIENTES · 4</div>
+
+        <!-- Task with project tag -->
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Resolver ejercicios 1 al 5</div>
+            <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
+              <span class="tag tw">Matemática</span>
+              <span class="tag tb">TP Final</span>
+              <span class="t-date">28 May</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task without project -->
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Leer capítulo 4 — Límites</div>
+            <div style="display:flex;gap:4px;align-items:center;margin-top:2px">
+              <span class="tag tw">Matemática</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task with project tag, different course -->
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Investigar causas WWI</div>
+            <div style="display:flex;gap:4px;align-items:center;margin-top:2px">
+              <span class="tag tw">Historia</span>
+              <span class="tag tp">TP Historia</span>
+              <span class="t-date" style="color:#D4753A">1 Jun</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task without project, no date -->
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Revisar apuntes de ondas</div>
+            <div style="display:flex;gap:4px;align-items:center;margin-top:2px">
+              <span class="tag tw">Física</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+        <div class="sec-lbl">COMPLETADAS · 2</div>
+
+        <div class="task-row">
+          <div class="cb done">✓</div>
+          <div style="flex:1">
+            <div class="t-title done">Entregar TP 1</div>
+            <div style="margin-top:2px"><span class="tag tw" style="opacity:.5">Matemática</span></div>
+          </div>
+        </div>
+
+        <div class="task-row">
+          <div class="cb done">✓</div>
+          <div style="flex:1">
+            <div class="t-title done">Leer capítulo 3</div>
+            <div style="margin-top:2px"><span class="tag tw" style="opacity:.5">Historia</span></div>
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="fab">+</div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">✅ Task List</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Búsqueda + filtro por materia</div>
+        <div class="sub">Chips de filtro horizontal — una materia a la vez</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Tags de materia + proyecto</div>
+        <div class="sub">Si la tarea pertenece a un proyecto, aparece una segunda tag con el nombre del proyecto. Tap en la tag navega al proyecto</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Fecha en rojo = urgente</div>
+        <div class="sub">Fecha coloreada en naranja/rojo cuando está próxima a vencer</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">FAB (+) → Task-Create</div>
+        <div class="sub">Abre la vista de creación de tarea</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

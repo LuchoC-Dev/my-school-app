@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Course List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">🏫 Mis Materias</div>
+          <div class="s-icon-btn">≡</div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Course cards -->
+        <div style="height:8px"></div>
+
+        <div class="course-card">
+          <div class="course-card-name">Matemática</div>
+          <div class="course-card-teacher">👤 Prof. García</div>
+          <div class="course-stats">
+            <span class="stat-badge stat-pending">3 pendientes</span>
+            <span class="stat-badge stat-done">5 completadas</span>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-card-name">Historia</div>
+          <div class="course-card-teacher">👤 Prof. López</div>
+          <div class="course-stats">
+            <span class="stat-badge stat-pending">1 pendiente</span>
+            <span class="stat-badge stat-done">2 completadas</span>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-card-name">Física</div>
+          <div class="course-card-teacher" style="color:#BFAF9A;font-style:italic">Sin profesor asignado</div>
+          <div class="course-stats">
+            <span class="stat-badge stat-pending">2 pendientes</span>
+            <span class="stat-badge stat-done">0 completadas</span>
+          </div>
+        </div>
+
+        <div class="course-card" style="border-style:dashed;background:transparent;
+          display:flex;align-items:center;justify-content:center;gap:6px;color:#9A8B77;padding:12px">
+          <span style="font-size:16px">+</span>
+          <span style="font-size:13px">Nueva materia</span>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+    <div class="app-tab-bar">
+      <div class="app-tab active"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">🏫 Course List</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Tarjeta por materia</div>
+        <div class="sub">Nombre + profesor + contadores de actividades pendientes / completadas</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Badges de estado</div>
+        <div class="sub">Naranja = pendientes · Verde = completadas. De un vistazo sabés cuánto te falta</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Profesor opcional</div>
+        <div class="sub">Si no hay profesor asignado, se muestra en gris/itálica como campo vacío</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Tarjeta dashed = crear materia</div>
+        <div class="sub">Acceso directo a Course-Create sin FAB. Siempre visible al final de la lista</div>
+      </div>
+    </li>
+  </ul>
+  <div class="ann-note">
+    Tap en cualquier tarjeta → Course-View de esa materia.
+  </div>
+</div>
+
+</body>
+</html>

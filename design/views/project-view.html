@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Project View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <!-- Nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
+          <span style="font-size:13px;color:#4A7FB5">‹ Proyectos</span>
+          <div class="s-icon-btn">✏️</div>
+        </div>
+
+        <!-- Project info box -->
+        <div class="course-info-box">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div class="course-info-name">TP Historia WWI</div>
+            <span style="font-size:10px;color:#D4753A;border:1.5px solid #D4753A;border-radius:999px;padding:1px 8px">10 Jun</span>
+          </div>
+          <div class="course-info-row" style="margin-top:3px">
+            <span class="tag tw" style="font-size:11px">Historia</span>
+          </div>
+          <div class="course-info-desc">Trabajo práctico grupal sobre las causas y consecuencias de la Primera Guerra Mundial.</div>
+        </div>
+
+        <!-- Progress bar -->
+        <div style="margin:0 12px 10px;font-size:10px;color:#9A8B77">
+          <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+            <span>Progreso</span>
+            <span>0 / 5 completadas</span>
+          </div>
+          <div style="height:5px;background:#E8E0D2;border-radius:999px">
+            <div style="width:0%;height:100%;background:#5A9E6A;border-radius:999px"></div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+        <div class="sec-lbl">PENDIENTES · 5</div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Investigar causas WWI</div>
+            <div class="t-sub" style="color:#D4753A">1 Jun</div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Buscar fuentes bibliográficas</div>
+            <div class="t-sub">5 Jun</div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Redactar introducción</div>
+            <div class="t-sub">7 Jun</div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Redactar desarrollo</div>
+            <div class="t-sub">9 Jun</div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Redactar conclusión y entregar</div>
+            <div class="t-sub">10 Jun</div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="s-div"></div>
+        <div class="sec-lbl">COMPLETADAS · 0</div>
+        <div style="padding:8px 14px;font-size:12px;color:#BFAF9A;font-style:italic">
+          Todavía no hay tareas completadas
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="fab">+</div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📁 Project View</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Info box del proyecto</div>
+        <div class="sub">Nombre, fecha de entrega (badge naranja si próxima), materia, descripción. ✏️ en header abre edición</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Barra de progreso</div>
+        <div class="sub">Muestra cuántas tareas del proyecto están completadas. Simple y visual</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Lista completa de tareas</div>
+        <div class="sub">Pendientes arriba, completadas abajo. Tap en › navega a Task-View</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">FAB (+) → nueva tarea en este proyecto</div>
+        <div class="sub">Abre Task-Create con el proyecto ya pre-seleccionado</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>
