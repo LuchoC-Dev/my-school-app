@@ -24,70 +24,185 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="s-hdr-title">📅 Calendario</div>
         </div>
 
-        <!-- Sub-tabs: Día / Semana / Mes -->
+        <!-- Sub-tabs -->
         <div class="act-tabs">
           <div class="act-tab active">Día</div>
           <div class="act-tab">Semana</div>
           <div class="act-tab">Mes</div>
         </div>
 
-        <!-- Date header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px 4px">
+        <!-- Date nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 14px 2px">
           <span style="font-size:13px;color:#9A8B77">‹</span>
           <div style="text-align:center">
-            <div style="font-size:18px;font-weight:700">Martes 22</div>
+            <div style="font-size:17px;font-weight:700">Jueves 23</div>
             <div style="font-size:11px;color:#9A8B77">Abril 2026</div>
           </div>
           <span style="font-size:13px;color:#9A8B77">›</span>
         </div>
 
-        <!-- Today badge -->
-        <div style="display:flex;justify-content:center;padding:0 0 6px">
-          <span style="font-size:10px;background:#2A2016;color:#fff;border-radius:999px;padding:1px 10px">Hoy</span>
+        <!-- Legend strip -->
+        <div style="display:flex;gap:6px;padding:4px 10px 5px;align-items:center">
+          <span style="font-size:9px;color:#9A8B77">Clases:</span>
+          <span style="font-size:9px;padding:1px 6px;border-radius:999px;background:#FDF0E6;border:1px solid #D4753A;color:#D4753A">Matemática</span>
+          <span style="font-size:9px;padding:1px 6px;border-radius:999px;background:#EDF7F0;border:1px solid #5A9E6A;color:#5A9E6A">Física</span>
+          <span style="font-size:9px;padding:1px 6px;border-radius:999px;background:#EDF4FC;border:1px solid #4A7FB5;color:#4A7FB5">Historia</span>
         </div>
 
-        <div class="s-div"></div>
-
-        <!-- Activities for today -->
-        <div class="sec-lbl">📋 ACTIVIDADES · 3</div>
-
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Resolver ejercicios 1 al 5</div>
-            <div style="display:flex;gap:4px;margin-top:2px">
-              <span class="tag tw">Matemática</span>
-              <span class="tag tb">TP Final</span>
-            </div>
+        <!-- Column headers -->
+        <div style="display:flex;border-bottom:1.5px solid #DDD5C5;margin:0 8px 0 6px;padding-bottom:2px">
+          <div style="width:34px;flex-shrink:0"></div>
+          <div style="flex:1;display:flex">
+            <div style="width:74%;font-size:9px;font-weight:700;color:#9A8B77;letter-spacing:.3px;text-transform:uppercase;padding-left:4px">Clases</div>
+            <div style="width:26%;font-size:9px;font-weight:700;color:#9A8B77;letter-spacing:.3px;text-transform:uppercase;padding-left:4px">Tareas</div>
           </div>
         </div>
 
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Leer capítulo 4</div>
-            <div style="display:flex;gap:4px;margin-top:2px">
-              <span class="tag tw">Matemática</span>
+        <!-- TIMETABLE -->
+        <div class="timetable">
+
+          <!-- 08:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">08:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
             </div>
           </div>
-        </div>
 
-        <!-- Project activity -->
-        <div class="collapse-card" style="margin:0 12px 6px">
-          <div class="collapse-hdr">
-            <div class="cb" style="flex-shrink:0"></div>
-            <div style="flex:1">
-              <div class="collapse-hdr-title">📁 TP Historia WWI</div>
-              <div class="collapse-meta"><span class="tag tw" style="font-size:10px;padding:1px 5px">Historia</span></div>
+          <!-- 09:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">09:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
             </div>
-            <div class="collapse-chevron">›</div>
           </div>
-        </div>
 
-        <div class="s-dash" style="margin:6px 14px"></div>
+          <!-- 10:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">10:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
 
-        <!-- Add activity for this day -->
-        <div style="padding:6px 14px">
+          <!-- 11:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">11:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 12:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">12:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 13:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">13:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 14:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">14:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 15:00 — Matemática + Física al mismo tiempo (CONFLICTO) -->
+          <div class="tt-row has-content">
+            <div class="tt-time">15:00</div>
+            <div class="tt-content">
+              <div class="tt-courses">
+                <!-- Dos materias → se reparten el espacio -->
+                <div class="tt-course-block cc-orange">Mate</div>
+                <div class="tt-course-block cc-green">Física</div>
+              </div>
+              <div class="tt-tasks">
+                <!-- Tarea de Matemática que coincide con este horario -->
+                <div class="tt-task-item" style="border-color:#D4753A;color:#D4753A;background:#FDF0E6">
+                  Ej. 1–5
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 16:00 — continúan Matemática + Física -->
+          <div class="tt-row has-content">
+            <div class="tt-time">16:00</div>
+            <div class="tt-content">
+              <div class="tt-courses">
+                <div class="tt-course-block cc-orange" style="opacity:.7">Mate</div>
+                <div class="tt-course-block cc-green" style="opacity:.7">Física</div>
+              </div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 17:00 empty -->
+          <div class="tt-row">
+            <div class="tt-time">17:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 18:00 — Historia -->
+          <div class="tt-row has-content">
+            <div class="tt-time">18:00</div>
+            <div class="tt-content">
+              <div class="tt-courses">
+                <div class="tt-course-block cc-blue">Historia</div>
+              </div>
+              <div class="tt-tasks">
+                <!-- Tarea de Historia en este horario -->
+                <div class="tt-task-item" style="border-color:#4A7FB5;color:#4A7FB5;background:#EDF4FC">
+                  Investigar WWI
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 19:00 — Historia continúa -->
+          <div class="tt-row has-content">
+            <div class="tt-time">19:00</div>
+            <div class="tt-content">
+              <div class="tt-courses">
+                <div class="tt-course-block cc-blue" style="opacity:.7">Historia</div>
+              </div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+          <!-- 20:00 empty / end -->
+          <div class="tt-row">
+            <div class="tt-time">20:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-empty-row"></div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+
+        </div><!-- /timetable -->
+
+        <!-- Add activity -->
+        <div style="padding:8px 14px">
           <div class="dashed-btn" style="width:100%;justify-content:center">
             + Nueva actividad para hoy
           </div>
@@ -114,39 +229,42 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Sub-tabs Día / Semana / Mes</div>
-        <div class="sub">Presentes en las tres vistas de calendario para cambiar entre ellas sin volver al tab bar</div>
+        <div class="main">Timetable 08:00–20:00 en 24h</div>
+        <div class="sub">Cada fila = 1 hora. Filas vacías son compactas; filas con clases o tareas son más altas</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Navegación ‹ fecha › por día</div>
-        <div class="sub">Flecha izquierda = día anterior · Flecha derecha = día siguiente. Badge "Hoy" aparece cuando es el día actual</div>
+        <div class="main">División horizontal por columna</div>
+        <div class="sub">~75% para materias (bloques de color) · ~25% para tareas (chips pequeños)</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Todas las actividades del día</div>
-        <div class="sub">Tareas sueltas y proyectos (colapsables). Tags de materia y proyecto visibles</div>
+        <div class="main">Conflicto de horario → split</div>
+        <div class="sub">15:00 muestra Matemática y Física lado a lado, cada una con ~50% del área de clases. Se pueden dar N materias simultáneas</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">Botón inline + FAB para crear</div>
-        <div class="sub">Botón dashed al pie de la lista crea actividad para ese día específico. FAB también disponible</div>
+        <div class="main">Continuación con opacidad reducida</div>
+        <div class="sub">Las horas siguientes de la misma clase aparecen al 70% de opacidad para indicar que es continuación</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">5</div>
       <div class="ann-text">
-        <div class="main">Estado vacío</div>
-        <div class="sub">Si no hay actividades ese día, se muestra solo el botón "Nueva actividad para este día" centrado</div>
+        <div class="main">Tareas en columna derecha</div>
+        <div class="sub">Aparecen en el horario del primer bloque de su materia. Si la tarea tiene fecha hoy pero sin horario de materia, aparece arriba (08:00)</div>
       </div>
     </li>
   </ul>
+  <div class="ann-note">
+    Tap en un bloque de materia → Course-View · Tap en una tarea → Task-View
+  </div>
 </div>
 
 </body>

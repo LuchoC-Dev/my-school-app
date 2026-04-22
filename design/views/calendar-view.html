@@ -24,66 +24,82 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="s-hdr-title">📅 Calendario</div>
         </div>
 
-        <!-- Sub-tabs: entry point shows Day by default -->
+        <!-- Sub-tabs -->
         <div class="act-tabs">
           <div class="act-tab active">Día</div>
           <div class="act-tab">Semana</div>
           <div class="act-tab">Mes</div>
         </div>
 
-        <!-- Renders Day view by default -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px 4px">
+        <!-- Date nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 14px 2px">
           <span style="font-size:13px;color:#9A8B77">‹</span>
           <div style="text-align:center">
-            <div style="font-size:18px;font-weight:700">Martes 22</div>
+            <div style="font-size:17px;font-weight:700">Jueves 23</div>
             <div style="font-size:11px;color:#9A8B77">Abril 2026</div>
           </div>
           <span style="font-size:13px;color:#9A8B77">›</span>
         </div>
-        <div style="display:flex;justify-content:center;padding:0 0 6px">
-          <span style="font-size:10px;background:#2A2016;color:#fff;border-radius:999px;padding:1px 10px">Hoy</span>
+
+        <!-- Legend -->
+        <div style="display:flex;gap:6px;padding:4px 10px 5px;align-items:center">
+          <span style="font-size:9px;color:#9A8B77">Clases:</span>
+          <span style="font-size:9px;padding:1px 6px;border-radius:999px;background:#FDF0E6;border:1px solid #D4753A;color:#D4753A">Matemática</span>
+          <span style="font-size:9px;padding:1px 6px;border-radius:999px;background:#EDF4FC;border:1px solid #4A7FB5;color:#4A7FB5">Historia</span>
         </div>
 
-        <div class="s-div"></div>
-        <div class="sec-lbl">📋 ACTIVIDADES · 3</div>
+        <!-- Column headers -->
+        <div style="display:flex;border-bottom:1.5px solid #DDD5C5;margin:0 8px 0 6px;padding-bottom:2px">
+          <div style="width:34px;flex-shrink:0"></div>
+          <div style="flex:1;display:flex">
+            <div style="width:74%;font-size:9px;font-weight:700;color:#9A8B77;letter-spacing:.3px;text-transform:uppercase;padding-left:4px">Clases</div>
+            <div style="width:26%;font-size:9px;font-weight:700;color:#9A8B77;letter-spacing:.3px;text-transform:uppercase;padding-left:4px">Tareas</div>
+          </div>
+        </div>
 
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Resolver ejercicios 1 al 5</div>
-            <div style="display:flex;gap:4px;margin-top:2px">
-              <span class="tag tw">Matemática</span>
-              <span class="tag tb">TP Final</span>
+        <!-- Timetable preview (abbreviated) -->
+        <div class="timetable">
+          <div class="tt-row"><div class="tt-time">08:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row"><div class="tt-time">09:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row"><div class="tt-time">10:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row"><div class="tt-time">11:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row"><div class="tt-time">12:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row"><div class="tt-time">13:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row"><div class="tt-time">14:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row has-content">
+            <div class="tt-time">15:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-course-block cc-orange">Mate</div></div>
+              <div class="tt-tasks"><div class="tt-task-item" style="border-color:#D4753A;color:#D4753A;background:#FDF0E6">Ej. 1–5</div></div>
             </div>
           </div>
-        </div>
-
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Leer capítulo 4</div>
-            <div style="display:flex;gap:4px;margin-top:2px">
-              <span class="tag tw">Matemática</span>
+          <div class="tt-row has-content">
+            <div class="tt-time">16:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-course-block cc-orange" style="opacity:.7">Mate</div></div>
+              <div class="tt-tasks"></div>
             </div>
           </div>
-        </div>
-
-        <div class="collapse-card" style="margin:0 12px 6px">
-          <div class="collapse-hdr">
-            <div class="cb" style="flex-shrink:0"></div>
-            <div style="flex:1">
-              <div class="collapse-hdr-title">📁 TP Historia WWI</div>
-              <div class="collapse-meta"><span class="tag tw" style="font-size:10px;padding:1px 5px">Historia</span></div>
+          <div class="tt-row"><div class="tt-time">17:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
+          <div class="tt-row has-content">
+            <div class="tt-time">18:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-course-block cc-blue">Historia</div></div>
+              <div class="tt-tasks"><div class="tt-task-item" style="border-color:#4A7FB5;color:#4A7FB5;background:#EDF4FC">WWI</div></div>
             </div>
-            <div class="collapse-chevron">›</div>
           </div>
+          <div class="tt-row has-content">
+            <div class="tt-time">19:00</div>
+            <div class="tt-content">
+              <div class="tt-courses"><div class="tt-course-block cc-blue" style="opacity:.7">Historia</div></div>
+              <div class="tt-tasks"></div>
+            </div>
+          </div>
+          <div class="tt-row"><div class="tt-time">20:00</div><div class="tt-content"><div class="tt-courses"></div><div class="tt-tasks"></div></div></div>
         </div>
 
-        <div class="s-dash" style="margin:6px 14px"></div>
-        <div style="padding:6px 14px">
-          <div class="dashed-btn" style="width:100%;justify-content:center">
-            + Nueva actividad para hoy
-          </div>
+        <div style="padding:8px 14px">
+          <div class="dashed-btn" style="width:100%;justify-content:center">+ Nueva actividad para hoy</div>
         </div>
 
         <div style="height:60px"></div>
@@ -104,27 +120,24 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <div class="ann-title">📅 Calendar View</div>
   <div class="ann-line"></div>
   <div class="ann-box">
-    Contenedor del calendario. Al tocar el tab 📅 siempre abre en <strong>Day View</strong> (vista del día de hoy). Los sub-tabs permiten cambiar a Semana o Mes sin salir del calendario.
+    Contenedor del calendario. Siempre abre en <strong>Day View</strong> mostrando el día de hoy con el timetable de horarios de materias + tareas del día.
   </div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Entry point → Day View por defecto</div>
-        <div class="sub">Igual que Activities entra a Task-List, Calendar entra al día actual</div>
+        <div class="main">Sub-tabs Día / Semana / Mes</div>
+        <div class="sub">Ver calendar-day.html, calendar-week.html y calendar-month.html para cada sub-vista en detalle</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Sub-tabs Día / Semana / Mes</div>
-        <div class="sub">Cambian el contenido manteniendo el mismo header y tab bar</div>
+        <div class="main">Los horarios vienen de Course</div>
+        <div class="sub">Cada materia tiene sus días/horas configurados → se pintan automáticamente en el timetable</div>
       </div>
     </li>
   </ul>
-  <div class="ann-note">
-    Ver <strong>calendar-day.html</strong>, <strong>calendar-week.html</strong> y <strong>calendar-month.html</strong> para cada sub-vista en detalle.
-  </div>
 </div>
 
 </body>

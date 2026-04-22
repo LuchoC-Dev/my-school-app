@@ -35,8 +35,6 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           </div>
         </div>
 
-        <div style="height:4px"></div>
-
         <!-- Descripción (optional) -->
         <div class="form-field">
           <div class="form-label">Descripción <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
@@ -49,11 +47,38 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="form-input placeholder">Nombre del/la profesor/a...</div>
         </div>
 
+        <!-- Horarios (optional) -->
+        <div class="form-field">
+          <div class="form-label">Horarios <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+
+          <!-- Schedule already added (example) -->
+          <div style="border:1.5px solid #BFAF9A;border-radius:8px;overflow:hidden;background:#FDFCFA;margin-bottom:6px">
+            <div class="schedule-row" style="padding:6px 10px">
+              <span class="schedule-day">Lunes</span>
+              <span class="schedule-time">15:00 – 17:00</span>
+              <span class="schedule-del">✕</span>
+            </div>
+          </div>
+
+          <!-- Add another schedule slot -->
+          <div style="border:1.5px dashed #BFAF9A;border-radius:8px;padding:6px 10px;
+            display:flex;align-items:center;gap:6px;background:transparent">
+            <span style="font-size:13px;color:#9A8B77">Día</span>
+            <span style="font-size:13px;color:#BFAF9A;margin:0 2px">·</span>
+            <span style="font-size:13px;color:#9A8B77">Desde</span>
+            <span style="font-size:13px;color:#BFAF9A;margin:0 2px">→</span>
+            <span style="font-size:13px;color:#9A8B77">Hasta</span>
+            <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;
+              background:#2A2016;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1">+</div>
+          </div>
+        </div>
+
         <div style="height:16px"></div>
         <div class="create-btn">Crear materia ✓</div>
 
       </div>
     </div>
+
     <div class="app-tab-bar">
       <div class="app-tab active"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
       <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
@@ -69,32 +94,35 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Nombre prominente</div>
-        <div class="sub">El único campo requerido. Input grande con dashed underline, igual al patrón de Task-Create</div>
+        <div class="main">Campo de horarios opcional</div>
+        <div class="sub">Se pueden agregar N horarios. Cada uno tiene: día de semana + hora desde + hora hasta</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Descripción opcional</div>
-        <div class="sub">Textarea con fondo dashed — señal visual de que es secundario / opcional</div>
+        <div class="main">Fila "Día · Desde → Hasta" + botón (+)</div>
+        <div class="sub">Tap en el (+) confirma ese horario y lo agrega a la lista. Se pueden agregar varios</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Profesor/a opcional</div>
-        <div class="sub">Campo de texto simple. Etiquetado explícitamente como opcional para no generar dudas</div>
+        <div class="main">Horarios agregados con ✕ para eliminar</div>
+        <div class="sub">Cada horario confirmado aparece como fila editable. ✕ lo elimina de la lista</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">Cancelar → descarta todo</div>
-        <div class="sub">No se guarda nada si se cancela. Igual que Task-Create</div>
+        <div class="main">Se pueden agregar horarios después</div>
+        <div class="sub">Desde Course-View → ✏️ o con "Agregar horario" en la sección de horarios</div>
       </div>
     </li>
   </ul>
+  <div class="ann-note">
+    El selector de día podría ser un bottom sheet con los días de semana (Lu–Do). Las horas se ingresan como pickers de tiempo en formato 24h.
+  </div>
 </div>
 
 </body>

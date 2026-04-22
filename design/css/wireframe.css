@@ -152,6 +152,33 @@
 .see-more-btn{display:flex;align-items:center;justify-content:center;gap:4px;
   margin-top:5px;padding:4px;border-top:1px dashed #E8E0D2;font-size:11px;color:#9A8B77}
 
+/* ── TIMETABLE ── */
+.timetable{padding:0 8px 0 6px}
+.tt-row{display:flex;align-items:stretch;border-bottom:1px solid #F0EAE0;min-height:28px}
+.tt-row.has-content{min-height:40px}
+.tt-time{width:34px;font-size:10px;color:#9A8B77;padding:6px 4px 0 0;
+  flex-shrink:0;line-height:1;border-right:1px solid #E8E0D2}
+.tt-content{flex:1;display:flex}
+.tt-courses{width:74%;display:flex;gap:2px;padding:3px 3px 3px 4px}
+.tt-tasks{width:26%;border-left:1px dashed #DDD5C5;padding:3px 0 3px 4px;
+  display:flex;flex-direction:column;gap:2px;min-width:0}
+.tt-course-block{flex:1;border-radius:5px;padding:3px 5px;font-size:10px;
+  font-weight:700;display:flex;align-items:center;line-height:1.2;min-width:0;overflow:hidden}
+.tt-task-item{border-radius:3px;padding:2px 4px;font-size:9px;
+  border:1px solid;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-empty-row{flex:1;background:transparent}
+/* Course block color variants */
+.cc-orange{background:#FDF0E6;border:1.5px solid #D4753A;color:#D4753A}
+.cc-blue{background:#EDF4FC;border:1.5px solid #4A7FB5;color:#4A7FB5}
+.cc-green{background:#EDF7F0;border:1.5px solid #5A9E6A;color:#5A9E6A}
+.cc-purple{background:#F3F1FB;border:1.5px solid #7060D0;color:#7060D0}
+
+/* ── SCHEDULE LIST (in course-view / course-create) ── */
+.schedule-row{display:flex;align-items:center;gap:8px;padding:5px 14px;font-size:13px}
+.schedule-day{font-weight:700;min-width:50px}
+.schedule-time{color:#5A4A35}
+.schedule-del{font-size:12px;color:#BFAF9A;margin-left:auto}
+
 /* ── WORKFLOW ── */
 .workflow-item{display:flex;align-items:center;gap:7px;padding:4px 14px;font-size:12px}
 .wf-cb{width:14px;height:14px;border-radius:3px;border:1.5px solid #BFAF9A;flex-shrink:0}
