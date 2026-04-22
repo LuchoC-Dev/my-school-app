@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Calendar View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">📅 Calendario</div>
+        </div>
+
+        <!-- Sub-tabs: entry point shows Day by default -->
+        <div class="act-tabs">
+          <div class="act-tab active">Día</div>
+          <div class="act-tab">Semana</div>
+          <div class="act-tab">Mes</div>
+        </div>
+
+        <!-- Renders Day view by default -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px 4px">
+          <span style="font-size:13px;color:#9A8B77">‹</span>
+          <div style="text-align:center">
+            <div style="font-size:18px;font-weight:700">Martes 22</div>
+            <div style="font-size:11px;color:#9A8B77">Abril 2026</div>
+          </div>
+          <span style="font-size:13px;color:#9A8B77">›</span>
+        </div>
+        <div style="display:flex;justify-content:center;padding:0 0 6px">
+          <span style="font-size:10px;background:#2A2016;color:#fff;border-radius:999px;padding:1px 10px">Hoy</span>
+        </div>
+
+        <div class="s-div"></div>
+        <div class="sec-lbl">📋 ACTIVIDADES · 3</div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Resolver ejercicios 1 al 5</div>
+            <div style="display:flex;gap:4px;margin-top:2px">
+              <span class="tag tw">Matemática</span>
+              <span class="tag tb">TP Final</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Leer capítulo 4</div>
+            <div style="display:flex;gap:4px;margin-top:2px">
+              <span class="tag tw">Matemática</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapse-card" style="margin:0 12px 6px">
+          <div class="collapse-hdr">
+            <div class="cb" style="flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="collapse-hdr-title">📁 TP Historia WWI</div>
+              <div class="collapse-meta"><span class="tag tw" style="font-size:10px;padding:1px 5px">Historia</span></div>
+            </div>
+            <div class="collapse-chevron">›</div>
+          </div>
+        </div>
+
+        <div class="s-dash" style="margin:6px 14px"></div>
+        <div style="padding:6px 14px">
+          <div class="dashed-btn" style="width:100%;justify-content:center">
+            + Nueva actividad para hoy
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="fab">+</div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📅 Calendar View</div>
+  <div class="ann-line"></div>
+  <div class="ann-box">
+    Contenedor del calendario. Al tocar el tab 📅 siempre abre en <strong>Day View</strong> (vista del día de hoy). Los sub-tabs permiten cambiar a Semana o Mes sin salir del calendario.
+  </div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Entry point → Day View por defecto</div>
+        <div class="sub">Igual que Activities entra a Task-List, Calendar entra al día actual</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Sub-tabs Día / Semana / Mes</div>
+        <div class="sub">Cambian el contenido manteniendo el mismo header y tab bar</div>
+      </div>
+    </li>
+  </ul>
+  <div class="ann-note">
+    Ver <strong>calendar-day.html</strong>, <strong>calendar-week.html</strong> y <strong>calendar-month.html</strong> para cada sub-vista en detalle.
+  </div>
+</div>
+
+</body>
+</html>

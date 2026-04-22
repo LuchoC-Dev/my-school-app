@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Calendar Week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+.day-block{margin:0 12px 4px;border:1.5px solid #E8E0D2;border-radius:10px;overflow:hidden}
+.day-block.today{border-color:#2A2016}
+.day-hdr{display:flex;justify-content:space-between;align-items:center;
+  padding:6px 10px;background:#FAFAF8}
+.day-block.today .day-hdr{background:#2A2016;color:#F5F0E8}
+.day-name{font-size:12px;font-weight:700}
+.day-date{font-size:11px;opacity:.7}
+.day-add{font-size:16px;opacity:.5;cursor:pointer}
+.day-block.today .day-add{color:#F5F0E8}
+.day-content{padding:4px 0}
+.day-empty{padding:5px 10px;font-size:11px;color:#BFAF9A;font-style:italic}
+.day-activity{display:flex;align-items:center;gap:6px;padding:4px 10px;font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">📅 Calendario</div>
+        </div>
+
+        <!-- Sub-tabs -->
+        <div class="act-tabs">
+          <div class="act-tab">Día</div>
+          <div class="act-tab active">Semana</div>
+          <div class="act-tab">Mes</div>
+        </div>
+
+        <!-- Week header with nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 14px 5px">
+          <span style="font-size:13px;color:#9A8B77">‹</span>
+          <span style="font-size:13px;font-weight:700">20 – 26 Abr 2026</span>
+          <span style="font-size:13px;color:#9A8B77">›</span>
+        </div>
+
+        <div style="height:3px"></div>
+
+        <!-- Monday -->
+        <div class="day-block">
+          <div class="day-hdr">
+            <span class="day-name">Lunes</span>
+            <span class="day-date">21 Abr</span>
+            <span class="day-add">+</span>
+          </div>
+          <div class="day-content">
+            <div class="day-empty">Sin actividades</div>
+          </div>
+        </div>
+
+        <!-- Tuesday (today) -->
+        <div class="day-block today">
+          <div class="day-hdr">
+            <span class="day-name">Martes · Hoy</span>
+            <span class="day-date">22 Abr</span>
+            <span class="day-add">+</span>
+          </div>
+          <div class="day-content" style="background:#fff">
+            <div class="day-activity">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#BFAF9A"></div>
+              <span>Resolver ejercicios 1–5</span>
+            </div>
+            <div class="day-activity">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#BFAF9A"></div>
+              <span>Leer capítulo 4</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="day-block">
+          <div class="day-hdr">
+            <span class="day-name">Miércoles</span>
+            <span class="day-date">23 Abr</span>
+            <span class="day-add">+</span>
+          </div>
+          <div class="day-content">
+            <div class="day-empty">Sin actividades</div>
+          </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="day-block">
+          <div class="day-hdr">
+            <span class="day-name">Jueves</span>
+            <span class="day-date">24 Abr</span>
+            <span class="day-add">+</span>
+          </div>
+          <div class="day-content">
+            <div class="day-activity">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
+              <span style="flex:1">Investigar causas WWI</span>
+              <span class="tag tw" style="font-size:9px;padding:1px 5px">Historia</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Friday -->
+        <div class="day-block">
+          <div class="day-hdr">
+            <span class="day-name">Viernes</span>
+            <span class="day-date">25 Abr</span>
+            <span class="day-add">+</span>
+          </div>
+          <div class="day-content">
+            <div class="day-empty">Sin actividades</div>
+          </div>
+        </div>
+
+        <!-- Saturday -->
+        <div class="day-block">
+          <div class="day-hdr" style="background:#F5F0E8">
+            <span class="day-name" style="color:#BFAF9A">Sábado</span>
+            <span class="day-date" style="color:#BFAF9A">26 Abr</span>
+            <span class="day-add" style="color:#BFAF9A">+</span>
+          </div>
+          <div class="day-content">
+            <div class="day-empty">Sin actividades</div>
+          </div>
+        </div>
+
+        <!-- Sunday -->
+        <div class="day-block">
+          <div class="day-hdr" style="background:#F5F0E8">
+            <span class="day-name" style="color:#BFAF9A">Domingo</span>
+            <span class="day-date" style="color:#BFAF9A">27 Abr</span>
+            <span class="day-add" style="color:#BFAF9A">+</span>
+          </div>
+          <div class="day-content">
+            <div class="day-empty">Sin actividades</div>
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📅 Week View</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">7 bloques verticales Lun–Dom</div>
+        <div class="sub">Cada día tiene su propio card. "Hoy" tiene borde y header dark para distinguirse</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Finde atenuado</div>
+        <div class="sub">Sábado y domingo aparecen en gris/crema para diferenciarlos visualmente de los días hábiles</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">"+" por día → crear actividad en ese día</div>
+        <div class="sub">Cada day-header tiene su propio botón + que pre-carga esa fecha en Task-Create / Project-Create</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Días sin actividades muestran "Sin actividades"</div>
+        <div class="sub">Estado vacío minimalista. El + sigue siendo visible para agregar</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">5</div>
+      <div class="ann-text">
+        <div class="main">Navegación ‹ semana anterior · semana siguiente ›</div>
+        <div class="sub">Encabezado muestra rango de fechas de la semana visible</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Calendar Month</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body" style="position:relative">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">📅 Calendario</div>
+        </div>
+
+        <!-- Sub-tabs -->
+        <div class="act-tabs">
+          <div class="act-tab">Día</div>
+          <div class="act-tab">Semana</div>
+          <div class="act-tab active">Mes</div>
+        </div>
+
+        <!-- Month nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 14px 4px">
+          <span style="font-size:14px;color:#9A8B77">‹</span>
+          <span style="font-size:15px;font-weight:700">Abril 2026</span>
+          <span style="font-size:14px;color:#9A8B77">›</span>
+        </div>
+
+        <!-- Calendar grid -->
+        <div style="padding:0 10px 4px">
+          <!-- Day headers -->
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:2px">
+            <div style="text-align:center;font-size:9px;color:#9A8B77;font-weight:700;padding:2px 0">Lu</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;font-weight:700;padding:2px 0">Ma</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;font-weight:700;padding:2px 0">Mi</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;font-weight:700;padding:2px 0">Ju</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;font-weight:700;padding:2px 0">Vi</div>
+            <div style="text-align:center;font-size:9px;color:#BFAF9A;font-weight:700;padding:2px 0">Sa</div>
+            <div style="text-align:center;font-size:9px;color:#BFAF9A;font-weight:700;padding:2px 0">Do</div>
+          </div>
+          <!-- Grid cells -->
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">
+            <!-- Row 1: Apr starts Wednesday -->
+            <div style="visibility:hidden;height:28px"></div><!-- Lu -->
+            <div style="visibility:hidden;height:28px"></div><!-- Ma -->
+            <!-- 1 -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">1</div>
+            </div>
+            <!-- 2 -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">2</div>
+            </div>
+            <!-- 3 -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">3</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">4</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">5</div>
+            </div>
+
+            <!-- Row 2: 6-12 -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">6</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">7</div>
+              <div style="width:4px;height:4px;border-radius:50%;background:#D4753A;margin-top:1px"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">8</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">9</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">10</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">11</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">12</div>
+            </div>
+
+            <!-- Row 3: 13-19 -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">13</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">14</div>
+              <div style="width:4px;height:4px;border-radius:50%;background:#4A7FB5;margin-top:1px"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">15</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">16</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">17</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">18</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">19</div>
+            </div>
+
+            <!-- Row 4: 20-26 (22 = today) -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">20</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">21</div>
+            </div>
+            <!-- 22 TODAY selected -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#2A2016;color:#fff">22</div>
+              <div style="width:4px;height:4px;border-radius:50%;background:#fff;margin-top:1px;opacity:.6"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">23</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">24</div>
+              <div style="width:4px;height:4px;border-radius:50%;background:#D4753A;margin-top:1px"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">25</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#BFAF9A">26</div>
+            </div>
+
+            <!-- Row 5: 27-30 -->
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">27</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">28</div>
+              <div style="width:4px;height:4px;border-radius:50%;background:#5A9E6A;margin-top:1px"></div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">29</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;height:28px">
+              <div style="font-size:11px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%">30</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Bottom sheet overlay: day 22 selected -->
+        <div style="margin:0;position:relative">
+          <div style="background:#fff;border-top:1.5px solid #2A2016;border-radius:14px 14px 0 0;padding:8px 12px">
+            <div class="sheet-handle"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+              <div style="font-size:14px;font-weight:700">Martes 22 · Hoy</div>
+              <div class="dashed-btn" style="font-size:11px;padding:2px 8px">+ Nueva</div>
+            </div>
+            <div class="task-row" style="padding:4px 0">
+              <div class="cb" style="flex-shrink:0"></div>
+              <div style="flex:1"><div class="t-title">Resolver ejercicios 1–5</div></div>
+              <span class="tag tw" style="font-size:9px">Mate</span>
+            </div>
+            <div class="task-row" style="padding:4px 0">
+              <div class="cb" style="flex-shrink:0"></div>
+              <div style="flex:1"><div class="t-title">Leer capítulo 4</div></div>
+              <span class="tag tw" style="font-size:9px">Mate</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📅 Month View</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Grilla mensual Lu–Do</div>
+        <div class="sub">Fines de semana en gris. Hoy con fondo dark. Punto de color bajo el número = hay actividades ese día</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Tap en día → bottom sheet</div>
+        <div class="sub">Despliega las actividades de ese día. Si no hay ninguna, muestra solo "+ Nueva actividad"</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Botón "+ Nueva" en el sheet</div>
+        <div class="sub">Abre Task-Create / Project-Create con la fecha de ese día pre-cargada</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Navegación ‹ mes anterior · mes siguiente ›</div>
+        <div class="sub">Encabezado muestra mes y año actual</div>
+      </div>
+    </li>
+  </ul>
+  <div class="ann-note">
+    El punto bajo el número puede tomar el color de la materia en una versión futura para diferenciar materias de un vistazo.
+  </div>
+</div>
+
+</body>
+</html>
