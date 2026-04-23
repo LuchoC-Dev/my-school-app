@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>My School — Task Create</title>
+<title>My School — Activity Create</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/wireframe.css">
@@ -23,7 +23,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
         <!-- Header -->
         <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px 7px">
           <span style="font-size:13px;color:#9A8B77">Cancelar</span>
-          <span style="font-size:16px;font-weight:700">Nueva task</span>
+          <span style="font-size:16px;font-weight:700">Nueva activity</span>
           <span style="font-size:14px;font-weight:700;color:#4A7FB5">Crear</span>
         </div>
         <div class="s-div"></div>
@@ -31,7 +31,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
         <!-- Nombre (required) -->
         <div style="padding:12px 14px 8px">
           <div style="font-size:16px;color:#BFAF9A;border-bottom:1.5px dashed #BFAF9A;padding-bottom:8px">
-            Nombre de la task...
+            Nombre de la activity...
           </div>
         </div>
 
@@ -44,39 +44,35 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           </div>
         </div>
 
-        <!-- Activity (optional) -->
+        <!-- Project (optional) -->
         <div class="form-field">
-          <div class="form-label">Activity <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-label">Project <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
           <div class="form-select">
-            <span style="color:#9A8B77">Sin activity</span>
+            <span style="color:#9A8B77">Sin project</span>
             <span style="color:#BFAF9A">›</span>
           </div>
         </div>
 
-        <!-- Material heredado preview (aparece cuando se selecciona una Activity) -->
-        <div style="margin:0 12px 6px;border:1.5px solid #E8E0D2;border-radius:8px;
-          padding:7px 10px;background:#F8F6F3">
-          <div style="font-size:10px;font-weight:700;color:#9A8B77;text-transform:uppercase;
-            letter-spacing:.4px;margin-bottom:5px">Material heredado de la activity</div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5A4A35">
-            <span>📄</span><span>consigna_wwi.pdf</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5A4A35;margin-top:3px">
-            <span>🔗</span><span>britannica.com/wwi</span>
+        <!-- Fecha de entrega (optional) -->
+        <div class="form-field">
+          <div class="form-label">Fecha de entrega <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-select">
+            <span style="color:#9A8B77">📅 Sin fecha</span>
+            <span style="color:#BFAF9A">›</span>
           </div>
         </div>
 
-        <!-- Notas (optional) -->
+        <!-- Descripción / comentario inicial (optional) -->
         <div class="form-field">
-          <div class="form-label">Notas <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
-          <div class="form-textarea">Notas para esta task específica...</div>
+          <div class="form-label">Comentario inicial <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+          <div class="form-textarea">Instrucciones, contexto, aclaraciones...</div>
         </div>
 
         <div style="height:16px"></div>
-        <div class="create-btn">Crear task ✓</div>
+        <div class="create-btn">Crear activity ✓</div>
 
         <div style="text-align:center;font-size:11px;color:#9A8B77;padding:8px 14px">
-          Si cancelás sin crear, la task se descarta
+          Si cancelás sin crear, la activity se descarta
         </div>
 
       </div>
@@ -91,36 +87,43 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 </div>
 
 <div class="annotations">
-  <div class="ann-title">☑️ Task Create</div>
+  <div class="ann-title">📋 Activity Create</div>
   <div class="ann-line"></div>
   <div class="ann-box">
-    Vista idéntica a Task-View en <strong>modo edición</strong>. Si se cancela → la task se descarta.
+    Vista idéntica a Activity-View en <strong>modo edición</strong>. Cancelar sin crear → descarta todo.
   </div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Activity opcional</div>
-        <div class="sub">Si se selecciona una Activity, aparece el preview del material heredado. Si queda sin Activity → task standalone</div>
+        <div class="main">Nombre es lo único requerido</div>
+        <div class="sub">"Crear" se habilita en cuanto hay nombre. Todo lo demás es opcional y se puede completar después</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Preview de material heredado</div>
-        <div class="sub">Al seleccionar una Activity, se muestra el material que se va a heredar. Solo lectura, no se puede quitar</div>
+        <div class="main">Course requerida</div>
+        <div class="sub">Toda Activity debe pertenecer a una materia</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Material extra se agrega después</div>
-        <div class="sub">Desde Task-View una vez creada. Igual que los archivos en Activity-Create</div>
+        <div class="main">Project opcional</div>
+        <div class="sub">Si se asigna a un Project, la Activity aparece dentro de ese Project en todas las listas</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Tasks y material se agregan después</div>
+        <div class="sub">Desde Activity-View una vez creada. No se cargan en la creación para mantenerla simple</div>
       </div>
     </li>
   </ul>
   <div class="ann-note">
-    Cuando se crea una Task desde Activity-View (botón "+ Task" en el workflow), la Activity ya está pre-seleccionada y no se puede cambiar.
+    En <strong>modo edición</strong> (desde Activity-View → ✏️), el header cambia a "Guardar". Cancelar solo descarta los cambios, no la Activity.
   </div>
 </div>
 

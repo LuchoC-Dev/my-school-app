@@ -22,84 +22,74 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 
         <!-- Nav -->
         <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
-          <span style="font-size:13px;color:#4A7FB5">‹ Tareas</span>
+          <span style="font-size:13px;color:#4A7FB5">‹ Investigar WWI</span>
           <div style="display:flex;gap:7px">
             <div class="s-icon-btn">✏️</div>
-            <div style="font-size:11px;border:1.5px solid #5A9E6A;border-radius:999px;padding:2px 10px;color:#5A9E6A;display:flex;align-items:center">Completar</div>
+            <div style="font-size:11px;border:1.5px solid #5A9E6A;border-radius:999px;
+              padding:2px 10px;color:#5A9E6A;display:flex;align-items:center">Completar</div>
           </div>
         </div>
 
         <!-- Title -->
         <div style="font-size:18px;font-weight:700;padding:4px 14px 8px;line-height:1.25">
-          Resolver ejercicios 1 al 5
+          Resumir causas principales
         </div>
 
-        <!-- Badges: course + project -->
-        <div style="padding:0 14px 8px;display:flex;gap:6px;flex-wrap:wrap">
-          <div class="proj-badge">🏫 Matemática</div>
-          <div class="proj-badge"><span style="font-size:10px">📁</span> TP Final</div>
+        <!-- Badge: Activity padre -->
+        <div style="padding:0 14px 10px;display:flex;gap:6px;flex-wrap:wrap">
+          <div class="proj-badge">📋 Investigar causas de la WWI</div>
         </div>
 
-        <!-- Due date mini picker -->
-        <div class="dp-wrap">
-          <div class="dp-nav">
-            <span style="color:#9A8B77">‹</span>
-            <span>Mayo 2026</span>
-            <span style="color:#9A8B77">›</span>
+        <div class="s-dash"></div>
+
+        <!-- Material heredado de Activity (read-only) -->
+        <div style="padding:5px 14px 3px;display:flex;justify-content:space-between;align-items:center">
+          <div class="sec-lbl" style="padding:0">📎 MATERIAL DE LA ACTIVITY</div>
+          <span style="font-size:10px;color:#BFAF9A">solo lectura</span>
+        </div>
+        <div style="height:3px"></div>
+
+        <!-- Inherited files (slight gray tint to show they're inherited) -->
+        <div class="file-row" style="background:#F8F6F3;border-color:#DDD5C5">
+          <span>📄</span>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#5A4A35">consigna_wwi.pdf</div>
+            <div style="font-size:10px;color:#9A8B77">De: Investigar causas de la WWI</div>
           </div>
-          <div class="dp-grid">
-            <div class="dp-dh">Lu</div><div class="dp-dh">Ma</div><div class="dp-dh">Mi</div>
-            <div class="dp-dh">Ju</div><div class="dp-dh">Vi</div><div class="dp-dh">Sa</div><div class="dp-dh">Do</div>
-            <div class="dp-day past">26</div><div class="dp-day past">27</div><div class="dp-day sel">28</div>
-            <div class="dp-day">29</div><div class="dp-day">30</div><div class="dp-day">31</div>
-          </div>
-          <div class="q-chips">
-            <div class="qc">Hoy</div>
-            <div class="qc">Mañana</div>
-            <div class="qc">+1 semana</div>
-            <div style="font-size:10px;color:#9A8B77;align-self:center;margin-left:2px;text-decoration:underline">Sin fecha</div>
+        </div>
+        <div class="file-row" style="background:#F8F6F3;border-color:#DDD5C5">
+          <span>🔗</span>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#5A4A35">britannica.com/wwi</div>
+            <div style="font-size:10px;color:#9A8B77">De: Investigar causas de la WWI</div>
           </div>
         </div>
 
         <div class="s-dash"></div>
 
-        <!-- Workflow -->
+        <!-- Material extra de esta Task -->
         <div class="attach-hdr">
-          <div class="sec-lbl" style="padding:0">📝 WORKFLOW</div>
-          <div class="attach-btn">+ Paso</div>
-        </div>
-        <div style="height:4px"></div>
-        <div class="workflow-item">
-          <div class="wf-cb done"></div>
-          <span style="text-decoration:line-through;color:#9A8B77">Leer enunciado</span>
-        </div>
-        <div class="workflow-item">
-          <div class="wf-cb"></div>
-          <span>Resolver ejercicios 1–3</span>
-        </div>
-        <div class="workflow-item">
-          <div class="wf-cb"></div>
-          <span>Resolver ejercicios 4–5</span>
-        </div>
-
-        <div class="s-dash"></div>
-
-        <!-- Attachments -->
-        <div class="attach-hdr">
-          <div class="sec-lbl" style="padding:0">📎 ADJUNTOS</div>
+          <div class="sec-lbl" style="padding:0">📎 MATERIAL EXTRA</div>
           <div class="attach-btn">+ Archivo</div>
         </div>
         <div style="height:4px"></div>
         <div class="file-row">
-          <span>📄</span>
-          <div><div style="font-size:11px;font-weight:600">enunciado_tp.pdf</div></div>
+          <span>📝</span>
+          <div><div style="font-size:11px;font-weight:600">mis_apuntes.txt</div></div>
         </div>
+
+        <!-- Empty state for extra material (alternate state) -->
+        <!-- <div style="padding:5px 14px 8px;font-size:12px;color:#BFAF9A;font-style:italic">
+          Sin material extra. Tap en + para agregar.
+        </div> -->
 
         <div class="s-dash"></div>
 
         <!-- Notes -->
-        <div class="sec-lbl">📓 OBSERVACIONES</div>
-        <div class="notes-area">Usar los métodos vistos en la clase del 20/5. No olvidar mostrar los pasos.</div>
+        <div class="sec-lbl">📓 NOTAS</div>
+        <div class="notes-area">
+          Fijarse en el capítulo 3 del libro. El prof. dijo que aparece en el examen.
+        </div>
 
         <div style="height:60px"></div>
       </div>
@@ -114,42 +104,42 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 </div>
 
 <div class="annotations">
-  <div class="ann-title">✅ Task View</div>
+  <div class="ann-title">☑️ Task View</div>
   <div class="ann-line"></div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Badges de materia y proyecto</div>
-        <div class="sub">Si pertenece a un proyecto, se muestra el badge del proyecto. Tap en cada badge navega a la vista correspondiente</div>
+        <div class="main">Back al nombre de la Activity</div>
+        <div class="sub">El breadcrumb muestra el nombre de la Activity padre, no "Tasks". Contexto inmediato de dónde viene</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Date picker inline</div>
-        <div class="sub">Mini calendario siempre visible + chips rápidos (Hoy, Mañana, +1 semana, Sin fecha)</div>
+        <div class="main">Material heredado (solo lectura)</div>
+        <div class="sub">Todos los archivos de la Activity padre aparecen automáticamente, atenuados y marcados "solo lectura". El Task no los puede borrar</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Workflow (checklist de pasos)</div>
-        <div class="sub">Checkbox cuadrado (diferencia de las tareas redondas). Botón "+ Paso" para agregar nuevos pasos</div>
+        <div class="main">Material extra propio del Task</div>
+        <div class="sub">El Task puede tener archivos propios adicionales. Separados visualmente del heredado</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">Adjuntos + Observaciones</div>
-        <div class="sub">Secciones expandibles al final. "+ Archivo" abre bottom sheet de opciones</div>
+        <div class="main">Notas del Task</div>
+        <div class="sub">Independientes de los comentarios de la Activity. Son notas personales de este Task específico</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">5</div>
       <div class="ann-text">
-        <div class="main">Botón "Completar" en header</div>
-        <div class="sub">Verde y prominente. ✏️ abre modo edición (Task-Create en modo edición)</div>
+        <div class="main">Task standalone: sin sección "Material de la Activity"</div>
+        <div class="sub">Si el Task no tiene Activity padre, la sección heredada no aparece. Solo muestra Material Extra y Notas</div>
       </div>
     </li>
   </ul>

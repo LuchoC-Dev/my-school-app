@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>My School — Task List</title>
+<title>My School — Activity List</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/wireframe.css">
@@ -26,96 +26,75 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 
         <!-- Sub-tabs -->
         <div class="act-tabs">
-          <div class="act-tab active">Tasks</div>
-          <div class="act-tab">Activities</div>
+          <div class="act-tab">Tasks</div>
+          <div class="act-tab active">Activities</div>
           <div class="act-tab">Projects</div>
         </div>
 
-        <div class="search">🔍 Buscar task...</div>
+        <div class="search">🔍 Buscar actividad...</div>
 
         <!-- Filtro por materia -->
         <div class="filters">
           <div class="fc active">Todas</div>
           <div class="fc">Matemática</div>
           <div class="fc">Historia</div>
+          <div class="fc">Física</div>
         </div>
 
         <div class="s-div"></div>
-        <div class="sec-lbl">PENDIENTES · 4</div>
+        <div class="sec-lbl">PENDIENTES · 3</div>
 
-        <!-- Task dentro de Activity (dentro de Project) -->
+        <!-- Activity standalone (sin proyecto) -->
         <div class="task-row">
-          <div class="cb" style="border-radius:3px"></div>
+          <div class="cb"></div>
           <div style="flex:1">
-            <div class="t-title">Resumir causas principales</div>
+            <div class="t-title">Investigar causas de la WWI</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
               <span class="tag tw">Historia</span>
-              <span class="tag tp">Investigar WWI</span>
+              <span style="font-size:10px;color:#9A8B77">2/4 tasks</span>
+              <span class="t-date" style="color:#D4753A">1 Jun</span>
             </div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
-        <!-- Task dentro de Activity (standalone) -->
+        <!-- Activity dentro de proyecto -->
         <div class="task-row">
-          <div class="cb" style="border-radius:3px"></div>
+          <div class="cb"></div>
           <div style="flex:1">
-            <div class="t-title">Resolver ejercicio 3</div>
+            <div class="t-title">Resolver ejercicios 1 al 5</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
               <span class="tag tw">Matemática</span>
-              <span class="tag to">Ej. 1 al 5</span>
+              <span class="tag tb">TP Final</span>
+              <span style="font-size:10px;color:#9A8B77">0/3 tasks</span>
+              <span class="t-date">28 May</span>
             </div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
-        <!-- Task standalone (sin Activity) -->
+        <!-- Activity standalone sin tasks -->
         <div class="task-row">
-          <div class="cb" style="border-radius:3px"></div>
+          <div class="cb"></div>
           <div style="flex:1">
-            <div class="t-title">Comprar cartulinas para maqueta</div>
+            <div class="t-title">Leer capítulo 4 — Límites</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px">
-              <span class="tag tw">Física</span>
-            </div>
-          </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
-        </div>
-
-        <!-- Task con fecha próxima -->
-        <div class="task-row">
-          <div class="cb" style="border-radius:3px"></div>
-          <div style="flex:1">
-            <div class="t-title">Redactar conclusión</div>
-            <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
-              <span class="tag tw">Historia</span>
-              <span class="tag tp">Investigar WWI</span>
-              <span class="t-date" style="color:#D4753A">mañana</span>
+              <span class="tag tw">Matemática</span>
             </div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
         <div class="s-div"></div>
-        <div class="sec-lbl">COMPLETADAS · 2</div>
+        <div class="sec-lbl">COMPLETADAS · 1</div>
 
         <div class="task-row">
-          <div class="cb done" style="border-radius:3px">✓</div>
+          <div class="cb done">✓</div>
           <div style="flex:1">
-            <div class="t-title done">Leer sobre antecedentes</div>
+            <div class="t-title done">Redactar introducción TP</div>
             <div style="margin-top:2px;display:flex;gap:4px">
               <span class="tag tw" style="opacity:.5">Historia</span>
-              <span class="tag tp" style="opacity:.5">Investigar WWI</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="task-row">
-          <div class="cb done" style="border-radius:3px">✓</div>
-          <div style="flex:1">
-            <div class="t-title done">Buscar fuentes bibliográficas</div>
-            <div style="margin-top:2px;display:flex;gap:4px">
-              <span class="tag tw" style="opacity:.5">Historia</span>
-              <span class="tag tp" style="opacity:.5">Investigar WWI</span>
+              <span class="tag tp" style="opacity:.5">TP Historia</span>
             </div>
           </div>
         </div>
@@ -135,41 +114,45 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 </div>
 
 <div class="annotations">
-  <div class="ann-title">☑️ Task List</div>
+  <div class="ann-title">📋 Activity List</div>
   <div class="ann-line"></div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Checkboxes cuadrados</div>
-        <div class="sub">Los Tasks usan checkbox cuadrado (border-radius:3px) para diferenciarse visualmente de las Activities (circulares)</div>
+        <div class="main">Sub-tab "Activities" activo</div>
+        <div class="sub">Este es el contenido que se muestra cuando se selecciona Activities en activities-list.html</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Tag de Activity padre</div>
-        <div class="sub">Si el Task pertenece a una Activity, muestra su badge. Tap en el badge navega a Activity-View</div>
+        <div class="main">Progreso de Tasks inline</div>
+        <div class="sub">"2/4 tasks" indica cuántas tasks de la Activity están completadas. Solo aparece si la Activity tiene Tasks</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Tasks standalone</div>
-        <div class="sub">Un Task puede existir sin Activity. Solo muestra el badge de materia</div>
+        <div class="main">Badge de Project opcional</div>
+        <div class="sub">Si la Activity pertenece a un Project, aparece el badge del Project junto al de la materia</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">FAB (+) → Task-Create</div>
-        <div class="sub">Crea un nuevo Task. Puede quedar standalone o asignarse a una Activity</div>
+        <div class="main">Filtro por materia</div>
+        <div class="sub">Chips horizontales para filtrar Activities por Course</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">5</div>
+      <div class="ann-text">
+        <div class="main">FAB (+) → Activity-Create</div>
+        <div class="sub">Crea una nueva Activity. Se puede asignar a un Project opcionalmente</div>
       </div>
     </li>
   </ul>
-  <div class="ann-note">
-    <strong>Jerarquía visual:</strong> Project badge (no se muestra aquí, está en Activity) → Activity badge → Course badge. Los Tasks no muestran el Project directamente para no saturar la UI.
-  </div>
 </div>
 
 </body>

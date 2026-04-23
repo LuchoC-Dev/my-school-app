@@ -22,7 +22,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 
         <!-- Nav -->
         <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
-          <span style="font-size:13px;color:#4A7FB5">‹ Proyectos</span>
+          <span style="font-size:13px;color:#4A7FB5">‹ Projects</span>
           <div class="s-icon-btn">✏️</div>
         </div>
 
@@ -30,7 +30,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
         <div class="course-info-box">
           <div style="display:flex;justify-content:space-between;align-items:flex-start">
             <div class="course-info-name">TP Historia WWI</div>
-            <span style="font-size:10px;color:#D4753A;border:1.5px solid #D4753A;border-radius:999px;padding:1px 8px">10 Jun</span>
+            <span style="font-size:10px;color:#D4753A;border:1.5px solid #D4753A;
+              border-radius:999px;padding:1px 8px">10 Jun</span>
           </div>
           <div class="course-info-row" style="margin-top:3px">
             <span class="tag tw" style="font-size:11px">Historia</span>
@@ -38,69 +39,76 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="course-info-desc">Trabajo práctico grupal sobre las causas y consecuencias de la Primera Guerra Mundial.</div>
         </div>
 
-        <!-- Progress bar -->
+        <!-- Progress bar (Tasks totales dentro de todas las Activities) -->
         <div style="margin:0 12px 10px;font-size:10px;color:#9A8B77">
           <div style="display:flex;justify-content:space-between;margin-bottom:3px">
-            <span>Progreso</span>
-            <span>0 / 5 completadas</span>
+            <span>Progreso general</span>
+            <span>2 / 7 tasks completadas</span>
           </div>
           <div style="height:5px;background:#E8E0D2;border-radius:999px">
-            <div style="width:0%;height:100%;background:#5A9E6A;border-radius:999px"></div>
+            <div style="width:28%;height:100%;background:#5A9E6A;border-radius:999px"></div>
           </div>
         </div>
 
         <div class="s-div"></div>
-        <div class="sec-lbl">PENDIENTES · 5</div>
+        <div class="sec-lbl">ACTIVITIES PENDIENTES · 3</div>
 
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Investigar causas WWI</div>
-            <div class="t-sub" style="color:#D4753A">1 Jun</div>
+        <!-- Activity dentro del project (con tasks) -->
+        <div class="collapse-card">
+          <div class="collapse-hdr">
+            <div class="cb" style="flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="collapse-hdr-title">Investigar causas de la WWI</div>
+              <div class="collapse-meta">2/4 tasks · 1 Jun</div>
+            </div>
+            <div class="collapse-chevron">▾</div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
+          <div class="collapse-body">
+            <div class="collapse-task" style="padding:5px 10px;border-bottom:1px dashed #F0EAE0">
+              <div class="wf-cb done" style="flex-shrink:0"></div>
+              <span style="text-decoration:line-through;color:#9A8B77">Leer sobre antecedentes</span>
+            </div>
+            <div class="collapse-task" style="padding:5px 10px;border-bottom:1px dashed #F0EAE0">
+              <div class="wf-cb done" style="flex-shrink:0"></div>
+              <span style="text-decoration:line-through;color:#9A8B77">Buscar fuentes</span>
+            </div>
+            <div class="collapse-task" style="padding:5px 10px;border-bottom:1px dashed #F0EAE0">
+              <div class="wf-cb" style="flex-shrink:0"></div>
+              <span>Resumir causas principales</span>
+            </div>
+            <div class="collapse-task" style="padding:5px 10px">
+              <div class="wf-cb" style="flex-shrink:0"></div>
+              <span>Redactar conclusión</span>
+            </div>
+          </div>
         </div>
 
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Buscar fuentes bibliográficas</div>
-            <div class="t-sub">5 Jun</div>
+        <!-- Activity colapsada -->
+        <div class="collapse-card">
+          <div class="collapse-hdr">
+            <div class="cb" style="flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="collapse-hdr-title">Redactar introducción</div>
+              <div class="collapse-meta">0/2 tasks · 5 Jun</div>
+            </div>
+            <div class="collapse-chevron">›</div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
+        <!-- Activity sin tasks -->
         <div class="task-row">
           <div class="cb"></div>
           <div style="flex:1">
-            <div class="t-title">Redactar introducción</div>
-            <div class="t-sub">7 Jun</div>
-          </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
-        </div>
-
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Redactar desarrollo</div>
-            <div class="t-sub">9 Jun</div>
-          </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
-        </div>
-
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Redactar conclusión y entregar</div>
-            <div class="t-sub">10 Jun</div>
+            <div class="t-title">Entregar al profesor</div>
+            <div style="font-size:10px;color:#9A8B77;margin-top:1px">sin tasks · 10 Jun</div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
         <div class="s-div"></div>
-        <div class="sec-lbl">COMPLETADAS · 0</div>
+        <div class="sec-lbl">ACTIVITIES COMPLETADAS · 0</div>
         <div style="padding:8px 14px;font-size:12px;color:#BFAF9A;font-style:italic">
-          Todavía no hay tareas completadas
+          Todavía no hay activities completadas
         </div>
 
         <div style="height:60px"></div>
@@ -124,29 +132,29 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Info box del proyecto</div>
-        <div class="sub">Nombre, fecha de entrega (badge naranja si próxima), materia, descripción. ✏️ en header abre edición</div>
+        <div class="main">Activities como hijos del Project</div>
+        <div class="sub">El Project ahora contiene Activities (no Tasks directas). Cada Activity es colapsable y muestra sus Tasks</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Barra de progreso</div>
-        <div class="sub">Muestra cuántas tareas del proyecto están completadas. Simple y visual</div>
+        <div class="main">Barra de progreso de Tasks totales</div>
+        <div class="sub">Cuenta todas las Tasks de todas las Activities del Project. Visión macro del avance</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Lista completa de tareas</div>
-        <div class="sub">Pendientes arriba, completadas abajo. Tap en › navega a Task-View</div>
+        <div class="main">Tasks dentro de Activity (checkboxes cuadrados)</div>
+        <div class="sub">Cuando se expande una Activity, sus Tasks se muestran con checkbox cuadrado para diferenciarse del circular de Activities</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">FAB (+) → nueva tarea en este proyecto</div>
-        <div class="sub">Abre Task-Create con el proyecto ya pre-seleccionado</div>
+        <div class="main">FAB (+) → nueva Activity en este Project</div>
+        <div class="sub">Abre Activity-Create con el Project ya pre-seleccionado</div>
       </div>
     </li>
   </ul>

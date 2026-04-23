@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Activity View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <!-- Nav -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
+          <span style="font-size:13px;color:#4A7FB5">‹ Activities</span>
+          <div style="display:flex;gap:7px">
+            <div class="s-icon-btn">✏️</div>
+            <div style="font-size:11px;border:1.5px solid #5A9E6A;border-radius:999px;
+              padding:2px 10px;color:#5A9E6A;display:flex;align-items:center">Completar</div>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div style="font-size:18px;font-weight:700;padding:4px 14px 8px;line-height:1.25">
+          Investigar causas de la WWI
+        </div>
+
+        <!-- Badges: course + project (optional) -->
+        <div style="padding:0 14px 8px;display:flex;gap:6px;flex-wrap:wrap">
+          <div class="proj-badge">🏫 Historia</div>
+          <div class="proj-badge"><span style="font-size:10px">📁</span> TP Historia WWI</div>
+        </div>
+
+        <!-- Due date mini picker -->
+        <div class="dp-wrap">
+          <div class="dp-nav">
+            <span style="color:#9A8B77">‹</span>
+            <span>Junio 2026</span>
+            <span style="color:#9A8B77">›</span>
+          </div>
+          <div class="dp-grid">
+            <div class="dp-dh">Lu</div><div class="dp-dh">Ma</div><div class="dp-dh">Mi</div>
+            <div class="dp-dh">Ju</div><div class="dp-dh">Vi</div><div class="dp-dh">Sa</div><div class="dp-dh">Do</div>
+            <div class="dp-day past">29</div><div class="dp-day past">30</div><div class="dp-day past">31</div>
+            <div class="dp-day sel">1</div><div class="dp-day">2</div><div class="dp-day">3</div><div class="dp-day">4</div>
+          </div>
+          <div class="q-chips">
+            <div class="qc">Hoy</div><div class="qc">Mañana</div><div class="qc">+1 semana</div>
+            <div style="font-size:10px;color:#9A8B77;align-self:center;margin-left:2px;text-decoration:underline">Sin fecha</div>
+          </div>
+        </div>
+
+        <div class="s-dash"></div>
+
+        <!-- Workflow: Tasks -->
+        <div class="attach-hdr">
+          <div class="sec-lbl" style="padding:0">📝 WORKFLOW · TASKS</div>
+          <div class="attach-btn">+ Task</div>
+        </div>
+
+        <!-- Task progress bar -->
+        <div style="margin:4px 14px 6px;font-size:10px;color:#9A8B77">
+          <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+            <span>Progreso</span><span>2 / 4 completadas</span>
+          </div>
+          <div style="height:4px;background:#E8E0D2;border-radius:999px">
+            <div style="width:50%;height:100%;background:#5A9E6A;border-radius:999px"></div>
+          </div>
+        </div>
+
+        <!-- Task items (square checkboxes = Tasks) -->
+        <div class="workflow-item">
+          <div class="wf-cb done"></div>
+          <span style="flex:1;text-decoration:line-through;color:#9A8B77">Leer sobre antecedentes</span>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+        <div class="workflow-item">
+          <div class="wf-cb done"></div>
+          <span style="flex:1;text-decoration:line-through;color:#9A8B77">Buscar fuentes bibliográficas</span>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+        <div class="workflow-item">
+          <div class="wf-cb"></div>
+          <span style="flex:1">Resumir causas principales</span>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+        <div class="workflow-item">
+          <div class="wf-cb"></div>
+          <span style="flex:1">Redactar conclusión</span>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="s-dash"></div>
+
+        <!-- Materials / Files -->
+        <div class="attach-hdr">
+          <div class="sec-lbl" style="padding:0">📎 MATERIAL</div>
+          <div class="attach-btn">+ Archivo</div>
+        </div>
+        <div style="height:4px"></div>
+        <div class="file-row">
+          <span>📄</span>
+          <div><div style="font-size:11px;font-weight:600">consigna_wwi.pdf</div><div style="font-size:10px;color:#9A8B77">Consigna original</div></div>
+        </div>
+        <div class="file-row">
+          <span>🔗</span>
+          <div><div style="font-size:11px;font-weight:600">britannica.com/wwi</div><div style="font-size:10px;color:#9A8B77">Fuente externa</div></div>
+        </div>
+
+        <div class="s-dash"></div>
+
+        <!-- Comments / Notes -->
+        <div class="sec-lbl">💬 COMENTARIOS</div>
+        <div class="notes-area">
+          El prof. dijo que hay que citar al menos 3 fuentes primarias. Preferentemente libros, no Wikipedia.
+        </div>
+        <div style="padding:4px 14px 8px">
+          <div class="dashed-btn" style="width:100%;justify-content:center;font-size:11px">+ Agregar comentario</div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📋 Activity View</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Badges de Course + Project</div>
+        <div class="sub">Course siempre presente. Project aparece solo si la Activity pertenece a uno. Tap navega a cada vista</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Workflow = lista de Tasks</div>
+        <div class="sub">Checkboxes cuadrados (diferenciados de Activities circulares). Barra de progreso de Tasks completadas. "› " lleva a Task-View</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Material de la Activity</div>
+        <div class="sub">Archivos y links subidos a esta Activity. Se heredan automáticamente a todas sus Tasks</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Comentarios</div>
+        <div class="sub">Notas libres sobre la Activity: instrucciones del profesor, aclaraciones, etc.</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">5</div>
+      <div class="ann-text">
+        <div class="main">"Completar" cierra la Activity</div>
+        <div class="sub">Marca la Activity como completada aunque queden Tasks pendientes</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

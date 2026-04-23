@@ -14,13 +14,14 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 .page-hdr p{font-size:15px;color:#8B7355}
 
 .nav{display:flex;gap:7px;padding:13px 44px 11px;border-bottom:1.5px solid #D4C9B5;flex-wrap:wrap}
-.tab{font-family:'Caveat',cursive;font-size:15px;font-weight:500;padding:5px 15px;border-radius:999px;
-  border:1.5px solid #BFAF9A;background:transparent;color:#5A4A35;cursor:pointer;
-  display:flex;align-items:center;gap:5px;white-space:nowrap}
-.tab.active{background:#2A2016;color:#F5F0E8;border-color:#2A2016}
+.group{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.group-sep{width:1px;height:22px;background:#D4C9B5;margin:0 4px;align-self:center}
+.group-lbl{font-size:10px;font-weight:700;color:#BFAF9A;text-transform:uppercase;letter-spacing:.4px;margin-right:2px}
 
-.group-lbl{font-size:11px;font-weight:700;color:#9A8B77;letter-spacing:.5px;text-transform:uppercase;
-  padding:10px 44px 0;align-self:flex-start}
+.tab{font-family:'Caveat',cursive;font-size:14px;font-weight:500;padding:4px 12px;border-radius:999px;
+  border:1.5px solid #BFAF9A;background:transparent;color:#5A4A35;cursor:pointer;
+  display:flex;align-items:center;gap:4px;white-space:nowrap}
+.tab.active{background:#2A2016;color:#F5F0E8;border-color:#2A2016}
 
 .view-frame{flex:1;border:none;width:100%;min-height:calc(100vh - 130px)}
 </style>
@@ -29,27 +30,68 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 
 <div class="page-hdr">
   <h1>🏫 My School — Wireframes</h1>
-  <p>MVP · React Native · 10 vistas</p>
+  <p>MVP · React Native · 16 vistas</p>
 </div>
 
 <nav class="nav" id="nav">
+
   <!-- Courses -->
-  <button class="tab active" onclick="show('views/course-list.html',0)">🏫 Course List</button>
-  <button class="tab" onclick="show('views/course-create.html',1)">➕ Course Create</button>
-  <button class="tab" onclick="show('views/course-view.html',2)">📖 Course View</button>
+  <div class="group">
+    <span class="group-lbl">Courses</span>
+    <button class="tab active" onclick="show('views/course-list.html',0)">🏫 List</button>
+    <button class="tab" onclick="show('views/course-create.html',1)">➕ Create</button>
+    <button class="tab" onclick="show('views/course-view.html',2)">📖 View</button>
+  </div>
+
+  <div class="group-sep"></div>
+
+  <!-- Activities container -->
+  <div class="group">
+    <span class="group-lbl">Container</span>
+    <button class="tab" onclick="show('views/activities-list.html',3)">📋 Activities</button>
+  </div>
+
+  <div class="group-sep"></div>
+
+  <!-- Tasks -->
+  <div class="group">
+    <span class="group-lbl">Tasks</span>
+    <button class="tab" onclick="show('views/task-list.html',4)">☑️ List</button>
+    <button class="tab" onclick="show('views/task-view.html',5)">🔍 View</button>
+    <button class="tab" onclick="show('views/task-create.html',6)">✏️ Create</button>
+  </div>
+
+  <div class="group-sep"></div>
+
   <!-- Activities -->
-  <button class="tab" onclick="show('views/activities-list.html',3)">📋 Activities List</button>
-  <button class="tab" onclick="show('views/task-list.html',4)">✅ Task List</button>
-  <button class="tab" onclick="show('views/task-view.html',5)">🔍 Task View</button>
-  <button class="tab" onclick="show('views/task-create.html',6)">✏️ Task Create</button>
-  <button class="tab" onclick="show('views/project-list.html',7)">📁 Project List</button>
-  <button class="tab" onclick="show('views/project-view.html',8)">🔍 Project View</button>
-  <button class="tab" onclick="show('views/project-create.html',9)">✏️ Project Create</button>
+  <div class="group">
+    <span class="group-lbl">Activities</span>
+    <button class="tab" onclick="show('views/activity-list.html',7)">📋 List</button>
+    <button class="tab" onclick="show('views/activity-view.html',8)">🔍 View</button>
+    <button class="tab" onclick="show('views/activity-create.html',9)">✏️ Create</button>
+  </div>
+
+  <div class="group-sep"></div>
+
+  <!-- Projects -->
+  <div class="group">
+    <span class="group-lbl">Projects</span>
+    <button class="tab" onclick="show('views/project-list.html',10)">📁 List</button>
+    <button class="tab" onclick="show('views/project-view.html',11)">🔍 View</button>
+    <button class="tab" onclick="show('views/project-create.html',12)">✏️ Create</button>
+  </div>
+
+  <div class="group-sep"></div>
+
   <!-- Calendar -->
-  <button class="tab" onclick="show('views/calendar-view.html',10)">📅 Calendar</button>
-  <button class="tab" onclick="show('views/calendar-day.html',11)">☀️ Day View</button>
-  <button class="tab" onclick="show('views/calendar-week.html',12)">📆 Week View</button>
-  <button class="tab" onclick="show('views/calendar-month.html',13)">🗓 Month View</button>
+  <div class="group">
+    <span class="group-lbl">Calendar</span>
+    <button class="tab" onclick="show('views/calendar-view.html',13)">📅 View</button>
+    <button class="tab" onclick="show('views/calendar-day.html',14)">☀️ Day</button>
+    <button class="tab" onclick="show('views/calendar-week.html',15)">📆 Week</button>
+    <button class="tab" onclick="show('views/calendar-month.html',16)">🗓 Month</button>
+  </div>
+
 </nav>
 
 <iframe class="view-frame" id="frame" src="views/course-list.html"></iframe>

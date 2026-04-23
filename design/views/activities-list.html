@@ -24,71 +24,75 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="s-hdr-title">📋 Actividades</div>
         </div>
 
-        <!-- Sub-tabs: Tareas / Proyectos -->
+        <!-- Sub-tabs: Tasks / Activities / Projects -->
         <div class="act-tabs">
-          <div class="act-tab">Tareas</div>
-          <div class="act-tab active">Proyectos</div>
+          <div class="act-tab">Tasks</div>
+          <div class="act-tab active">Activities</div>
+          <div class="act-tab">Projects</div>
         </div>
 
-        <div style="height:4px"></div>
-        <div class="s-div"></div>
-
-        <!-- Project cards preview (sub-tab Proyectos activo) -->
         <div style="height:6px"></div>
 
-        <div class="proj-card">
-          <div class="proj-card-hdr">
-            <div class="proj-card-name">TP Final — Integrales</div>
-            <div class="proj-card-date">30 May</div>
+        <!-- Preview del contenido con Activities activo -->
+        <div style="margin:0 12px 8px;padding:10px;border:1.5px dashed #BFAF9A;border-radius:10px;
+          background:#FAFAF8;display:flex;flex-direction:column;gap:4px">
+          <div style="font-size:11px;font-weight:700;color:#9A8B77;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">
+            Contenido según sub-tab activo
           </div>
-          <div class="proj-card-meta">
-            <span class="tag tw">Matemática</span>
-            <span style="font-size:10px;color:#9A8B77">2 tareas</span>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+            <div style="width:8px;height:8px;border-radius:50%;border:1.5px solid #BFAF9A"></div>
+            <strong>Tasks</strong> → ver task-list.html
           </div>
-          <div class="proj-task-list">
-            <div class="proj-task-item">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Resolver ejercicios 1 al 5</span>
-              <span style="margin-left:auto;font-size:10px;color:#D4753A">28 May</span>
-            </div>
-            <div class="proj-task-item">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Redactar conclusiones</span>
-              <span style="margin-left:auto;font-size:10px;color:#9A8B77">30 May</span>
-            </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+            <div style="width:8px;height:8px;border-radius:50%;background:#2A2016"></div>
+            <strong>Activities</strong> → ver activity-list.html (activo ahora)
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+            <div style="width:8px;height:8px;border-radius:50%;border:1.5px solid #BFAF9A"></div>
+            <strong>Projects</strong> → ver project-list.html
           </div>
         </div>
 
-        <div class="proj-card">
-          <div class="proj-card-hdr">
-            <div class="proj-card-name">Trabajo Práctico Historia</div>
-            <div class="proj-card-date">10 Jun</div>
-          </div>
-          <div class="proj-card-meta">
-            <span class="tag tw">Historia</span>
-            <span style="font-size:10px;color:#9A8B77">5 tareas</span>
-          </div>
-          <div class="proj-task-list">
-            <div class="proj-task-item">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Investigar causas WWI</span>
-              <span style="margin-left:auto;font-size:10px;color:#D4753A">1 Jun</span>
-            </div>
-            <div class="proj-task-item">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Buscar fuentes bibliográficas</span>
-              <span style="margin-left:auto;font-size:10px;color:#9A8B77">5 Jun</span>
-            </div>
-            <div class="proj-task-item">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Redactar introducción</span>
-              <span style="margin-left:auto;font-size:10px;color:#9A8B77">7 Jun</span>
-            </div>
-            <div class="see-more-btn">
-              <span>Ver 2 más</span>
-              <span style="font-size:10px">▾</span>
+        <div class="s-div"></div>
+
+        <!-- Activity items (mismo contenido que activity-list.html) -->
+        <div class="sec-lbl">PENDIENTES · 3</div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Investigar causas de la WWI</div>
+            <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
+              <span class="tag tw">Historia</span>
+              <span style="font-size:10px;color:#9A8B77">2/4 tasks</span>
+              <span class="t-date" style="color:#D4753A">1 Jun</span>
             </div>
           </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Resolver ejercicios 1 al 5</div>
+            <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
+              <span class="tag tw">Matemática</span>
+              <span class="tag tb">TP Final</span>
+              <span style="font-size:10px;color:#9A8B77">0/3 tasks</span>
+            </div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <div class="task-row">
+          <div class="cb"></div>
+          <div style="flex:1">
+            <div class="t-title">Leer capítulo 4 — Límites</div>
+            <div style="display:flex;gap:4px;margin-top:2px">
+              <span class="tag tw">Matemática</span>
+            </div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
         <div style="height:60px"></div>
@@ -109,28 +113,28 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <div class="ann-title">📋 Activities List</div>
   <div class="ann-line"></div>
   <div class="ann-box">
-    Vista dinámica: los dos sub-tabs <strong>Tareas</strong> y <strong>Proyectos</strong> cargan sus respectivas listas dentro de este mismo contenedor.
+    Vista contenedora del tab 📋. Los 3 sub-tabs cargan sus respectivas listas dentro de este mismo contenedor.
   </div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Sub-tabs Tareas / Proyectos</div>
-        <div class="sub">Alternan el contenido sin cambiar de pantalla. "Tareas" carga Task-List · "Proyectos" carga Project-List</div>
+        <div class="main">Tasks · Activities · Projects</div>
+        <div class="sub">Tres sub-tabs representan los tres niveles de la jerarquía. Cada uno tiene su propia lista y FAB contextual</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Este wireframe muestra "Proyectos" activo</div>
-        <div class="sub">Ver task-list.html para el estado con "Tareas" activo</div>
+        <div class="main">FAB contextual según sub-tab</div>
+        <div class="sub">Tasks activo → crea Task · Activities activo → crea Activity · Projects activo → crea Project</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">FAB (+) contextual</div>
-        <div class="sub">Si "Tareas" activo → crear tarea · Si "Proyectos" activo → crear proyecto</div>
+        <div class="main">Ver vistas detalle</div>
+        <div class="sub">task-list.html · activity-list.html · project-list.html para el contenido de cada sub-tab</div>
       </div>
     </li>
   </ul>

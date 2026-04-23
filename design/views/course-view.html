@@ -26,80 +26,78 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="s-icon-btn">✏️</div>
         </div>
 
-        <!-- Course info box -->
+        <!-- Course info box (incluye horarios dentro) -->
         <div class="course-info-box">
           <div class="course-info-name">Matemática</div>
           <div class="course-info-row">👤 Prof. García</div>
-          <div class="course-info-desc">Álgebra y cálculo diferencial. Cursada los Lunes y Jueves.</div>
-        </div>
+          <div class="course-info-desc">Álgebra y cálculo diferencial.</div>
 
-        <!-- Schedule section -->
-        <div class="sec-lbl" style="margin-top:2px">🕐 HORARIOS</div>
-
-        <div style="margin:0 12px 8px;border:1.5px solid #BFAF9A;border-radius:10px;overflow:hidden;background:#FDFCFA">
-          <div class="schedule-row">
-            <span class="schedule-day">Lunes</span>
-            <span class="schedule-time">15:00 – 17:00</span>
-          </div>
-          <div style="height:1px;background:#F0EAE0;margin:0 14px"></div>
-          <div class="schedule-row">
-            <span class="schedule-day">Jueves</span>
-            <span class="schedule-time">18:00 – 20:00</span>
-          </div>
-          <div style="height:1px;border-top:1px dashed #E8E0D2;margin:4px 14px"></div>
-          <div style="padding:5px 14px 7px">
-            <div class="dashed-btn" style="font-size:11px;padding:3px 10px">+ Agregar horario</div>
+          <!-- Horarios: dentro del info box, más chico -->
+          <div style="margin-top:6px;padding-top:5px;border-top:1px dashed #E8E0D2">
+            <div style="font-size:9px;font-weight:700;color:#BFAF9A;text-transform:uppercase;
+              letter-spacing:.4px;margin-bottom:3px">Horarios</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <span style="font-size:11px;color:#5A4A35">Lu 15:00–17:00</span>
+              <span style="font-size:11px;color:#5A4A35">Ju 18:00–20:00</span>
+              <span style="font-size:11px;color:#BFAF9A;text-decoration:underline;cursor:pointer">+ agregar</span>
+            </div>
           </div>
         </div>
 
         <div class="s-div"></div>
 
-        <!-- Pending activities -->
-        <div class="sec-lbl">⏳ PENDIENTES · 3</div>
+        <!-- Pending activities: Projects + standalone Activities + standalone Tasks -->
+        <div class="sec-lbl">⏳ PENDIENTES · 4</div>
 
-        <!-- Project card (collapsible, expanded) -->
+        <!-- Project (collapsible, expanded → muestra Activities dentro) -->
         <div class="collapse-card">
           <div class="collapse-hdr">
             <div class="cb" style="flex-shrink:0"></div>
             <div style="flex:1">
               <div class="collapse-hdr-title">📁 TP Final — Integrales</div>
-              <div class="collapse-meta">vence 30 May · 2 tareas</div>
+              <div class="collapse-meta">vence 30 May · 2 activities</div>
             </div>
             <div class="collapse-chevron">▾</div>
           </div>
           <div class="collapse-body">
-            <div class="collapse-task">
+            <!-- Activities dentro del Project -->
+            <div class="collapse-task" style="padding:6px 10px;border-bottom:1px dashed #F0EAE0">
               <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Resolver ejercicios 1 al 5</span>
-              <span style="font-size:10px;color:#9A8B77;margin-left:auto">28 May</span>
+              <div style="flex:1">
+                <div style="font-size:12px">Resolver ejercicios 1 al 5</div>
+                <div style="font-size:10px;color:#9A8B77">0/3 tasks · 28 May</div>
+              </div>
+              <span style="font-size:11px;color:#BFAF9A">›</span>
             </div>
-            <div class="collapse-task">
+            <div class="collapse-task" style="padding:6px 10px">
               <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span>Redactar conclusiones</span>
-              <span style="font-size:10px;color:#9A8B77;margin-left:auto">30 May</span>
+              <div style="flex:1">
+                <div style="font-size:12px">Redactar conclusiones</div>
+                <div style="font-size:10px;color:#9A8B77">sin tasks · 30 May</div>
+              </div>
+              <span style="font-size:11px;color:#BFAF9A">›</span>
             </div>
           </div>
         </div>
 
-        <!-- Project card (collapsed) -->
-        <div class="collapse-card">
-          <div class="collapse-hdr">
-            <div class="cb" style="flex-shrink:0"></div>
-            <div style="flex:1">
-              <div class="collapse-hdr-title">📁 Parcial 2</div>
-              <div class="collapse-meta">vence 15 Jun · 3 tareas</div>
-            </div>
-            <div class="collapse-chevron">›</div>
-          </div>
-        </div>
-
-        <!-- Standalone task -->
+        <!-- Standalone Activity (sin project) -->
         <div class="task-row">
           <div class="cb"></div>
           <div style="flex:1">
             <div class="t-title">Leer capítulo 4 — Límites</div>
-            <div class="t-sub">sin fecha</div>
+            <div style="font-size:10px;color:#9A8B77;margin-top:1px">Activity · sin tasks</div>
           </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
+        </div>
+
+        <!-- Standalone Task (sin activity) -->
+        <div class="task-row">
+          <div class="cb" style="border-radius:3px"></div>
+          <div style="flex:1">
+            <div class="t-title">Comprar calculadora científica</div>
+            <div style="font-size:10px;color:#9A8B77;margin-top:1px">Task · standalone</div>
+          </div>
+          <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
 
         <div class="s-div"></div>
@@ -137,29 +135,29 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Sección HORARIOS</div>
-        <div class="sub">Lista los días y rangos de hora de cada clase. Editable con ✏️ en el header o con "Agregar horario"</div>
+        <div class="main">Horarios dentro del info box</div>
+        <div class="sub">Formato compacto "Lu 15:00–17:00" como texto pequeño. Menos protagonismo, misma información. "+ agregar" inline para editar</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Estos horarios alimentan el Day-View</div>
-        <div class="sub">Se usan para pintar los bloques de color en el timetable del calendario</div>
+        <div class="main">Jerarquía Project → Activity → Task</div>
+        <div class="sub">Projects son colapsables y muestran sus Activities. Cada Activity muestra su progreso de Tasks inline</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Proyectos colapsables</div>
-        <div class="sub">▾ expandido · › colapsado. Sin cambios respecto a versión anterior</div>
+        <div class="main">Diferenciación visual de niveles</div>
+        <div class="sub">Tasks standalone tienen checkbox cuadrado (border-radius:3px). Activities tienen checkbox circular. Projects tienen el card colapsable</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">FAB (+) → nueva actividad</div>
-        <div class="sub">Bottom sheet para elegir Tarea o Proyecto</div>
+        <div class="main">FAB (+) → bottom sheet</div>
+        <div class="sub">Ofrece crear: Task / Activity / Project. Pre-asigna la materia actual</div>
       </div>
     </li>
   </ul>
