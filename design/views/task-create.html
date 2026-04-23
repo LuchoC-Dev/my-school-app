@@ -20,64 +20,68 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <div class="phone-body">
       <div class="phone-scroll">
 
-        <!-- Header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px 7px">
+        <!-- Header (igual que task-view pero con Cancelar/Crear) -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
           <span style="font-size:13px;color:#9A8B77">Cancelar</span>
-          <span style="font-size:16px;font-weight:700">Nueva task</span>
+          <span style="font-size:15px;font-weight:700">Nueva task</span>
           <span style="font-size:14px;font-weight:700;color:#4A7FB5">Crear</span>
         </div>
-        <div class="s-div"></div>
 
-        <!-- Nombre (required) -->
-        <div style="padding:12px 14px 8px">
-          <div style="font-size:16px;color:#BFAF9A;border-bottom:1.5px dashed #BFAF9A;padding-bottom:8px">
-            Nombre de la task...
+        <!-- Título editable (igual que task-view) -->
+        <div style="font-size:18px;color:#BFAF9A;padding:4px 14px 10px;
+          border-bottom:1.5px dashed #BFAF9A;margin:0 14px;line-height:1.25">
+          Nombre de la task...
+        </div>
+
+        <!-- Materia (selector, mismo estilo que el badge en view) -->
+        <div style="padding:10px 14px 6px;display:flex;gap:6px;flex-wrap:wrap">
+          <div style="border:1.5px dashed #BFAF9A;border-radius:999px;padding:3px 10px;
+            font-size:12px;color:#9A8B77;display:flex;align-items:center;gap:4px">
+            🏫 Materia... <span style="color:#BFAF9A">›</span>
+          </div>
+          <div style="border:1.5px dashed #BFAF9A;border-radius:999px;padding:3px 10px;
+            font-size:12px;color:#9A8B77;display:flex;align-items:center;gap:4px">
+            📋 Activity (opc.) <span style="color:#BFAF9A">›</span>
           </div>
         </div>
 
-        <!-- Course (required) -->
-        <div class="form-field">
-          <div class="form-label">Materia</div>
-          <div class="form-select">
-            <span style="color:#9A8B77">Seleccionar materia...</span>
-            <span style="color:#BFAF9A">›</span>
+        <div class="s-dash"></div>
+
+        <!-- Material heredado de Activity (aparece al seleccionar Activity) -->
+        <div style="padding:5px 14px 3px;display:flex;justify-content:space-between;align-items:center">
+          <div class="sec-lbl" style="padding:0">📎 MATERIAL DE LA ACTIVITY</div>
+          <span style="font-size:10px;color:#BFAF9A">solo lectura</span>
+        </div>
+        <div style="height:3px"></div>
+        <div class="file-row" style="background:#F8F6F3;border-color:#DDD5C5">
+          <span>📄</span>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#5A4A35">consigna_wwi.pdf</div>
+            <div style="font-size:10px;color:#9A8B77">De: Investigar causas de la WWI</div>
           </div>
         </div>
 
-        <!-- Activity (optional) -->
-        <div class="form-field">
-          <div class="form-label">Activity <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
-          <div class="form-select">
-            <span style="color:#9A8B77">Sin activity</span>
-            <span style="color:#BFAF9A">›</span>
-          </div>
+        <div class="s-dash"></div>
+
+        <!-- Material extra (igual que task-view) -->
+        <div class="attach-hdr">
+          <div class="sec-lbl" style="padding:0">📎 MATERIAL EXTRA</div>
+          <div class="attach-btn">+ Archivo</div>
+        </div>
+        <div style="padding:6px 14px 4px;font-size:12px;color:#BFAF9A;font-style:italic">
+          Sin material extra aún
         </div>
 
-        <!-- Material heredado preview (aparece cuando se selecciona una Activity) -->
-        <div style="margin:0 12px 6px;border:1.5px solid #E8E0D2;border-radius:8px;
-          padding:7px 10px;background:#F8F6F3">
-          <div style="font-size:10px;font-weight:700;color:#9A8B77;text-transform:uppercase;
-            letter-spacing:.4px;margin-bottom:5px">Material heredado de la activity</div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5A4A35">
-            <span>📄</span><span>consigna_wwi.pdf</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5A4A35;margin-top:3px">
-            <span>🔗</span><span>britannica.com/wwi</span>
-          </div>
+        <div class="s-dash"></div>
+
+        <!-- Notas (igual que task-view) -->
+        <div class="sec-lbl">📓 NOTAS</div>
+        <div class="notes-area" style="color:#BFAF9A;font-style:italic">
+          Notas para esta task...
         </div>
 
-        <!-- Notas (optional) -->
-        <div class="form-field">
-          <div class="form-label">Notas <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
-          <div class="form-textarea">Notas para esta task específica...</div>
-        </div>
-
-        <div style="height:16px"></div>
+        <div style="height:12px"></div>
         <div class="create-btn">Crear task ✓</div>
-
-        <div style="text-align:center;font-size:11px;color:#9A8B77;padding:8px 14px">
-          Si cancelás sin crear, la task se descarta
-        </div>
 
       </div>
     </div>
@@ -94,33 +98,40 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <div class="ann-title">☑️ Task Create</div>
   <div class="ann-line"></div>
   <div class="ann-box">
-    Vista idéntica a Task-View en <strong>modo edición</strong>. Si se cancela → la task se descarta.
+    Misma estructura que <strong>Task-View</strong> pero en modo creación. Las secciones ya están visibles y vacías, listas para completar.
   </div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Activity opcional</div>
-        <div class="sub">Si se selecciona una Activity, aparece el preview del material heredado. Si queda sin Activity → task standalone</div>
+        <div class="main">Badges como selectores dashed</div>
+        <div class="sub">En lugar de dropdowns, los selectores de Materia y Activity usan el mismo estilo pill que en Task-View, pero con borde dashed y texto gris</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Preview de material heredado</div>
-        <div class="sub">Al seleccionar una Activity, se muestra el material que se va a heredar. Solo lectura, no se puede quitar</div>
+        <div class="main">Material heredado aparece al elegir Activity</div>
+        <div class="sub">Si no se selecciona Activity, esta sección no aparece. Al seleccionar una, el material se muestra automáticamente</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Material extra se agrega después</div>
-        <div class="sub">Desde Task-View una vez creada. Igual que los archivos en Activity-Create</div>
+        <div class="main">Material extra desde el create</div>
+        <div class="sub">"+ Archivo" disponible para agregar archivos propios de esta task desde el momento de creación</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Notas editables desde el create</div>
+        <div class="sub">El área de notas aparece vacía y editable. No es necesario crear primero y editar después</div>
       </div>
     </li>
   </ul>
   <div class="ann-note">
-    Cuando se crea una Task desde Activity-View (botón "+ Task" en el workflow), la Activity ya está pre-seleccionada y no se puede cambiar.
+    En <strong>modo edición</strong> (Task-View → ✏️), el header cambia a "‹ [nombre activity]" con botón "Guardar". Cancelar descarta solo los cambios.
   </div>
 </div>
 

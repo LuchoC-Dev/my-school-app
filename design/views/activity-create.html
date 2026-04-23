@@ -21,59 +21,70 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
       <div class="phone-scroll">
 
         <!-- Header -->
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px 7px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px">
           <span style="font-size:13px;color:#9A8B77">Cancelar</span>
-          <span style="font-size:16px;font-weight:700">Nueva activity</span>
+          <span style="font-size:15px;font-weight:700">Nueva activity</span>
           <span style="font-size:14px;font-weight:700;color:#4A7FB5">Crear</span>
         </div>
-        <div class="s-div"></div>
 
-        <!-- Nombre (required) -->
-        <div style="padding:12px 14px 8px">
-          <div style="font-size:16px;color:#BFAF9A;border-bottom:1.5px dashed #BFAF9A;padding-bottom:8px">
-            Nombre de la activity...
+        <!-- Título (igual que activity-view) -->
+        <div style="font-size:18px;color:#BFAF9A;padding:4px 14px 10px;
+          border-bottom:1.5px dashed #BFAF9A;margin:0 14px;line-height:1.25">
+          Nombre de la activity...
+        </div>
+
+        <!-- Badges: materia + project (selectores dashed, mismo look que view) -->
+        <div style="padding:10px 14px 8px;display:flex;gap:6px;flex-wrap:wrap">
+          <div style="border:1.5px dashed #BFAF9A;border-radius:999px;padding:3px 10px;
+            font-size:12px;color:#9A8B77;display:flex;align-items:center;gap:4px">
+            🏫 Materia... <span style="color:#BFAF9A">›</span>
+          </div>
+          <div style="border:1.5px dashed #BFAF9A;border-radius:999px;padding:3px 10px;
+            font-size:12px;color:#9A8B77;display:flex;align-items:center;gap:4px">
+            📁 Project (opc.) <span style="color:#BFAF9A">›</span>
           </div>
         </div>
 
-        <!-- Course (required) -->
-        <div class="form-field">
-          <div class="form-label">Materia</div>
-          <div class="form-select">
-            <span style="color:#9A8B77">Seleccionar materia...</span>
-            <span style="color:#BFAF9A">›</span>
-          </div>
+        <!-- Due date (igual que activity-view, colapsado por defecto) -->
+        <div style="margin:0 12px 6px;border:1.5px dashed #BFAF9A;border-radius:10px;
+          padding:7px 10px;display:flex;align-items:center;justify-content:space-between;
+          background:#FAFAF8">
+          <span style="font-size:12px;color:#9A8B77">📅 Fecha de entrega (opc.)</span>
+          <span style="font-size:11px;color:#BFAF9A">›</span>
         </div>
 
-        <!-- Project (optional) -->
-        <div class="form-field">
-          <div class="form-label">Project <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
-          <div class="form-select">
-            <span style="color:#9A8B77">Sin project</span>
-            <span style="color:#BFAF9A">›</span>
-          </div>
+        <div class="s-dash"></div>
+
+        <!-- Workflow: Tasks (igual que activity-view, vacío) -->
+        <div class="attach-hdr">
+          <div class="sec-lbl" style="padding:0">📝 WORKFLOW · TASKS</div>
+          <div class="attach-btn">+ Task</div>
+        </div>
+        <div style="padding:6px 14px 4px;font-size:12px;color:#BFAF9A;font-style:italic">
+          Sin tasks todavía. Tap en "+ Task" para agregar.
         </div>
 
-        <!-- Fecha de entrega (optional) -->
-        <div class="form-field">
-          <div class="form-label">Fecha de entrega <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
-          <div class="form-select">
-            <span style="color:#9A8B77">📅 Sin fecha</span>
-            <span style="color:#BFAF9A">›</span>
-          </div>
+        <div class="s-dash"></div>
+
+        <!-- Material (igual que activity-view, con + Archivo) -->
+        <div class="attach-hdr">
+          <div class="sec-lbl" style="padding:0">📎 MATERIAL</div>
+          <div class="attach-btn">+ Archivo</div>
+        </div>
+        <div style="padding:6px 14px 4px;font-size:12px;color:#BFAF9A;font-style:italic">
+          Sin material aún
         </div>
 
-        <!-- Descripción / comentario inicial (optional) -->
-        <div class="form-field">
-          <div class="form-label">Comentario inicial <span style="font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
-          <div class="form-textarea">Instrucciones, contexto, aclaraciones...</div>
+        <div class="s-dash"></div>
+
+        <!-- Comentarios (igual que activity-view) -->
+        <div class="sec-lbl">💬 COMENTARIOS</div>
+        <div class="notes-area" style="color:#BFAF9A;font-style:italic">
+          Instrucciones, contexto, aclaraciones...
         </div>
 
-        <div style="height:16px"></div>
+        <div style="height:12px"></div>
         <div class="create-btn">Crear activity ✓</div>
-
-        <div style="text-align:center;font-size:11px;color:#9A8B77;padding:8px 14px">
-          Si cancelás sin crear, la activity se descarta
-        </div>
 
       </div>
     </div>
@@ -90,41 +101,38 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <div class="ann-title">📋 Activity Create</div>
   <div class="ann-line"></div>
   <div class="ann-box">
-    Vista idéntica a Activity-View en <strong>modo edición</strong>. Cancelar sin crear → descarta todo.
+    Misma estructura que <strong>Activity-View</strong>. Secciones vacías y editables desde el momento de creación.
   </div>
   <ul class="ann-list">
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Nombre es lo único requerido</div>
-        <div class="sub">"Crear" se habilita en cuanto hay nombre. Todo lo demás es opcional y se puede completar después</div>
+        <div class="main">Fecha colapsada por defecto</div>
+        <div class="sub">El date picker completo se expande al tocar. En create se muestra compacto para ahorrar espacio</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Course requerida</div>
-        <div class="sub">Toda Activity debe pertenecer a una materia</div>
+        <div class="main">Tasks agregables desde el create</div>
+        <div class="sub">"+ Task" abre un input inline para agregar tasks al workflow antes de guardar la activity</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Project opcional</div>
-        <div class="sub">Si se asigna a un Project, la Activity aparece dentro de ese Project en todas las listas</div>
+        <div class="main">Material desde el create</div>
+        <div class="sub">"+ Archivo" permite adjuntar archivos antes de crear. Se heredan a todas las tasks futuras</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">Tasks y material se agregan después</div>
-        <div class="sub">Desde Activity-View una vez creada. No se cargan en la creación para mantenerla simple</div>
+        <div class="main">Badges dashed = selectores</div>
+        <div class="sub">Materia y Project usan el mismo estilo pill que en Activity-View pero con borde dashed para indicar que son editables</div>
       </div>
     </li>
   </ul>
-  <div class="ann-note">
-    En <strong>modo edición</strong> (desde Activity-View → ✏️), el header cambia a "Guardar". Cancelar solo descarta los cambios, no la Activity.
-  </div>
 </div>
 
 </body>

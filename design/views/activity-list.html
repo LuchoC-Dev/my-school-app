@@ -24,14 +24,13 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="s-hdr-title">📋 Actividades</div>
         </div>
 
-        <!-- Sub-tabs -->
         <div class="act-tabs">
           <div class="act-tab">Tasks</div>
           <div class="act-tab active">Activities</div>
           <div class="act-tab">Projects</div>
         </div>
 
-        <div class="search">🔍 Buscar actividad...</div>
+        <div class="search">🔍 Buscar activity...</div>
 
         <!-- Filtro por materia -->
         <div class="filters">
@@ -44,57 +43,71 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
         <div class="s-div"></div>
         <div class="sec-lbl">PENDIENTES · 3</div>
 
-        <!-- Activity standalone (sin proyecto) -->
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Investigar causas de la WWI</div>
-            <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
+        <!-- Activity card: con proyecto y tasks -->
+        <div class="activity-card">
+          <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
+          <div class="activity-card-body">
+            <div class="activity-card-title">Investigar causas de la WWI</div>
+            <div class="activity-card-meta">
               <span class="tag tw">Historia</span>
+              <span class="tag tp">TP Historia WWI</span>
+            </div>
+            <div class="activity-card-footer">
+              <div class="act-prog-bar"><div class="act-prog-fill" style="width:50%;background:#5A9E6A"></div></div>
               <span style="font-size:10px;color:#9A8B77">2/4 tasks</span>
-              <span class="t-date" style="color:#D4753A">1 Jun</span>
+              <span style="font-size:10px;color:#D4753A;margin-left:auto">1 Jun</span>
             </div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
+          <span style="font-size:12px;color:#BFAF9A;align-self:center">›</span>
         </div>
 
-        <!-- Activity dentro de proyecto -->
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Resolver ejercicios 1 al 5</div>
-            <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
+        <!-- Activity card: con proyecto, sin tasks -->
+        <div class="activity-card">
+          <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
+          <div class="activity-card-body">
+            <div class="activity-card-title">Resolver ejercicios 1 al 5</div>
+            <div class="activity-card-meta">
               <span class="tag tw">Matemática</span>
               <span class="tag tb">TP Final</span>
+            </div>
+            <div class="activity-card-footer">
+              <div class="act-prog-bar"><div class="act-prog-fill" style="width:0%;background:#5A9E6A"></div></div>
               <span style="font-size:10px;color:#9A8B77">0/3 tasks</span>
-              <span class="t-date">28 May</span>
+              <span style="font-size:10px;color:#9A8B77;margin-left:auto">28 May</span>
             </div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
+          <span style="font-size:12px;color:#BFAF9A;align-self:center">›</span>
         </div>
 
-        <!-- Activity standalone sin tasks -->
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Leer capítulo 4 — Límites</div>
-            <div style="display:flex;gap:4px;align-items:center;margin-top:2px">
+        <!-- Activity card: standalone, sin tasks ni fecha -->
+        <div class="activity-card">
+          <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
+          <div class="activity-card-body">
+            <div class="activity-card-title">Leer capítulo 4 — Límites</div>
+            <div class="activity-card-meta">
               <span class="tag tw">Matemática</span>
             </div>
+            <div class="activity-card-footer">
+              <span style="font-size:10px;color:#BFAF9A;font-style:italic">Sin tasks · sin fecha</span>
+            </div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
+          <span style="font-size:12px;color:#BFAF9A;align-self:center">›</span>
         </div>
 
         <div class="s-div"></div>
         <div class="sec-lbl">COMPLETADAS · 1</div>
 
-        <div class="task-row">
-          <div class="cb done">✓</div>
-          <div style="flex:1">
-            <div class="t-title done">Redactar introducción TP</div>
-            <div style="margin-top:2px;display:flex;gap:4px">
-              <span class="tag tw" style="opacity:.5">Historia</span>
-              <span class="tag tp" style="opacity:.5">TP Historia</span>
+        <!-- Activity card completada -->
+        <div class="activity-card" style="opacity:.6">
+          <div class="cb done" style="flex-shrink:0;margin-top:2px">✓</div>
+          <div class="activity-card-body">
+            <div class="activity-card-title" style="text-decoration:line-through;color:#9A8B77">Redactar introducción TP</div>
+            <div class="activity-card-meta">
+              <span class="tag tw" style="opacity:.6">Historia</span>
+              <span class="tag tp" style="opacity:.6">TP Historia WWI</span>
+            </div>
+            <div class="activity-card-footer">
+              <span style="font-size:10px;color:#5A9E6A">4/4 tasks ✓</span>
             </div>
           </div>
         </div>
@@ -120,36 +133,29 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Sub-tab "Activities" activo</div>
-        <div class="sub">Este es el contenido que se muestra cuando se selecciona Activities en activities-list.html</div>
+        <div class="main">Diseño: activity-card</div>
+        <div class="sub">Card más compacta que project-card (sin sub-lista expandible). Más rica que task-row (incluye progress bar y badges). Nivel visual intermedio</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Progreso de Tasks inline</div>
-        <div class="sub">"2/4 tasks" indica cuántas tasks de la Activity están completadas. Solo aparece si la Activity tiene Tasks</div>
+        <div class="main">Progress bar de Tasks</div>
+        <div class="sub">Mini barra de 48px que muestra el porcentaje de tasks completadas. Solo aparece si la activity tiene tasks</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Badge de Project opcional</div>
-        <div class="sub">Si la Activity pertenece a un Project, aparece el badge del Project junto al de la materia</div>
+        <div class="main">Fecha en naranja si es urgente</div>
+        <div class="sub">Color naranja cuando la fecha de entrega es próxima (&lt;3 días)</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
       <div class="ann-text">
-        <div class="main">Filtro por materia</div>
-        <div class="sub">Chips horizontales para filtrar Activities por Course</div>
-      </div>
-    </li>
-    <li class="ann-item">
-      <div class="ann-num">5</div>
-      <div class="ann-text">
-        <div class="main">FAB (+) → Activity-Create</div>
-        <div class="sub">Crea una nueva Activity. Se puede asignar a un Project opcionalmente</div>
+        <div class="main">Completadas con opacidad reducida</div>
+        <div class="sub">Al 60% de opacidad con título tachado. Muestra "4/4 tasks ✓" en verde</div>
       </div>
     </li>
   </ul>
