@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Búsqueda vacía</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+.sr-item{padding:7px 14px;border-bottom:1px solid #F0EAE0;display:flex;align-items:center;gap:8px}
+.sr-body{flex:1;min-width:0}
+.sr-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr-breadcrumb{font-size:10px;color:#9A8B77;margin-top:1px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div style="display:flex;align-items:center;gap:8px;padding:10px 12px 6px">
+          <span style="font-size:13px;color:#4A7FB5;flex-shrink:0">‹ Volver</span>
+          <div style="flex:1;background:#F0EAE0;border-radius:10px;padding:6px 10px;
+            display:flex;align-items:center;gap:6px;border:1.5px solid #BFAF9A">
+            <span style="font-size:13px;color:#9A8B77">🔍</span>
+            <span style="font-size:13px;color:#BFAF9A;font-style:italic">Buscar en todo...</span>
+          </div>
+          <span style="font-size:12px;color:#9A8B77;flex-shrink:0">Cancelar</span>
+        </div>
+
+        <div class="sec-lbl">RECIENTES</div>
+
+        <div class="sr-item">
+          <span style="font-size:12px;color:#BFAF9A">🕐</span>
+          <div class="sr-body">
+            <div class="sr-title" style="font-weight:400;color:#5A4A35">TP Final</div>
+          </div>
+          <span style="font-size:13px;color:#BFAF9A">✕</span>
+        </div>
+        <div class="sr-item">
+          <span style="font-size:12px;color:#BFAF9A">🕐</span>
+          <div class="sr-body">
+            <div class="sr-title" style="font-weight:400;color:#5A4A35">Investigar WWI</div>
+          </div>
+          <span style="font-size:13px;color:#BFAF9A">✕</span>
+        </div>
+        <div class="sr-item">
+          <span style="font-size:12px;color:#BFAF9A">🕐</span>
+          <div class="sr-body">
+            <div class="sr-title" style="font-weight:400;color:#5A4A35">Historia</div>
+          </div>
+          <span style="font-size:13px;color:#BFAF9A">✕</span>
+        </div>
+
+        <div class="s-div" style="margin:6px 14px"></div>
+
+        <div class="sec-lbl">VENCEN PRONTO</div>
+
+        <div class="sr-item">
+          <span style="font-size:14px;flex-shrink:0">○</span>
+          <div class="sr-body">
+            <div class="sr-title">Redactar conclusión</div>
+            <div class="sr-breadcrumb">Activity · Historia</div>
+          </div>
+          <span style="font-size:10px;color:#D4753A;font-weight:600;flex-shrink:0">mañana</span>
+        </div>
+        <div class="sr-item">
+          <div style="width:14px;height:14px;border:1.5px solid #BFAF9A;border-radius:3px;flex-shrink:0"></div>
+          <div class="sr-body">
+            <div class="sr-title">Resumir causas principales</div>
+            <div class="sr-breadcrumb">Task · Investigar WWI · Historia</div>
+          </div>
+          <span style="font-size:10px;color:#9A8B77;flex-shrink:0">28 May</span>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">🔍 Search — Vacío</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Estado inicial antes de escribir</div>
+        <div class="sub">El campo muestra placeholder. No hay filtros ni contador de resultados todavía</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Recientes con ✕ para borrar</div>
+        <div class="sub">Últimas búsquedas del usuario. Tocar un ítem relanza la búsqueda. Tocar ✕ lo elimina del historial</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Vencen pronto como acceso rápido</div>
+        <div class="sub">Ítems con fecha próxima mostrados como sugerencia. Útil para navegar sin necesidad de escribir nada</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

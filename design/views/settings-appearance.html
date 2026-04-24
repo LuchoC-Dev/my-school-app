@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Apariencia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+.set-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #F0EAE0}
+.cdot{width:18px;height:18px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(0,0,0,.1)}
+.cdot.sel{outline:2px solid #2A2016;outline-offset:2px}
+.theme-card{flex:1;border:1.5px solid #BFAF9A;border-radius:8px;padding:6px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:#5A4A35}
+.theme-card.sel{border-color:#2A2016;border-width:2px;font-weight:700;color:#2A2016}
+.theme-preview{width:100%;height:32px;border-radius:5px;border:1px solid #E8E0D2}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:13px;color:#4A7FB5">‹</span>
+            <div class="s-hdr-title">🎨 Apariencia</div>
+          </div>
+        </div>
+
+        <div class="sec-lbl">TEMA</div>
+        <div style="display:flex;gap:6px;padding:4px 14px 10px">
+          <div class="theme-card sel">
+            <div class="theme-preview" style="background:#F5F0E8"></div>
+            Claro
+          </div>
+          <div class="theme-card">
+            <div class="theme-preview" style="background:#1C1710"></div>
+            Oscuro
+          </div>
+          <div class="theme-card">
+            <div class="theme-preview" style="background:linear-gradient(135deg,#F5F0E8 50%,#1C1710 50%)"></div>
+            Sistema
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <div class="sec-lbl" style="margin-top:6px">COLOR DE ACENTO</div>
+        <div style="display:flex;gap:10px;padding:6px 14px 10px;align-items:center">
+          <div class="cdot sel" style="background:#2A2016"></div>
+          <div class="cdot" style="background:#4A7FB5"></div>
+          <div class="cdot" style="background:#7060D0"></div>
+          <div class="cdot" style="background:#D4753A"></div>
+          <div class="cdot" style="background:#5A9E6A"></div>
+          <div class="cdot" style="background:#C94A3A"></div>
+          <div class="cdot" style="background:#C47FB0"></div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <div class="sec-lbl" style="margin-top:6px">TIPOGRAFÍA</div>
+        <div style="padding:4px 14px 6px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:center;border:2px solid #2A2016;border-radius:8px;
+            padding:7px 10px;background:#F8F6F3">
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700">Caveat</div>
+              <div style="font-size:10px;color:#9A8B77">Handwritten · actual</div>
+            </div>
+            <span style="font-size:12px;color:#2A2016">✓</span>
+          </div>
+          <div style="display:flex;align-items:center;border:1.5px solid #BFAF9A;border-radius:8px;padding:7px 10px">
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700;font-family:serif">Georgia</div>
+              <div style="font-size:10px;color:#9A8B77">Serif · clásica</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;border:1.5px solid #BFAF9A;border-radius:8px;padding:7px 10px">
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700;font-family:system-ui">System</div>
+              <div style="font-size:10px;color:#9A8B77">Sans-serif · legible</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <div class="sec-lbl" style="margin-top:6px">TAMAÑO DE TEXTO</div>
+        <div class="set-row" style="border-bottom:none">
+          <span style="font-size:11px;color:#9A8B77;flex:1">A pequeño</span>
+          <div style="flex:2;height:3px;background:#E8E0D2;border-radius:999px;position:relative;margin:0 8px">
+            <div style="position:absolute;left:0;top:0;width:40%;height:100%;background:#2A2016;border-radius:999px"></div>
+            <div style="position:absolute;left:calc(40% - 7px);top:50%;transform:translateY(-50%);
+              width:14px;height:14px;border-radius:50%;background:#2A2016;border:2px solid #F5F0E8;
+              box-shadow:0 0 0 1.5px #2A2016"></div>
+          </div>
+          <span style="font-size:16px;font-weight:700;color:#5A4A35">A grande</span>
+        </div>
+
+        <div style="height:20px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">🎨 Apariencia</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Tema — 3 cards con preview visual</div>
+        <div class="sub">Claro · Oscuro · Sistema. La card seleccionada tiene borde grueso y check implícito</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Color de acento — dots seleccionables</div>
+        <div class="sub">7 opciones. El dot activo tiene outline doble. Afecta botones, tags y elementos de énfasis en toda la app</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Tipografía — 3 opciones con preview</div>
+        <div class="sub">Caveat (actual, handwritten), Georgia (serif), System (sans-serif). Cada opción muestra su propia fuente en el nombre</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Tamaño de texto — slider continuo</div>
+        <div class="sub">De pequeño a grande. Accesibilidad básica sin depender de la configuración del sistema</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

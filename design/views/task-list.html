@@ -30,22 +30,27 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="act-tab">Projects</div>
         </div>
 
-        <div class="search">🔍 Buscar task...</div>
+        <div style="display:flex;align-items:center;gap:6px;padding:0 12px 4px">
+          <div class="search" style="flex:1;margin:0">🔍 Buscar task...</div>
+          <span style="font-size:11px;color:#4A7FB5;white-space:nowrap;font-weight:600">Buscar en todo →</span>
+        </div>
 
-        <!-- Filtro por materia -->
-        <div style="padding:0 12px 1px;display:flex;gap:4px;align-items:center">
-          <span style="font-size:9px;font-weight:700;color:#BFAF9A;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0">Materia</span>
+        <!-- Filtro por materia + toggle activity -->
+        <div style="padding:0 12px 1px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9px;font-weight:700;color:#BFAF9A;text-transform:uppercase;letter-spacing:.3px">Materia</span>
+          <!-- Toggle para mostrar filtro por activity -->
+          <span style="font-size:10px;color:#4A7FB5;font-weight:600">Activity ▾</span>
         </div>
         <div class="filters">
           <div class="fc active">Todas</div>
-          <div class="fc">Matemática</div>
-          <div class="fc">Historia</div>
-          <div class="fc">Física</div>
+          <div class="fc" style="border-color:#4A7FB5;color:#4A7FB5">Historia</div>
+          <div class="fc" style="border-color:#D4753A;color:#D4753A">Matemática</div>
+          <div class="fc" style="border-color:#5A9E6A;color:#5A9E6A">Física</div>
         </div>
 
-        <!-- Filtro por activity -->
+        <!-- Filtro por activity (expandible, visible aquí como estado expandido) -->
         <div style="padding:0 12px 1px;display:flex;gap:4px;align-items:center">
-          <span style="font-size:9px;font-weight:700;color:#BFAF9A;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0">Activity</span>
+          <span style="font-size:9px;font-weight:700;color:#BFAF9A;text-transform:uppercase;letter-spacing:.3px">Activity</span>
         </div>
         <div class="filters2">
           <div class="fc active">Todas</div>
@@ -61,8 +66,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div style="flex:1">
             <div class="t-title">Resumir causas principales</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
-              <span class="tag tw">Historia</span>
-              <span class="tag tp">Investigar WWI</span>
+              <span class="tag tb">Historia</span>
+              <span class="tag tw">Investigar WWI</span>
             </div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
@@ -73,8 +78,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div style="flex:1">
             <div class="t-title">Redactar conclusión</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
-              <span class="tag tw">Historia</span>
-              <span class="tag tp">Investigar WWI</span>
+              <span class="tag tb">Historia</span>
+              <span class="tag tw">Investigar WWI</span>
               <span class="t-date" style="color:#D4753A">mañana</span>
             </div>
           </div>
@@ -86,8 +91,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div style="flex:1">
             <div class="t-title">Resolver ejercicio 3</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px;flex-wrap:wrap">
-              <span class="tag tw">Matemática</span>
-              <span class="tag to">Resolver Ej.</span>
+              <span class="tag to">Matemática</span>
+              <span class="tag tw">Resolver Ej.</span>
             </div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
@@ -99,7 +104,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div style="flex:1">
             <div class="t-title">Comprar calculadora científica</div>
             <div style="display:flex;gap:4px;align-items:center;margin-top:2px">
-              <span class="tag tw">Matemática</span>
+              <span class="tag to">Matemática</span>
             </div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
@@ -113,8 +118,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div style="flex:1">
             <div class="t-title done">Leer sobre antecedentes</div>
             <div style="margin-top:2px;display:flex;gap:4px">
-              <span class="tag tw" style="opacity:.5">Historia</span>
-              <span class="tag tp" style="opacity:.5">Investigar WWI</span>
+              <span class="tag tb" style="opacity:.5">Historia</span>
+              <span class="tag tw" style="opacity:.5">Investigar WWI</span>
             </div>
           </div>
         </div>
@@ -124,8 +129,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div style="flex:1">
             <div class="t-title done">Buscar fuentes bibliográficas</div>
             <div style="margin-top:2px;display:flex;gap:4px">
-              <span class="tag tw" style="opacity:.5">Historia</span>
-              <span class="tag tp" style="opacity:.5">Investigar WWI</span>
+              <span class="tag tb" style="opacity:.5">Historia</span>
+              <span class="tag tw" style="opacity:.5">Investigar WWI</span>
             </div>
           </div>
         </div>
@@ -151,19 +156,26 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Dos niveles de filtro</div>
-        <div class="sub">Fila "Materia": filtra por Course. Fila "Activity": filtra las Tasks según la Activity padre. Ambos se pueden combinar</div>
+        <div class="main">Filtro Activity colapsable</div>
+        <div class="sub">El botón "Activity ▾" a la derecha del label Materia muestra u oculta la fila de filtros por activity. Por defecto está oculto</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Activity filter se adapta a la materia seleccionada</div>
-        <div class="sub">Al seleccionar una materia, el filtro de Activity muestra solo las Activities de esa materia</div>
+        <div class="main">Tags: Materia = color, Activity = gris</div>
+        <div class="sub">Cada materia tiene su color propio (Historia=púrpura, Matemática=naranja, Física=azul). Las activities usan el gris neutro para no competir</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Chips de filtro con color de materia</div>
+        <div class="sub">Los chips de materia en el filtro usan el mismo color que el tag correspondiente en las tasks</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
       <div class="ann-text">
         <div class="main">Checkboxes cuadrados para Tasks</div>
         <div class="sub">border-radius:3px diferencia visualmente Tasks (cuadrado) de Activities (circular)</div>

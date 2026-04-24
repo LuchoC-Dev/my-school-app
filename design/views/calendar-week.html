@@ -72,13 +72,23 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
             <span class="day-add">+</span>
           </div>
           <div class="day-content" style="background:#fff">
+            <!-- Activity (checkbox circular) -->
             <div class="day-activity">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#BFAF9A"></div>
-              <span>Resolver ejercicios 1–5</span>
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#D4753A"></div>
+              <span style="flex:1;font-size:11px">Resolver ejercicios 1–5</span>
+              <span style="font-size:9px;padding:1px 5px;border-radius:999px;border:1px solid #D4753A;color:#D4753A;white-space:nowrap">Mate</span>
             </div>
+            <!-- Task (checkbox cuadrado) -->
             <div class="day-activity">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#BFAF9A"></div>
-              <span>Leer capítulo 4</span>
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-radius:3px;border-color:#D4753A"></div>
+              <span style="flex:1;font-size:11px;color:#9A8B77">↳ Ej. 3 — derivadas</span>
+              <span style="font-size:9px;color:#BFAF9A">task</span>
+            </div>
+            <!-- Activity standalone -->
+            <div class="day-activity">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#4A7FB5"></div>
+              <span style="flex:1;font-size:11px">Leer capítulo 4</span>
+              <span style="font-size:9px;padding:1px 5px;border-radius:999px;border:1px solid #4A7FB5;color:#4A7FB5;white-space:nowrap">Historia</span>
             </div>
           </div>
         </div>
@@ -103,10 +113,17 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
             <span class="day-add">+</span>
           </div>
           <div class="day-content">
+            <!-- Activity -->
             <div class="day-activity">
-              <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
-              <span style="flex:1">Investigar causas WWI</span>
-              <span class="tag tw" style="font-size:9px;padding:1px 5px">Historia</span>
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-color:#4A7FB5"></div>
+              <span style="flex:1;font-size:11px">Investigar causas WWI</span>
+              <span style="font-size:9px;padding:1px 5px;border-radius:999px;border:1px solid #4A7FB5;color:#4A7FB5;white-space:nowrap">Historia</span>
+            </div>
+            <!-- Task dentro de la activity -->
+            <div class="day-activity">
+              <div class="cb" style="width:14px;height:14px;flex-shrink:0;border-radius:3px;border-color:#4A7FB5"></div>
+              <span style="flex:1;font-size:11px;color:#9A8B77">↳ Resumir causas</span>
+              <span style="font-size:9px;color:#BFAF9A">task</span>
             </div>
           </div>
         </div>
@@ -193,6 +210,20 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     </li>
     <li class="ann-item">
       <div class="ann-num">5</div>
+      <div class="ann-text">
+        <div class="main">Activities vs Tasks: checkbox circular vs cuadrado</div>
+        <div class="sub">Activities usan checkbox circular (igual que en Activity List). Tasks usan cuadrado (border-radius:3px) con indentación ↳ y label "task" en gris</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">6</div>
+      <div class="ann-text">
+        <div class="main">Tags de materia con color</div>
+        <div class="sub">Matemática=naranja, Historia=azul, Física=verde. Consistente con Task List y Activity List</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">7</div>
       <div class="ann-text">
         <div class="main">Navegación ‹ semana anterior · semana siguiente ›</div>
         <div class="sub">Encabezado muestra rango de fechas de la semana visible</div>

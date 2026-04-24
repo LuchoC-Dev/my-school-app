@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Cuenta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+.avatar-lg{width:64px;height:64px;border-radius:50%;border:2px solid #2A2016;
+  background:#EDE6D8;display:flex;align-items:center;justify-content:center;font-size:30px}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:13px;color:#4A7FB5">‹</span>
+            <div class="s-hdr-title">👤 Cuenta</div>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div style="display:flex;flex-direction:column;align-items:center;padding:18px 14px 14px;gap:8px">
+          <div style="position:relative">
+            <div class="avatar-lg">🧑</div>
+            <div style="position:absolute;bottom:0;right:0;width:20px;height:20px;
+              border-radius:50%;background:#2A2016;border:2px solid #F5F0E8;
+              display:flex;align-items:center;justify-content:center;font-size:10px;color:#F5F0E8">✏️</div>
+          </div>
+          <div style="font-size:11px;color:#9A8B77">Tocar para cambiar avatar</div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Nombre -->
+        <div style="padding:10px 14px">
+          <div class="form-label">NOMBRE</div>
+          <div style="margin-top:4px">
+            <div class="form-input" style="display:flex;align-items:center;justify-content:space-between">
+              <span>Luciano García</span>
+              <span style="font-size:11px;color:#4A7FB5">Editar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Próximamente -->
+        <div class="sec-lbl" style="margin-top:6px">PRÓXIMAMENTE</div>
+        <div style="margin:4px 14px;border:1.5px dashed #BFAF9A;border-radius:10px;
+          padding:14px;text-align:center">
+          <div style="font-size:13px;color:#9A8B77;line-height:1.6">
+            Sincronización en la nube,<br>
+            múltiples perfiles y más
+          </div>
+          <div style="margin-top:8px;display:inline-block;font-size:11px;
+            border:1.5px solid #BFAF9A;border-radius:999px;padding:2px 10px;color:#BFAF9A">
+            en desarrollo
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">👤 Cuenta</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">Avatar editable con botón ✏️</div>
+        <div class="sub">Tocar el avatar abre un picker de emojis o galería. El botón ✏️ superpuesto indica que es editable</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Nombre con edición inline</div>
+        <div class="sub">Tocar "Editar" convierte el campo en input editable. Perfil guardado solo en local por ahora</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Bloque "Próximamente" como placeholder honesto</div>
+        <div class="sub">Comunica al usuario que hay más funciones en camino sin comprometer el scope del MVP. Se reemplaza con contenido real cuando esté listo</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

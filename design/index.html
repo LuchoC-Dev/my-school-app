@@ -23,14 +23,14 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   display:flex;align-items:center;gap:4px;white-space:nowrap}
 .tab.active{background:#2A2016;color:#F5F0E8;border-color:#2A2016}
 
-.view-frame{flex:1;border:none;width:100%;min-height:calc(100vh - 130px)}
+.view-frame{flex:1;border:none;width:100%;height:calc(100vh - 130px)}
 </style>
 </head>
 <body>
 
 <div class="page-hdr">
   <h1>🏫 My School — Wireframes</h1>
-  <p>MVP · React Native · 16 vistas</p>
+  <p>MVP · React Native · 28 vistas</p>
 </div>
 
 <nav class="nav" id="nav">
@@ -39,8 +39,9 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <div class="group">
     <span class="group-lbl">Courses</span>
     <button class="tab active" onclick="show('views/course-list.html',0)">🏫 List</button>
-    <button class="tab" onclick="show('views/course-create.html',1)">➕ Create</button>
-    <button class="tab" onclick="show('views/course-view.html',2)">📖 View</button>
+    <button class="tab" onclick="show('views/course-list-empty.html',1)">∅ Empty</button>
+    <button class="tab" onclick="show('views/course-create.html',2)">➕ Create</button>
+    <button class="tab" onclick="show('views/course-view.html',3)">📖 View</button>
   </div>
 
   <div class="group-sep"></div>
@@ -48,7 +49,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <!-- Activities container -->
   <div class="group">
     <span class="group-lbl">Container</span>
-    <button class="tab" onclick="show('views/activities-list.html',3)">📋 Activities</button>
+    <button class="tab" onclick="show('views/activities-list.html',4)">📋 Activities</button>
   </div>
 
   <div class="group-sep"></div>
@@ -56,9 +57,10 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <!-- Tasks -->
   <div class="group">
     <span class="group-lbl">Tasks</span>
-    <button class="tab" onclick="show('views/task-list.html',4)">☑️ List</button>
-    <button class="tab" onclick="show('views/task-view.html',5)">🔍 View</button>
-    <button class="tab" onclick="show('views/task-create.html',6)">✏️ Create</button>
+    <button class="tab" onclick="show('views/task-list.html',5)">☑️ List</button>
+    <button class="tab" onclick="show('views/task-list-empty.html',6)">∅ Empty</button>
+    <button class="tab" onclick="show('views/task-view.html',7)">🔍 View</button>
+    <button class="tab" onclick="show('views/task-create.html',8)">✏️ Create</button>
   </div>
 
   <div class="group-sep"></div>
@@ -66,9 +68,10 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <!-- Activities -->
   <div class="group">
     <span class="group-lbl">Activities</span>
-    <button class="tab" onclick="show('views/activity-list.html',7)">📋 List</button>
-    <button class="tab" onclick="show('views/activity-view.html',8)">🔍 View</button>
-    <button class="tab" onclick="show('views/activity-create.html',9)">✏️ Create</button>
+    <button class="tab" onclick="show('views/activity-list.html',9)">📋 List</button>
+    <button class="tab" onclick="show('views/activity-list-empty.html',10)">∅ Empty</button>
+    <button class="tab" onclick="show('views/activity-view.html',11)">🔍 View</button>
+    <button class="tab" onclick="show('views/activity-create.html',12)">✏️ Create</button>
   </div>
 
   <div class="group-sep"></div>
@@ -76,9 +79,10 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <!-- Projects -->
   <div class="group">
     <span class="group-lbl">Projects</span>
-    <button class="tab" onclick="show('views/project-list.html',10)">📁 List</button>
-    <button class="tab" onclick="show('views/project-view.html',11)">🔍 View</button>
-    <button class="tab" onclick="show('views/project-create.html',12)">✏️ Create</button>
+    <button class="tab" onclick="show('views/project-list.html',13)">📁 List</button>
+    <button class="tab" onclick="show('views/project-list-empty.html',14)">∅ Empty</button>
+    <button class="tab" onclick="show('views/project-view.html',15)">🔍 View</button>
+    <button class="tab" onclick="show('views/project-create.html',16)">✏️ Create</button>
   </div>
 
   <div class="group-sep"></div>
@@ -86,10 +90,32 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
   <!-- Calendar -->
   <div class="group">
     <span class="group-lbl">Calendar</span>
-    <button class="tab" onclick="show('views/calendar-view.html',13)">📅 View</button>
-    <button class="tab" onclick="show('views/calendar-day.html',14)">☀️ Day</button>
-    <button class="tab" onclick="show('views/calendar-week.html',15)">📆 Week</button>
-    <button class="tab" onclick="show('views/calendar-month.html',16)">🗓 Month</button>
+    <button class="tab" onclick="show('views/calendar-view.html',17)">📅 View</button>
+    <button class="tab" onclick="show('views/calendar-empty.html',18)">∅ Empty</button>
+    <button class="tab" onclick="show('views/calendar-day.html',19)">☀️ Day</button>
+    <button class="tab" onclick="show('views/calendar-week.html',20)">📆 Week</button>
+    <button class="tab" onclick="show('views/calendar-month.html',21)">🗓 Month</button>
+  </div>
+
+  <div class="group-sep"></div>
+
+  <!-- Search -->
+  <div class="group">
+    <span class="group-lbl">Search</span>
+    <button class="tab" onclick="show('views/search.html',22)">🔍 Results</button>
+    <button class="tab" onclick="show('views/search-empty.html',23)">∅ Empty</button>
+  </div>
+
+  <div class="group-sep"></div>
+
+  <!-- Settings -->
+  <div class="group">
+    <span class="group-lbl">Settings</span>
+    <button class="tab" onclick="show('views/settings.html',24)">⚙️ Main</button>
+    <button class="tab" onclick="show('views/settings-account.html',25)">👤 Account</button>
+    <button class="tab" onclick="show('views/settings-general.html',26)">📅 General</button>
+    <button class="tab" onclick="show('views/settings-notifications.html',27)">🔔 Notif.</button>
+    <button class="tab" onclick="show('views/settings-appearance.html',28)">🎨 Appearance</button>
   </div>
 
 </nav>

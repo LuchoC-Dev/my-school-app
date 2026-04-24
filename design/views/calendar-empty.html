@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>My School — Calendar (vacío)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wireframe.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
+  display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+.cal-day{text-align:center;font-size:11px;padding:3px 0;border-radius:50%;width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto}
+.cal-day.today{background:#2A2016;color:#F5F0E8;font-weight:700}
+.cal-day.past{color:#BFAF9A}
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="status-bar"><span class="st-time">9:41</span><span class="st-icons">··· 🔋</span></div>
+    <div class="phone-body">
+      <div class="phone-scroll">
+
+        <div class="s-hdr">
+          <div class="s-hdr-title">📅 Abril 2026</div>
+          <div style="display:flex;gap:6px">
+            <div class="s-icon-btn">‹</div>
+            <div class="s-icon-btn">›</div>
+          </div>
+        </div>
+
+        <!-- Mini calendario con días vacíos -->
+        <div style="padding:4px 10px 8px">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;margin-bottom:4px">
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">L</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">M</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">M</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">J</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">V</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">S</div>
+            <div style="text-align:center;font-size:9px;color:#9A8B77;padding:2px">D</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">
+            <!-- semana 1 -->
+            <div></div><div></div><div class="cal-day past">1</div>
+            <div class="cal-day past">2</div><div class="cal-day past">3</div>
+            <div class="cal-day past">4</div><div class="cal-day past">5</div>
+            <!-- semana 2 -->
+            <div class="cal-day past">6</div><div class="cal-day past">7</div>
+            <div class="cal-day past">8</div><div class="cal-day past">9</div>
+            <div class="cal-day past">10</div><div class="cal-day past">11</div>
+            <div class="cal-day past">12</div>
+            <!-- semana 3 -->
+            <div class="cal-day past">13</div><div class="cal-day past">14</div>
+            <div class="cal-day past">15</div><div class="cal-day past">16</div>
+            <div class="cal-day past">17</div><div class="cal-day past">18</div>
+            <div class="cal-day past">19</div>
+            <!-- semana 4 -->
+            <div class="cal-day past">20</div><div class="cal-day past">21</div>
+            <div class="cal-day past">22</div><div class="cal-day past">23</div>
+            <div class="cal-day today">24</div>
+            <div class="cal-day">25</div><div class="cal-day">26</div>
+            <!-- semana 5 -->
+            <div class="cal-day">27</div><div class="cal-day">28</div>
+            <div class="cal-day">29</div><div class="cal-day">30</div>
+            <div></div><div></div><div></div>
+          </div>
+        </div>
+
+        <div class="s-div"></div>
+
+        <!-- Empty state debajo del calendario -->
+        <div style="display:flex;flex-direction:column;align-items:center;
+          padding:28px 24px;text-align:center;gap:10px">
+          <div style="font-size:40px;line-height:1">📭</div>
+          <div style="font-size:15px;font-weight:700;margin-top:4px">Abril está libre</div>
+          <div style="font-size:12px;color:#9A8B77;line-height:1.5">
+            Cuando agregues tasks o activities con fecha de entrega, van a aparecer acá
+          </div>
+          <div class="dashed-btn" style="margin-top:6px;font-size:12px">
+            + Agregar activity o task
+          </div>
+        </div>
+
+        <div style="height:60px"></div>
+      </div>
+    </div>
+
+    <div class="app-tab-bar">
+      <div class="app-tab"><div class="app-tab-icon">🏫</div><span>Materias</span></div>
+      <div class="app-tab"><div class="app-tab-icon">📋</div><span>Actividades</span></div>
+      <div class="app-tab active"><div class="app-tab-icon">📅</div><span>Calendario</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotations">
+  <div class="ann-title">📅 Calendar — Vacío</div>
+  <div class="ann-line"></div>
+  <ul class="ann-list">
+    <li class="ann-item">
+      <div class="ann-num">1</div>
+      <div class="ann-text">
+        <div class="main">El calendario se muestra igual, sin eventos</div>
+        <div class="sub">Los días siguen visibles con el hoy marcado. El usuario puede navegar meses. El empty state va debajo, no reemplaza la grilla</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">2</div>
+      <div class="ann-text">
+        <div class="main">Mensaje específico al mes ("Abril está libre")</div>
+        <div class="sub">Más personal que "No hay eventos". Puede haber eventos en otros meses pero este mes estar vacío</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">3</div>
+      <div class="ann-text">
+        <div class="main">Explica cómo se puebla el calendario</div>
+        <div class="sub">El usuario puede no saber que las tasks y activities con fecha aparecen acá. El mensaje lo aclara sin documentación</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Aplica a mes, semana y día</div>
+        <div class="sub">Las vistas de semana y día muestran el mismo empty state debajo de su grilla cuando no hay nada agendado</div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

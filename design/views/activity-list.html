@@ -10,6 +10,11 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:100vh;
   display:flex;align-items:flex-start;gap:52px;padding:36px 44px}
+/* Tasks expandidas dentro de la activity card */
+.act-tasks-expanded{padding:6px 10px 4px;border-top:1px dashed #E8E0D2;margin-top:4px}
+.act-task-item{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px;color:#5A4A35}
+.act-task-item .cb-sm{width:12px;height:12px;border:1.5px solid #BFAF9A;border-radius:2px;flex-shrink:0}
+.act-task-due{font-size:10px;margin-left:auto;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -32,43 +37,62 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
 
         <div class="search">🔍 Buscar activity...</div>
 
-        <!-- Filtro por materia -->
+        <!-- Filtro por materia (con colores) -->
         <div class="filters">
           <div class="fc active">Todas</div>
-          <div class="fc">Matemática</div>
-          <div class="fc">Historia</div>
-          <div class="fc">Física</div>
+          <div class="fc" style="border-color:#4A7FB5;color:#4A7FB5">Historia</div>
+          <div class="fc" style="border-color:#D4753A;color:#D4753A">Matemática</div>
+          <div class="fc" style="border-color:#5A9E6A;color:#5A9E6A">Física</div>
         </div>
 
         <div class="s-div"></div>
         <div class="sec-lbl">PENDIENTES · 3</div>
 
-        <!-- Activity card: con proyecto y tasks -->
-        <div class="activity-card">
-          <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
-          <div class="activity-card-body">
-            <div class="activity-card-title">Investigar causas de la WWI</div>
-            <div class="activity-card-meta">
-              <span class="tag tw">Historia</span>
-              <span class="tag tp">TP Historia WWI</span>
+        <!-- Activity card: expandida (mostrando tareas próximas) -->
+        <div class="activity-card" style="flex-direction:column;padding:0">
+          <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px">
+            <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
+            <div class="activity-card-body">
+              <div class="activity-card-title">Investigar causas de la WWI</div>
+              <div class="activity-card-meta">
+                <span class="tag tb">Historia</span>
+                <span class="tag tw">TP Historia WWI</span>
+              </div>
+              <div class="activity-card-footer">
+                <div class="act-prog-bar"><div class="act-prog-fill" style="width:50%;background:#5A9E6A"></div></div>
+                <span style="font-size:10px;color:#9A8B77">2/4 tasks</span>
+                <span style="font-size:10px;color:#D4753A;margin-left:auto">1 Jun</span>
+              </div>
             </div>
-            <div class="activity-card-footer">
-              <div class="act-prog-bar"><div class="act-prog-fill" style="width:50%;background:#5A9E6A"></div></div>
-              <span style="font-size:10px;color:#9A8B77">2/4 tasks</span>
-              <span style="font-size:10px;color:#D4753A;margin-left:auto">1 Jun</span>
+            <!-- Flecha abajo = expandida -->
+            <span style="font-size:12px;color:#4A7FB5;align-self:center;flex-shrink:0">▾</span>
+          </div>
+          <!-- Tasks más urgentes (expandidas) -->
+          <div class="act-tasks-expanded">
+            <div class="act-task-item">
+              <div class="cb-sm"></div>
+              <span style="flex:1">Resumir causas principales</span>
+              <span class="act-task-due" style="color:#9A8B77">28 May</span>
+            </div>
+            <div class="act-task-item">
+              <div class="cb-sm"></div>
+              <span style="flex:1">Redactar conclusión</span>
+              <span class="act-task-due" style="color:#D4753A">mañana</span>
+            </div>
+            <div class="see-more-btn" style="margin-top:3px">
+              <span>Ver 2 tasks más</span><span>▾</span>
             </div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A;align-self:center">›</span>
         </div>
 
-        <!-- Activity card: con proyecto, sin tasks -->
+        <!-- Activity card: colapsada -->
         <div class="activity-card">
           <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
           <div class="activity-card-body">
             <div class="activity-card-title">Resolver ejercicios 1 al 5</div>
             <div class="activity-card-meta">
-              <span class="tag tw">Matemática</span>
-              <span class="tag tb">TP Final</span>
+              <span class="tag to">Matemática</span>
+              <span class="tag tw">TP Final</span>
             </div>
             <div class="activity-card-footer">
               <div class="act-prog-bar"><div class="act-prog-fill" style="width:0%;background:#5A9E6A"></div></div>
@@ -85,7 +109,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="activity-card-body">
             <div class="activity-card-title">Leer capítulo 4 — Límites</div>
             <div class="activity-card-meta">
-              <span class="tag tw">Matemática</span>
+              <span class="tag to">Matemática</span>
             </div>
             <div class="activity-card-footer">
               <span style="font-size:10px;color:#BFAF9A;font-style:italic">Sin tasks · sin fecha</span>
@@ -103,8 +127,8 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
           <div class="activity-card-body">
             <div class="activity-card-title" style="text-decoration:line-through;color:#9A8B77">Redactar introducción TP</div>
             <div class="activity-card-meta">
-              <span class="tag tw" style="opacity:.6">Historia</span>
-              <span class="tag tp" style="opacity:.6">TP Historia WWI</span>
+              <span class="tag tp" style="opacity:.6">Historia</span>
+              <span class="tag tw" style="opacity:.6">TP Historia WWI</span>
             </div>
             <div class="activity-card-footer">
               <span style="font-size:10px;color:#5A9E6A">4/4 tasks ✓</span>
@@ -133,26 +157,33 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
     <li class="ann-item">
       <div class="ann-num">1</div>
       <div class="ann-text">
-        <div class="main">Diseño: activity-card</div>
-        <div class="sub">Card más compacta que project-card (sin sub-lista expandible). Más rica que task-row (incluye progress bar y badges). Nivel visual intermedio</div>
+        <div class="main">Tags: Materia = color, Project = gris</div>
+        <div class="sub">Igual que Task List: el tag de materia lleva el color de la materia, el tag de project/activity queda en gris neutro</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">2</div>
       <div class="ann-text">
-        <div class="main">Progress bar de Tasks</div>
-        <div class="sub">Mini barra de 48px que muestra el porcentaje de tasks completadas. Solo aparece si la activity tiene tasks</div>
+        <div class="main">Flecha › se convierte en ▾ al expandir</div>
+        <div class="sub">Tap en la flecha (no en la card) colapsa/expande las tasks más urgentes. La flecha azul indica que está expandida</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">3</div>
       <div class="ann-text">
-        <div class="main">Fecha en naranja si es urgente</div>
-        <div class="sub">Color naranja cuando la fecha de entrega es próxima (&lt;3 días)</div>
+        <div class="main">Tasks expandidas: hasta 3 más urgentes</div>
+        <div class="sub">Muestra las tasks con fecha más próxima, máximo 3. Si hay más, aparece "Ver N tasks más" que suma de a 10</div>
       </div>
     </li>
     <li class="ann-item">
       <div class="ann-num">4</div>
+      <div class="ann-text">
+        <div class="main">Tap en card abre Activity-View</div>
+        <div class="sub">La flecha solo expande tasks. Tocar el cuerpo de la card navega a la Activity-View completa</div>
+      </div>
+    </li>
+    <li class="ann-item">
+      <div class="ann-num">5</div>
       <div class="ann-text">
         <div class="main">Completadas con opacidad reducida</div>
         <div class="sub">Al 60% de opacidad con título tachado. Muestra "4/4 tasks ✓" en verde</div>

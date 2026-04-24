@@ -175,15 +175,23 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
               <div style="font-size:14px;font-weight:700">Martes 22 · Hoy</div>
               <div class="dashed-btn" style="font-size:11px;padding:2px 8px">+ Nueva</div>
             </div>
+            <!-- Activity (checkbox circular) -->
             <div class="task-row" style="padding:4px 0">
-              <div class="cb" style="flex-shrink:0"></div>
+              <div class="cb" style="flex-shrink:0;border-color:#D4753A"></div>
               <div style="flex:1"><div class="t-title">Resolver ejercicios 1–5</div></div>
-              <span class="tag tw" style="font-size:9px">Mate</span>
+              <span style="font-size:9px;padding:1px 5px;border-radius:999px;border:1px solid #D4753A;color:#D4753A;white-space:nowrap">Mate</span>
             </div>
+            <!-- Task (checkbox cuadrado) dentro de la activity anterior -->
+            <div class="task-row" style="padding:3px 0 3px 8px">
+              <div class="cb" style="flex-shrink:0;border-radius:3px;border-color:#D4753A;width:13px;height:13px"></div>
+              <div style="flex:1"><div class="t-title" style="font-size:11px;color:#9A8B77">↳ Ej. 3 — derivadas</div></div>
+              <span style="font-size:9px;color:#BFAF9A">task</span>
+            </div>
+            <!-- Activity standalone (distinta materia) -->
             <div class="task-row" style="padding:4px 0">
-              <div class="cb" style="flex-shrink:0"></div>
-              <div style="flex:1"><div class="t-title">Leer capítulo 4</div></div>
-              <span class="tag tw" style="font-size:9px">Mate</span>
+              <div class="cb" style="flex-shrink:0;border-color:#4A7FB5"></div>
+              <div style="flex:1"><div class="t-title">Leer capítulo 4 — Límites</div></div>
+              <span style="font-size:9px;padding:1px 5px;border-radius:999px;border:1px solid #4A7FB5;color:#4A7FB5;white-space:nowrap">Historia</span>
             </div>
           </div>
         </div>
@@ -215,7 +223,7 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
       <div class="ann-num">2</div>
       <div class="ann-text">
         <div class="main">Tap en día → bottom sheet</div>
-        <div class="sub">Despliega las actividades de ese día. Si no hay ninguna, muestra solo "+ Nueva actividad"</div>
+        <div class="sub">Despliega Activities y Tasks del día. Activities = checkbox circular, Tasks = cuadrado con ↳ indentación. Tags con color de materia</div>
       </div>
     </li>
     <li class="ann-item">

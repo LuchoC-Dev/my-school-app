@@ -60,12 +60,17 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
             <div class="collapse-chevron">▾</div>
           </div>
           <div class="collapse-body">
-            <!-- Activities dentro del Project -->
+            <!-- Activity dentro del Project: circular + progreso -->
             <div class="collapse-task" style="padding:6px 10px;border-bottom:1px dashed #F0EAE0">
               <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
               <div style="flex:1">
                 <div style="font-size:12px">Resolver ejercicios 1 al 5</div>
-                <div style="font-size:10px;color:#9A8B77">0/3 tasks · 28 May</div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:2px">
+                  <div style="width:36px;height:3px;background:#E8E0D2;border-radius:999px">
+                    <div style="width:0%;height:100%;background:#5A9E6A;border-radius:999px"></div>
+                  </div>
+                  <span style="font-size:10px;color:#9A8B77">0/3 tasks · 28 May</span>
+                </div>
               </div>
               <span style="font-size:11px;color:#BFAF9A">›</span>
             </div>
@@ -73,29 +78,31 @@ body{background:#F5F0E8;font-family:'Caveat',cursive;color:#2A2016;min-height:10
               <div class="cb" style="width:14px;height:14px;flex-shrink:0"></div>
               <div style="flex:1">
                 <div style="font-size:12px">Redactar conclusiones</div>
-                <div style="font-size:10px;color:#9A8B77">sin tasks · 30 May</div>
+                <div style="font-size:10px;color:#9A8B77;margin-top:2px">sin tasks · 30 May</div>
               </div>
               <span style="font-size:11px;color:#BFAF9A">›</span>
             </div>
           </div>
         </div>
 
-        <!-- Standalone Activity (sin project) -->
-        <div class="task-row">
-          <div class="cb"></div>
-          <div style="flex:1">
-            <div class="t-title">Leer capítulo 4 — Límites</div>
-            <div style="font-size:10px;color:#9A8B77;margin-top:1px">Activity · sin tasks</div>
+        <!-- Standalone Activity (sin project) → activity-card style -->
+        <div class="activity-card">
+          <div class="cb" style="flex-shrink:0;margin-top:2px"></div>
+          <div class="activity-card-body">
+            <div class="activity-card-title">Leer capítulo 4 — Límites</div>
+            <div class="activity-card-footer">
+              <span style="font-size:10px;color:#BFAF9A;font-style:italic">Sin tasks · sin fecha</span>
+            </div>
           </div>
-          <span style="font-size:12px;color:#BFAF9A">›</span>
+          <span style="font-size:12px;color:#BFAF9A;align-self:center">›</span>
         </div>
 
-        <!-- Standalone Task (sin activity) -->
+        <!-- Standalone Task (sin activity) → checkbox cuadrado -->
         <div class="task-row">
           <div class="cb" style="border-radius:3px"></div>
           <div style="flex:1">
             <div class="t-title">Comprar calculadora científica</div>
-            <div style="font-size:10px;color:#9A8B77;margin-top:1px">Task · standalone</div>
+            <div style="font-size:10px;color:#BFAF9A;margin-top:1px;font-style:italic">Task standalone</div>
           </div>
           <span style="font-size:12px;color:#BFAF9A">›</span>
         </div>
