@@ -7,6 +7,7 @@ import {
 } from "@expo-google-fonts/caveat";
 import { Slot } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { ThemeProvider } from "@/theme/ThemeContext";
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -17,9 +18,9 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <>
+    <ThemeProvider>
       <StatusBar style="auto" />
       <Slot />
-    </>
+    </ThemeProvider>
   );
 }
