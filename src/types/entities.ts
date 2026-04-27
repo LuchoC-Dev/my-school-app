@@ -4,12 +4,22 @@ export type CourseColor = "orange" | "blue" | "violet" | "green";
 
 export type Status = "pending" | "in_progress" | "completed";
 
+export type WeekDay = "Lu" | "Ma" | "Mi" | "Ju" | "Vi" | "Sa" | "Do";
+
+export interface CourseSchedule {
+  day: WeekDay;
+  from: string; // "HH:MM"
+  to: string;   // "HH:MM"
+}
+
 export interface Course {
   id: string;
   name: string;
   description?: string;
+  professor?: string;
   color: CourseColor;
   emoji?: string;
+  schedules: CourseSchedule[];
   createdAt: string;
   updatedAt: string;
 }
