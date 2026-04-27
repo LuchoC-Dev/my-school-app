@@ -1,0 +1,17 @@
+node_modules/
+.expo/
+dist/
+web-build/
+dist/
+expo-env.d.ts
+
+# macOS
+.DS_Store
+
+# Android
+android/
+ios/
+
+# env files
+.env
+.env.local
