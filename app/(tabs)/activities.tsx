@@ -1,32 +1,37 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 import { useTheme } from "@/hooks/useTheme";
 import { AppHeader } from "@/components/navigation/AppHeader";
-import { EmptyState } from "@/components/ui";
 import { FontFamily, FontSize } from "@/theme/typography";
+import { TaskListTab } from "@/components/tasks/TaskListTab";
+import { ActivityListTab } from "@/components/activities/ActivityListTab";
+import { ProjectListTab } from "@/components/projects/ProjectListTab";
 
-const SUB_TABS = ["Hoy", "Próximas", "Todas"] as const;
+const SUB_TABS = ["Tasks", "Activities", "Projects"] as const;
 type SubTab = (typeof SUB_TABS)[number];
 
 export default function ActivitiesScreen() {
   const tokens = useTheme();
-  const [activeTab, setActiveTab] = useState<SubTab>("Hoy");
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<SubTab>("Tasks");
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
       <AppHeader
         title="Actividades"
-        rightAction={{ label: "+ Nueva", onPress: () => {} }}
-      />
-      {/* Sub-tabs */}
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: 16,
-          paddingBottom: 8,
-          gap: 8,
+        rightAction={{
+          label: "+ Nueva",
+          onPress: () => {
+            if (activeTab === "Tasks") router.push("/tasks/create");
+            else if (activeTab === "Activities") router.push("/activities/create");
+            else router.push("/projects/create");
+          },
         }}
-      >
+      />
+
+      {/* Sub-tabs */}
+      <View style={{ flexDirection: "row", paddingHorizontal: 16, paddingBottom: 8, gap: 8 }}>
         {SUB_TABS.map((tab) => {
           const isActive = activeTab === tab;
           return (
@@ -55,14 +60,11 @@ export default function ActivitiesScreen() {
           );
         })}
       </View>
+
       {/* Content */}
-      <EmptyState
-        icon={<Text style={{ fontSize: 40 }}>✅</Text>}
-        title="Sin actividades"
-        description="Las actividades de tus materias aparecerán aquí."
-        ctaLabel="+ Agregar actividad"
-        onCta={() => {}}
-      />
+      {activeTab === "Tasks" && <TaskListTab />}
+      {activeTab === "Activities" && <ActivityListTab />}
+      {activeTab === "Projects" && <ProjectListTab />}
     </View>
   );
 }
