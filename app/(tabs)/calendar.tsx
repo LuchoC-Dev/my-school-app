@@ -7,6 +7,7 @@ import { CalendarWeekView } from "@/components/calendar/CalendarWeekView";
 import { CalendarDayView } from "@/components/calendar/CalendarDayView";
 import { Chip } from "@/components/ui";
 import { localDateString } from "@/utils/dateUtils";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 type CalendarViewType = "day" | "week" | "month";
 
@@ -14,7 +15,8 @@ export default function CalendarScreen() {
   const tokens = useTheme();
   const today = localDateString();
   const [selectedDate, setSelectedDate] = useState(today);
-  const [viewType, setViewType] = useState<CalendarViewType>("day");
+  const calendarViewDefault = useSettingsStore((s) => s.calendarViewDefault);
+  const [viewType, setViewType] = useState<CalendarViewType>(calendarViewDefault);
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>

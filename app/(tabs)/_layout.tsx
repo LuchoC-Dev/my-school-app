@@ -10,6 +10,7 @@ export default function TabLayout() {
       <Tabs.Screen name="index" />
       <Tabs.Screen name="activities" />
       <Tabs.Screen name="calendar" />
+      <Tabs.Screen name="settings" />
     </Tabs>
   );
 }

@@ -8,9 +8,20 @@ import { courseColors } from "@/theme/tokens";
 import { ThemedText } from "@/components/ui";
 import { useRouter } from "expo-router";
 import { localDateString } from "@/utils/dateUtils";
+import { useSettingsStore } from "@/stores/settingsStore";
 
-const DAY_NAMES_FULL = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-const WEEKEND = [5, 6]; // index 5=Sáb, 6=Dom
+const DAY_NAMES_BY_JS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const WEEKEND_JS = [0, 6]; // JS getDay() values: 0=Dom, 6=Sáb
+
+function getDayName(dateStr: string): string {
+  const d = new Date(dateStr + "T12:00:00");
+  return DAY_NAMES_BY_JS[d.getDay()];
+}
+
+function isWeekend(dateStr: string): boolean {
+  const d = new Date(dateStr + "T12:00:00");
+  return WEEKEND_JS.includes(d.getDay());
+}
 
 function addDays(dateStr: string, n: number): string {
   const d = new Date(dateStr + "T12:00:00");
@@ -18,11 +29,13 @@ function addDays(dateStr: string, n: number): string {
   return localDateString(d);
 }
 
-function getWeekStart(dateStr: string): string {
+function getWeekStart(dateStr: string, weekStart: "sun" | "mon" | "sat"): string {
   const d = new Date(dateStr + "T12:00:00");
-  const day = d.getDay();
-  const diff = day === 0 ? -6 : 1 - day;
-  d.setDate(d.getDate() + diff);
+  const day = d.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+  const startDay = weekStart === "sun" ? 0 : weekStart === "mon" ? 1 : 6;
+  let diff = day - startDay;
+  if (diff < 0) diff += 7;
+  d.setDate(d.getDate() - diff);
   return localDateString(d);
 }
 
@@ -54,12 +67,13 @@ export function CalendarWeekView({
   const courses = useCourseStore((s) => s.courses);
   const activities = useActivityStore(useShallow((s) => s.activities));
   const tasks = useTaskStore(useShallow((s) => s.tasks));
+  const weekStartSetting = useSettingsStore((s) => s.weekStart);
 
-  const weekStart = getWeekStart(selectedDate);
-  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  const weekStartDate = getWeekStart(selectedDate, weekStartSetting);
+  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStartDate, i));
 
-  function prevWeek() { onSelectDate(addDays(weekStart, -7)); }
-  function nextWeek() { onSelectDate(addDays(weekStart, 7)); }
+  function prevWeek() { onSelectDate(addDays(weekStartDate, -7)); }
+  function nextWeek() { onSelectDate(addDays(weekStartDate, 7)); }
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
@@ -75,7 +89,7 @@ export function CalendarWeekView({
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card" style={{ fontWeight: "700" }}>
-          {formatWeekRange(weekDays[0], weekDays[6])}
+          {formatWeekRange(weekStartDate, weekDays[6])}
         </ThemedText>
         <TouchableOpacity onPress={nextWeek}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>›</ThemedText>
@@ -86,7 +100,7 @@ export function CalendarWeekView({
       <View style={{ paddingHorizontal: 12, gap: 4 }}>
         {weekDays.map((date, i) => {
           const isToday = date === today;
-          const isWeekend = WEEKEND.includes(i);
+          const isDayWeekend = isWeekend(date);
           const dayActivities = activities.filter((a) => a.dueDate?.slice(0, 10) === date);
 
           // Tasks with their own dueDate on this day (not already shown under a day activity)
@@ -115,22 +129,22 @@ export function CalendarWeekView({
                 alignItems: "center",
                 paddingHorizontal: 10,
                 paddingVertical: 6,
-                backgroundColor: isToday ? tokens.textPrimary : isWeekend ? tokens.background : tokens.surface,
+                backgroundColor: isToday ? tokens.textPrimary : isDayWeekend ? tokens.background : tokens.surface,
               }}>
                 <ThemedText
                   variant="metadata"
                   style={{
                     fontWeight: "700",
-                    color: isToday ? tokens.textInverse : isWeekend ? tokens.textSecondary : tokens.textPrimary,
+                    color: isToday ? tokens.textInverse : isDayWeekend ? tokens.textSecondary : tokens.textPrimary,
                   }}
                 >
-                  {DAY_NAMES_FULL[i]}{isToday ? " · Hoy" : ""}
+                  {getDayName(date)}{isToday ? " · Hoy" : ""}
                 </ThemedText>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
                   <ThemedText
                     variant="metadata"
                     style={{
-                      color: isToday ? tokens.textInverse : isWeekend ? tokens.textSecondary : tokens.textSecondary,
+                      color: isToday ? tokens.textInverse : isDayWeekend ? tokens.textSecondary : tokens.textSecondary,
                       opacity: 0.7,
                     }}
                   >

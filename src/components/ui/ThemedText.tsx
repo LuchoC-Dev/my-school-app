@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { Text, TextStyle, StyleProp } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
 import { FontFamily, FontSize, FontWeight } from "@/theme/typography";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 export type TextVariant = "title" | "card" | "body" | "metadata" | "section-label";
 
@@ -25,10 +26,36 @@ interface ThemedTextProps {
   style?: StyleProp<TextStyle>;
 }
 
+// Maps app font setting to actual font family strings
+const fontFamilyMap = {
+  caveat: { regular: FontFamily.caveatRegular, bold: FontFamily.caveatBold },
+  georgia: { regular: "Georgia", bold: "Georgia" },
+  system: { regular: undefined, bold: undefined },
+} as const;
+
 export function ThemedText({ variant = "body", children, style }: ThemedTextProps) {
   const tokens = useTheme();
+  const fontScale = useSettingsStore((s) => s.fontScale);
+  const fontFamily = useSettingsStore((s) => s.fontFamily);
+  const base = variantStyles[variant];
+
+  const isBoldVariant = variant === "title" || variant === "card" || variant === "section-label";
+  const resolvedFont = isBoldVariant
+    ? fontFamilyMap[fontFamily].bold
+    : fontFamilyMap[fontFamily].regular;
+
+  const scaledSize = base.fontSize != null ? base.fontSize * fontScale : undefined;
+
   return (
-    <Text style={[{ color: tokens.textPrimary }, variantStyles[variant], style]}>
+    <Text
+      style={[
+        { color: tokens.textPrimary },
+        base,
+        scaledSize != null ? { fontSize: scaledSize } : undefined,
+        { fontFamily: resolvedFont },
+        style,
+      ]}
+    >
       {children}
     </Text>
   );

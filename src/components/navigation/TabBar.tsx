@@ -10,6 +10,7 @@ const TABS = [
   { name: "index", label: "Materias", icon: "📚" },
   { name: "activities", label: "Actividades", icon: "✅" },
   { name: "calendar", label: "Calendario", icon: "📅" },
+  { name: "settings", label: "Settings", icon: "⚙️" },
 ];
 
 export function TabBar({ state, navigation }: BottomTabBarProps) {
