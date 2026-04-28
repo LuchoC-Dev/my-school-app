@@ -54,7 +54,7 @@ export default function CourseViewScreen() {
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹</ThemedText>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Materias</ThemedText>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push(`/courses/edit/${id}`)}>
           <ThemedText variant="body">✏️</ThemedText>
         </TouchableOpacity>
       </View>
@@ -178,14 +178,14 @@ export default function CourseViewScreen() {
             title="Sin actividades"
             description="Agregá una actividad, tarea o proyecto para esta materia."
             ctaLabel="+ Agregar"
-            onCta={() => {}}
+            onCta={() => router.push({ pathname: "/activities/create", params: { courseId: id } })}
           />
         )}
       </ScrollView>
 
       {/* FAB */}
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => router.push({ pathname: "/activities/create", params: { courseId: id } })}
         style={{
           position: "absolute",
           bottom: insets.bottom + 16,

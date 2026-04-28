@@ -22,7 +22,7 @@ export default function ActivityCreateScreen() {
   const tokens = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { editId, dueDate: preselectedDueDate } = useLocalSearchParams<{ editId?: string; dueDate?: string }>();
+  const { editId, dueDate: preselectedDueDate, courseId: preselectedCourseId } = useLocalSearchParams<{ editId?: string; dueDate?: string; courseId?: string }>();
   const isEdit = !!editId;
 
   const addActivity = useActivityStore((s) => s.add);
@@ -32,7 +32,7 @@ export default function ActivityCreateScreen() {
 
   const [name, setName] = useState(existing?.name ?? "");
   const [type, setType] = useState<ActivityType>(existing?.type ?? "assignment");
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId);
+  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId ?? preselectedCourseId);
   const [dueDate, setDueDate] = useState(existing?.dueDate ?? preselectedDueDate ?? "");
   const [courseSheetVisible, setCourseSheetVisible] = useState(false);
   const [typeSheetVisible, setTypeSheetVisible] = useState(false);
