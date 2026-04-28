@@ -9,3 +9,5 @@ export { ProgressBar } from "./ProgressBar";
 export { Checkbox } from "./Checkbox";
 export { SearchBar } from "./SearchBar";
 export { BottomSheet } from "./BottomSheet";
+export { DatePickerModal } from "./DatePickerModal";
+export { MaterialSection } from "./MaterialSection";

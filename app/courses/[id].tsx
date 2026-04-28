@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
 import { ThemedText, SectionLabel, Separator, EmptyState, Checkbox } from "@/components/ui";
+import { useShallow } from "zustand/react/shallow";
 import { useCourseStore } from "@/stores/courseStore";
 import { useActivityStore } from "@/stores/activityStore";
 import { useTaskStore } from "@/stores/taskStore";
@@ -16,7 +17,7 @@ export default function CourseViewScreen() {
   const insets = useSafeAreaInsets();
 
   const course = useCourseStore((s) => s.getById(id));
-  const activities = useActivityStore((s) => s.getByCourseId(id));
+  const activities = useActivityStore(useShallow((s) => s.activities.filter((a) => a.courseId === id)));
   const toggleTask = useTaskStore((s) => s.update);
 
   if (!course) {

@@ -1,13 +1,14 @@
 import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
-import { ThemedText, BottomSheet, SectionLabel } from "@/components/ui";
+import { ThemedText, BottomSheet, SectionLabel, DatePickerModal } from "@/components/ui";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
 import { ActivityType, Status } from "@/types/entities";
 import { FontFamily, FontSize } from "@/theme/typography";
+import { formatDate } from "@/utils/dateUtils";
 
 const ACTIVITY_TYPES: { value: ActivityType; label: string }[] = [
   { value: "assignment", label: "Trabajo práctico" },
@@ -21,28 +22,43 @@ export default function ActivityCreateScreen() {
   const tokens = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { editId, dueDate: preselectedDueDate } = useLocalSearchParams<{ editId?: string; dueDate?: string }>();
+  const isEdit = !!editId;
+
   const addActivity = useActivityStore((s) => s.add);
+  const updateActivity = useActivityStore((s) => s.update);
+  const existing = useActivityStore((s) => s.activities.find((a) => a.id === editId));
   const courses = useCourseStore((s) => s.courses);
 
-  const [name, setName] = useState("");
-  const [type, setType] = useState<ActivityType>("assignment");
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>();
-  const [dueDate, setDueDate] = useState("");
+  const [name, setName] = useState(existing?.name ?? "");
+  const [type, setType] = useState<ActivityType>(existing?.type ?? "assignment");
+  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId);
+  const [dueDate, setDueDate] = useState(existing?.dueDate ?? preselectedDueDate ?? "");
   const [courseSheetVisible, setCourseSheetVisible] = useState(false);
   const [typeSheetVisible, setTypeSheetVisible] = useState(false);
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const selectedCourse = courses.find((c) => c.id === selectedCourseId);
-  const canCreate = name.trim().length > 0 && !!selectedCourseId;
+  const canSave = name.trim().length > 0 && !!selectedCourseId;
 
-  async function handleCreate() {
-    if (!canCreate) return;
-    await addActivity({
-      courseId: selectedCourseId!,
-      name: name.trim(),
-      type,
-      status: "pending" as Status,
-      dueDate: dueDate || undefined,
-    });
+  async function handleSave() {
+    if (!canSave) return;
+    if (isEdit && editId) {
+      await updateActivity(editId, {
+        name: name.trim(),
+        type,
+        courseId: selectedCourseId!,
+        dueDate: dueDate || undefined,
+      });
+    } else {
+      await addActivity({
+        courseId: selectedCourseId!,
+        name: name.trim(),
+        type,
+        status: "pending" as Status,
+        dueDate: dueDate || undefined,
+      });
+    }
     router.back();
   }
 
@@ -73,9 +89,11 @@ export default function ActivityCreateScreen() {
         <TouchableOpacity onPress={() => router.back()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card">Nueva actividad</ThemedText>
-        <TouchableOpacity onPress={handleCreate} disabled={!canCreate}>
-          <ThemedText variant="body" style={{ color: canCreate ? tokens.accent : tokens.border }}>Crear</ThemedText>
+        <ThemedText variant="card">{isEdit ? "Editar actividad" : "Nueva actividad"}</ThemedText>
+        <TouchableOpacity onPress={handleSave} disabled={!canSave}>
+          <ThemedText variant="body" style={{ color: canSave ? tokens.accent : tokens.border }}>
+            {isEdit ? "Guardar" : "Crear"}
+          </ThemedText>
         </TouchableOpacity>
       </View>
 
@@ -86,7 +104,7 @@ export default function ActivityCreateScreen() {
           placeholder="Nombre de la actividad..."
           placeholderTextColor={tokens.textSecondary}
           style={[inputStyle, { fontSize: FontSize.card }]}
-          autoFocus
+          autoFocus={!isEdit}
         />
 
         {/* Course selector */}
@@ -135,17 +153,28 @@ export default function ActivityCreateScreen() {
         {/* Due date */}
         <View style={{ gap: 6 }}>
           <SectionLabel>Fecha de entrega (opcional)</SectionLabel>
-          <TextInput
-            value={dueDate}
-            onChangeText={setDueDate}
-            placeholder="YYYY-MM-DD"
-            placeholderTextColor={tokens.textSecondary}
-            style={inputStyle}
-          />
+          <TouchableOpacity
+            onPress={() => setDatePickerVisible(true)}
+            style={{
+              borderWidth: 1.5,
+              borderStyle: dueDate ? "solid" : "dashed",
+              borderColor: dueDate ? tokens.accent : tokens.border,
+              borderRadius: 8,
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              backgroundColor: tokens.surface,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <ThemedText variant="body" style={{ color: dueDate ? tokens.textPrimary : tokens.textSecondary }}>
+              {dueDate ? `📅 ${formatDate(dueDate)}` : "📅 Elegir fecha..."}
+            </ThemedText>
+            <ThemedText variant="body" style={{ color: tokens.textSecondary }}>›</ThemedText>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
-      {/* Course picker */}
       <BottomSheet visible={courseSheetVisible} onClose={() => setCourseSheetVisible(false)}>
         <ThemedText variant="card" style={{ marginBottom: 8 }}>Seleccionar materia</ThemedText>
         {courses.map((c) => (
@@ -161,7 +190,6 @@ export default function ActivityCreateScreen() {
         ))}
       </BottomSheet>
 
-      {/* Type picker */}
       <BottomSheet visible={typeSheetVisible} onClose={() => setTypeSheetVisible(false)}>
         <ThemedText variant="card" style={{ marginBottom: 8 }}>Tipo de actividad</ThemedText>
         {ACTIVITY_TYPES.map((t) => (
@@ -176,6 +204,13 @@ export default function ActivityCreateScreen() {
           </TouchableOpacity>
         ))}
       </BottomSheet>
+
+      <DatePickerModal
+        visible={datePickerVisible}
+        value={dueDate || undefined}
+        onConfirm={(d) => { setDueDate(d); setDatePickerVisible(false); }}
+        onCancel={() => setDatePickerVisible(false)}
+      />
     </View>
   );
 }

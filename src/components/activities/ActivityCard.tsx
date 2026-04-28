@@ -16,7 +16,7 @@ interface ActivityCardProps {
 export function ActivityCard({ activity, course, onPress }: ActivityCardProps) {
   const tokens = useTheme();
   const colors = course ? courseColors[course.color] : null;
-  const tasks = useTaskStore((s) => s.getByActivityId(activity.id));
+  const taskCount = useTaskStore((s) => s.tasks.filter((t) => t.activityId === activity.id).length);
 
   return (
     <TouchableOpacity
@@ -46,7 +46,7 @@ export function ActivityCard({ activity, course, onPress }: ActivityCardProps) {
           </ThemedText>
         )}
         <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-          {tasks.length}/? tasks
+          {taskCount} tasks
         </ThemedText>
         {activity.dueDate && (
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
@@ -55,7 +55,7 @@ export function ActivityCard({ activity, course, onPress }: ActivityCardProps) {
         )}
       </View>
 
-      {tasks.length > 0 && (
+      {taskCount > 0 && (
         <ProgressBar progress={activity.progress} />
       )}
     </TouchableOpacity>

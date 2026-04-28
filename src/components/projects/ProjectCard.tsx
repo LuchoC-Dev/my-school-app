@@ -16,9 +16,8 @@ interface ProjectCardProps {
 export function ProjectCard({ project, course, onPress }: ProjectCardProps) {
   const tokens = useTheme();
   const colors = course ? courseColors[course.color] : null;
-  const activities = useActivityStore((s) => s.getByProjectId(project.id));
-  const pending = activities.filter((a) => a.status !== "completed").length;
-  const completedCount = activities.filter((a) => a.status === "completed").length;
+  const pending = useActivityStore((s) => s.activities.filter((a) => a.projectId === project.id && a.status !== "completed").length);
+  const completedCount = useActivityStore((s) => s.activities.filter((a) => a.projectId === project.id && a.status === "completed").length);
 
   return (
     <TouchableOpacity
@@ -47,9 +46,9 @@ export function ProjectCard({ project, course, onPress }: ProjectCardProps) {
             {course.name}
           </ThemedText>
         )}
-        {activities.length > 0 && (
+        {(pending + completedCount) > 0 && (
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-            {completedCount}/{activities.length} actividades
+            {completedCount}/{pending + completedCount} actividades
           </ThemedText>
         )}
         {project.dueDate && (

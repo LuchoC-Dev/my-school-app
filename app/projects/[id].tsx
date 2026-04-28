@@ -1,14 +1,16 @@
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useShallow } from "zustand/react/shallow";
 import { useTheme } from "@/hooks/useTheme";
-import { ThemedText, SectionLabel, Separator, EmptyState } from "@/components/ui";
+import { ThemedText, SectionLabel, Separator, EmptyState, MaterialSection } from "@/components/ui";
 import { useProjectStore } from "@/stores/projectStore";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
 import { ActivityCard } from "@/components/activities/ActivityCard";
 import { courseColors } from "@/theme/tokens";
 import { formatDate } from "@/utils/dateUtils";
+import { MaterialLink } from "@/types/entities";
 
 export default function ProjectViewScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -17,7 +19,9 @@ export default function ProjectViewScreen() {
   const insets = useSafeAreaInsets();
 
   const project = useProjectStore((s) => s.getById(id));
-  const activities = useActivityStore((s) => s.getByProjectId(id));
+  const updateProject = useProjectStore((s) => s.update);
+  const removeProject = useProjectStore((s) => s.remove);
+  const activities = useActivityStore(useShallow((s) => s.activities.filter((a) => a.projectId === id)));
   const course = useCourseStore((s) => s.courses.find((c) => c.id === project?.courseId));
 
   if (!project) {
@@ -31,6 +35,20 @@ export default function ProjectViewScreen() {
   const colors = course ? courseColors[course.color] : null;
   const pending = activities.filter((a) => a.status !== "completed");
   const completed = activities.filter((a) => a.status === "completed");
+  const links: MaterialLink[] = project.links ?? [];
+
+  async function handleDelete() {
+    await removeProject(id);
+    router.back();
+  }
+
+  async function handleAddLink(link: MaterialLink) {
+    await updateProject(id, { links: [...links, link] });
+  }
+
+  async function handleRemoveLink(index: number) {
+    await updateProject(id, { links: links.filter((_, i) => i !== index) });
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
@@ -46,10 +64,17 @@ export default function ProjectViewScreen() {
           borderBottomColor: tokens.borderLight,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+        <TouchableOpacity onPress={() => router.back()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹ Volver</ThemedText>
         </TouchableOpacity>
-        <TouchableOpacity><ThemedText variant="body">✏️</ThemedText></TouchableOpacity>
+        <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
+          <TouchableOpacity onPress={() => router.push({ pathname: "/projects/create", params: { editId: id } })}>
+            <ThemedText variant="body">✏️</ThemedText>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleDelete}>
+            <ThemedText variant="body" style={{ color: tokens.destructive }}>Eliminar</ThemedText>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={{ padding: 16, gap: 12, paddingBottom: 80 }}>
@@ -101,6 +126,20 @@ export default function ProjectViewScreen() {
             onCta={() => router.push("/activities/create")}
           />
         )}
+
+        <Separator />
+
+        <MaterialSection
+          links={links}
+          onAdd={handleAddLink}
+          onRemove={handleRemoveLink}
+        />
+
+        <Separator />
+
+        <ThemedText variant="metadata" style={{ color: tokens.borderLight }}>
+          Creado {formatDate(project.createdAt)}
+        </ThemedText>
       </ScrollView>
 
       <TouchableOpacity

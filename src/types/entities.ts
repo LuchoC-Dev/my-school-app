@@ -24,6 +24,13 @@ export interface Course {
   updatedAt: string;
 }
 
+export interface MaterialLink {
+  label: string;
+  url: string;
+  type: "link" | "file";
+  mimeType?: string;
+}
+
 export interface Project {
   id: string;
   courseId: string;
@@ -31,6 +38,7 @@ export interface Project {
   description?: string;
   status: Status;
   dueDate?: string;
+  links?: MaterialLink[];
   createdAt: string;
   updatedAt: string;
 }
@@ -44,6 +52,7 @@ export interface Activity {
   status: Status;
   dueDate?: string;
   progress: number; // 0.0 – 1.0, computed from tasks
+  links?: MaterialLink[];
   createdAt: string;
   updatedAt: string;
 }
@@ -54,6 +63,9 @@ export interface Task {
   title: string;
   completed: boolean;
   order: number;
+  dueDate?: string;
+  notes?: string;
+  links?: MaterialLink[];
   createdAt: string;
   updatedAt: string;
 }

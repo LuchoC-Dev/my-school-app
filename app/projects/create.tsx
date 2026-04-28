@@ -1,39 +1,55 @@
 import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
-import { ThemedText, BottomSheet, SectionLabel } from "@/components/ui";
+import { ThemedText, BottomSheet, SectionLabel, DatePickerModal } from "@/components/ui";
 import { useProjectStore } from "@/stores/projectStore";
 import { useCourseStore } from "@/stores/courseStore";
 import { Status } from "@/types/entities";
 import { FontFamily, FontSize } from "@/theme/typography";
+import { formatDate } from "@/utils/dateUtils";
 
 export default function ProjectCreateScreen() {
   const tokens = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { editId } = useLocalSearchParams<{ editId?: string }>();
+  const isEdit = !!editId;
+
   const addProject = useProjectStore((s) => s.add);
+  const updateProject = useProjectStore((s) => s.update);
+  const existing = useProjectStore((s) => s.projects.find((p) => p.id === editId));
   const courses = useCourseStore((s) => s.courses);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>();
-  const [dueDate, setDueDate] = useState("");
+  const [name, setName] = useState(existing?.name ?? "");
+  const [description, setDescription] = useState(existing?.description ?? "");
+  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId);
+  const [dueDate, setDueDate] = useState(existing?.dueDate ?? "");
   const [courseSheetVisible, setCourseSheetVisible] = useState(false);
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
 
   const selectedCourse = courses.find((c) => c.id === selectedCourseId);
-  const canCreate = name.trim().length > 0 && !!selectedCourseId;
+  const canSave = name.trim().length > 0 && !!selectedCourseId;
 
-  async function handleCreate() {
-    if (!canCreate) return;
-    await addProject({
-      courseId: selectedCourseId!,
-      name: name.trim(),
-      description: description.trim() || undefined,
-      status: "pending" as Status,
-      dueDate: dueDate || undefined,
-    });
+  async function handleSave() {
+    if (!canSave) return;
+    if (isEdit && editId) {
+      await updateProject(editId, {
+        name: name.trim(),
+        description: description.trim() || undefined,
+        courseId: selectedCourseId!,
+        dueDate: dueDate || undefined,
+      });
+    } else {
+      await addProject({
+        courseId: selectedCourseId!,
+        name: name.trim(),
+        description: description.trim() || undefined,
+        status: "pending" as Status,
+        dueDate: dueDate || undefined,
+      });
+    }
     router.back();
   }
 
@@ -64,9 +80,11 @@ export default function ProjectCreateScreen() {
         <TouchableOpacity onPress={() => router.back()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card">Nuevo proyecto</ThemedText>
-        <TouchableOpacity onPress={handleCreate} disabled={!canCreate}>
-          <ThemedText variant="body" style={{ color: canCreate ? tokens.accent : tokens.border }}>Crear</ThemedText>
+        <ThemedText variant="card">{isEdit ? "Editar proyecto" : "Nuevo proyecto"}</ThemedText>
+        <TouchableOpacity onPress={handleSave} disabled={!canSave}>
+          <ThemedText variant="body" style={{ color: canSave ? tokens.accent : tokens.border }}>
+            {isEdit ? "Guardar" : "Crear"}
+          </ThemedText>
         </TouchableOpacity>
       </View>
 
@@ -77,7 +95,7 @@ export default function ProjectCreateScreen() {
           placeholder="Nombre del proyecto..."
           placeholderTextColor={tokens.textSecondary}
           style={[inputStyle, { fontSize: FontSize.card }]}
-          autoFocus
+          autoFocus={!isEdit}
         />
 
         <TextInput
@@ -112,13 +130,25 @@ export default function ProjectCreateScreen() {
 
         <View style={{ gap: 6 }}>
           <SectionLabel>Fecha de entrega (opcional)</SectionLabel>
-          <TextInput
-            value={dueDate}
-            onChangeText={setDueDate}
-            placeholder="YYYY-MM-DD"
-            placeholderTextColor={tokens.textSecondary}
-            style={inputStyle}
-          />
+          <TouchableOpacity
+            onPress={() => setDatePickerVisible(true)}
+            style={{
+              borderWidth: 1.5,
+              borderStyle: dueDate ? "solid" : "dashed",
+              borderColor: dueDate ? tokens.accent : tokens.border,
+              borderRadius: 8,
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              backgroundColor: tokens.surface,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <ThemedText variant="body" style={{ color: dueDate ? tokens.textPrimary : tokens.textSecondary }}>
+              {dueDate ? `📅 ${formatDate(dueDate)}` : "📅 Elegir fecha..."}
+            </ThemedText>
+            <ThemedText variant="body" style={{ color: tokens.textSecondary }}>›</ThemedText>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -136,6 +166,13 @@ export default function ProjectCreateScreen() {
           </TouchableOpacity>
         ))}
       </BottomSheet>
+
+      <DatePickerModal
+        visible={datePickerVisible}
+        value={dueDate || undefined}
+        onConfirm={(d) => { setDueDate(d); setDatePickerVisible(false); }}
+        onCancel={() => setDatePickerVisible(false)}
+      />
     </View>
   );
 }
