@@ -11,6 +11,7 @@ export default function TabLayout() {
       <Tabs.Screen name="activities" />
       <Tabs.Screen name="calendar" />
       <Tabs.Screen name="settings" />
+      <Tabs.Screen name="search" options={{ href: null }} />
     </Tabs>
   );
 }
