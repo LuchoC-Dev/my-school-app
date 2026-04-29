@@ -172,10 +172,7 @@ export default function CourseViewScreen() {
       >
         <TouchableOpacity onPress={goBack} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-            ‹
-          </ThemedText>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-            Materias
+            ‹ Volver
           </ThemedText>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push(`/courses/edit/${id}`)}>
