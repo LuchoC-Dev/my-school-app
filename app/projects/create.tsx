@@ -1,21 +1,22 @@
+import { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
-import { ThemedText, BottomSheet, SectionLabel, DatePickerModal } from "@/components/ui";
+import { ThemedText, BottomSheet, Separator, DatePickerModal } from "@/components/ui";
 import { useProjectStore } from "@/stores/projectStore";
 import { useCourseStore } from "@/stores/courseStore";
 import { Status } from "@/types/entities";
 import { FontFamily, FontSize } from "@/theme/typography";
-import { formatDate } from "@/utils/dateUtils";
+import { formatDate, dueDateStatus } from "@/utils/dateUtils";
+import { courseColors } from "@/theme/tokens";
 
 export default function ProjectCreateScreen() {
   const tokens = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { editId } = useLocalSearchParams<{ editId?: string }>();
+  const { editId, courseId: preselectedCourseId } = useLocalSearchParams<{ editId?: string; courseId?: string }>();
   const isEdit = !!editId;
 
   const addProject = useProjectStore((s) => s.add);
@@ -25,14 +26,28 @@ export default function ProjectCreateScreen() {
 
   const [name, setName] = useState(existing?.name ?? "");
   const [description, setDescription] = useState(existing?.description ?? "");
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId);
-  const goBack = useSmartBack(existing?.courseId ? `/courses/${existing.courseId}` : "/(tabs)/");
+  const [descSheetVisible, setDescSheetVisible] = useState(false);
+  const [descEdit, setDescEdit] = useState("");
+  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId ?? preselectedCourseId);
   const [dueDate, setDueDate] = useState(existing?.dueDate ?? "");
   const [courseSheetVisible, setCourseSheetVisible] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
+  const goBack = useSmartBack(
+    preselectedCourseId ? `/courses/${preselectedCourseId}`
+    : existing?.courseId ? `/courses/${existing.courseId}`
+    : "/(tabs)/"
+  );
+
   const selectedCourse = courses.find((c) => c.id === selectedCourseId);
+  const colors = selectedCourse ? courseColors[selectedCourse.color] : null;
   const canSave = name.trim().length > 0 && !!selectedCourseId;
+
+  const dueDateColor = dueDate
+    ? dueDateStatus(dueDate) === "overdue" ? tokens.destructive
+    : dueDateStatus(dueDate) === "today" ? tokens.warning
+    : tokens.textBody
+    : tokens.textSecondary;
 
   async function handleSave() {
     if (!canSave) return;
@@ -55,20 +70,9 @@ export default function ProjectCreateScreen() {
     goBack();
   }
 
-  const inputStyle = {
-    borderWidth: 1.5,
-    borderColor: tokens.border,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    backgroundColor: tokens.surface,
-    color: tokens.textPrimary,
-    fontFamily: FontFamily.caveatRegular,
-    fontSize: FontSize.body,
-  };
-
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
+      {/* Header */}
       <View
         style={{
           paddingTop: insets.top + 8,
@@ -77,6 +81,8 @@ export default function ProjectCreateScreen() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
+          borderBottomWidth: 1,
+          borderBottomColor: tokens.borderLight,
         }}
       >
         <TouchableOpacity onPress={() => goBack()}>
@@ -90,70 +96,71 @@ export default function ProjectCreateScreen() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
+      <ScrollView contentContainerStyle={{ padding: 16, gap: 12, paddingBottom: 40 }} keyboardShouldPersistTaps="handled">
+        {/* Title */}
         <TextInput
           value={name}
           onChangeText={setName}
           placeholder="Nombre del proyecto..."
           placeholderTextColor={tokens.textSecondary}
-          style={[inputStyle, { fontSize: FontSize.card }]}
           autoFocus={!isEdit}
+          style={{
+            color: tokens.textPrimary,
+            fontFamily: FontFamily.caveatBold,
+            fontSize: FontSize.title,
+          }}
         />
 
-        <TextInput
-          value={description}
-          onChangeText={setDescription}
-          placeholder="Descripción (opcional)"
-          placeholderTextColor={tokens.textSecondary}
-          style={[inputStyle, { height: 72, paddingTop: 10, textAlignVertical: "top" }]}
-          multiline
-        />
+        <Separator />
 
-        <View style={{ gap: 6 }}>
-          <SectionLabel>Materia</SectionLabel>
-          <TouchableOpacity
-            onPress={() => setCourseSheetVisible(true)}
-            style={{
-              borderWidth: 1.5,
-              borderStyle: selectedCourseId ? "solid" : "dashed",
-              borderColor: selectedCourseId ? tokens.accent : tokens.border,
-              borderRadius: 999,
-              paddingHorizontal: 12,
-              paddingVertical: 6,
-              alignSelf: "flex-start",
-              backgroundColor: selectedCourseId ? tokens.accentLight : "transparent",
-            }}
-          >
-            <ThemedText variant="metadata" style={{ color: selectedCourseId ? tokens.accent : tokens.textSecondary }}>
-              {selectedCourse ? `🏫 ${selectedCourse.name}` : "🏫 Materia... ›"}
+        {/* Meta row: course (left) — date (right) */}
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          {selectedCourse ? (
+            <ThemedText variant="metadata" style={{ color: colors?.accent ?? tokens.accent, paddingLeft: 4 }}>
+              🏫 {selectedCourse.name}
+            </ThemedText>
+          ) : <View />}
+          <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
+            <ThemedText variant="metadata" style={{ color: dueDateColor }}>
+              {dueDate ? `🗓 ${formatDate(dueDate)}` : "+ Programar entrega"}
             </ThemedText>
           </TouchableOpacity>
         </View>
 
-        <View style={{ gap: 6 }}>
-          <SectionLabel>Fecha de entrega (opcional)</SectionLabel>
-          <TouchableOpacity
-            onPress={() => setDatePickerVisible(true)}
-            style={{
-              borderWidth: 1.5,
-              borderStyle: dueDate ? "solid" : "dashed",
-              borderColor: dueDate ? tokens.accent : tokens.border,
-              borderRadius: 8,
-              paddingHorizontal: 12,
-              paddingVertical: 8,
-              backgroundColor: tokens.surface,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <ThemedText variant="body" style={{ color: dueDate ? tokens.textPrimary : tokens.textSecondary }}>
-              {dueDate ? `📅 ${formatDate(dueDate)}` : "📅 Elegir fecha..."}
+        {/* Course selector chip */}
+        <TouchableOpacity
+          onPress={() => setCourseSheetVisible(true)}
+          style={{
+            borderRadius: 999, paddingHorizontal: 10, paddingVertical: 3, alignSelf: "flex-start",
+            borderWidth: 1,
+            borderColor: selectedCourseId ? tokens.accent : tokens.border,
+            borderStyle: selectedCourseId ? "solid" : "dashed",
+          }}
+        >
+          <ThemedText variant="metadata" style={{ color: selectedCourseId ? tokens.accent : tokens.textSecondary }}>
+            {selectedCourse ? `🏫 ${selectedCourse.name} ›` : "🏫 Seleccionar materia..."}
+          </ThemedText>
+        </TouchableOpacity>
+
+        <Separator />
+
+        {/* Description block */}
+        <TouchableOpacity
+          onPress={() => { setDescEdit(description); setDescSheetVisible(true); }}
+          style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
+        >
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 DESCRIPCIÓN</ThemedText>
+          {description ? (
+            <ThemedText variant="body">{description}</ThemedText>
+          ) : (
+            <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
+              Tocar para agregar descripción...
             </ThemedText>
-            <ThemedText variant="body" style={{ color: tokens.textSecondary }}>›</ThemedText>
-          </TouchableOpacity>
-        </View>
+          )}
+        </TouchableOpacity>
       </ScrollView>
 
+      {/* Course picker */}
       <BottomSheet visible={courseSheetVisible} onClose={() => setCourseSheetVisible(false)}>
         <ThemedText variant="card" style={{ marginBottom: 8 }}>Seleccionar materia</ThemedText>
         {courses.map((c) => (
@@ -167,6 +174,35 @@ export default function ProjectCreateScreen() {
             </ThemedText>
           </TouchableOpacity>
         ))}
+      </BottomSheet>
+
+      {/* Description editor */}
+      <BottomSheet visible={descSheetVisible} onClose={() => setDescSheetVisible(false)}>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>Descripción</ThemedText>
+        <TextInput
+          value={descEdit}
+          onChangeText={setDescEdit}
+          placeholder="Escribe una descripción..."
+          placeholderTextColor={tokens.textSecondary}
+          multiline
+          autoFocus
+          style={{
+            backgroundColor: tokens.surfaceAlt,
+            borderRadius: 8,
+            padding: 12,
+            color: tokens.textPrimary,
+            fontFamily: FontFamily.caveatRegular,
+            fontSize: FontSize.body,
+            minHeight: 100,
+            textAlignVertical: "top",
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => { setDescription(descEdit.trim()); setDescSheetVisible(false); }}
+          style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
+        >
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Listo</ThemedText>
+        </TouchableOpacity>
       </BottomSheet>
 
       <DatePickerModal
