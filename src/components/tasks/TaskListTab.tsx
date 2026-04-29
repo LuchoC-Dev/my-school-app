@@ -5,7 +5,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { useTaskStore } from "@/stores/taskStore";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
-import { SearchBar, EmptyState, SectionLabel, Chip } from "@/components/ui";
+import { SearchBar, EmptyState, SectionLabel, Chip, ChipRow } from "@/components/ui";
 import { TaskRow } from "./TaskRow";
 import { courseColors } from "@/theme/tokens";
 import { formatDate } from "@/utils/dateUtils";
@@ -57,11 +57,7 @@ export function TaskListTab() {
           onGlobalSearch={() => router.push("/search")}
         />
         {/* Course filter chips */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 14, gap: 6 }}
-        >
+        <ChipRow>
           <Chip
             label="Todas"
             active={filterCourseId === null}
@@ -83,7 +79,7 @@ export function TaskListTab() {
               />
             );
           })}
-        </ScrollView>
+        </ChipRow>
       </View>
 
       <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 80 }}>

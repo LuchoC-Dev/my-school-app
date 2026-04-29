@@ -58,13 +58,13 @@ export function CourseCard({ course, pendingCount, completedCount, onPress }: Co
         {pendingCount > 0 && (
           <View
             style={{
-              backgroundColor: tokens.accentLight,
+              backgroundColor: tokens.surfaceAlt,
               borderRadius: 999,
               paddingHorizontal: 8,
               paddingVertical: 2,
             }}
           >
-            <ThemedText variant="metadata" style={{ color: colors.accent }}>
+            <ThemedText variant="metadata" style={{ color: tokens.warning }}>
               {pendingCount} pendiente{pendingCount !== 1 ? "s" : ""}
             </ThemedText>
           </View>
@@ -72,13 +72,13 @@ export function CourseCard({ course, pendingCount, completedCount, onPress }: Co
         {completedCount > 0 && (
           <View
             style={{
-              backgroundColor: "#CCF5E0",
+              backgroundColor: tokens.surfaceAlt,
               borderRadius: 999,
               paddingHorizontal: 8,
               paddingVertical: 2,
             }}
           >
-            <ThemedText variant="metadata" style={{ color: "#3AD97B" }}>
+            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
               {completedCount} completada{completedCount !== 1 ? "s" : ""}
             </ThemedText>
           </View>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -7,8 +8,125 @@ import { useShallow } from "zustand/react/shallow";
 import { useCourseStore } from "@/stores/courseStore";
 import { useActivityStore } from "@/stores/activityStore";
 import { useTaskStore } from "@/stores/taskStore";
-import { courseColors } from "@/theme/tokens";
+import { Activity } from "@/types/entities";
+import { courseColors, ColorTokens } from "@/theme/tokens";
 import { FontFamily, FontSize } from "@/theme/typography";
+
+function ExpandableActivityCard({
+  activity,
+  accentColor,
+  tokens,
+  onNavigate,
+}: {
+  activity: Activity;
+  accentColor: string;
+  tokens: ColorTokens;
+  onNavigate: () => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const tasks = useTaskStore(useShallow((s) => s.tasks.filter((t) => t.activityId === activity.id)));
+  const updateTask = useTaskStore((s) => s.update);
+
+  return (
+    <View
+      style={{
+        backgroundColor: tokens.surface,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: tokens.borderLight,
+        overflow: "hidden",
+      }}
+    >
+      <View style={{ flexDirection: "row" }}>
+        {/* Cuerpo → expande/colapsa */}
+        <TouchableOpacity
+          onPress={() => setExpanded((v) => !v)}
+          activeOpacity={0.7}
+          style={{ flex: 1, padding: 12, gap: 4 }}
+        >
+          <ThemedText variant="body">{activity.name}</ThemedText>
+          {activity.dueDate && (
+            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
+              vence {new Date(activity.dueDate).toLocaleDateString("es-AR", { day: "numeric", month: "short" })}
+            </ThemedText>
+          )}
+          {/* Barra de progreso */}
+          {activity.progress > 0 && (
+            <View style={{ height: 3, backgroundColor: tokens.borderLight, borderRadius: 2, marginTop: 4 }}>
+              <View
+                style={{
+                  height: 3,
+                  width: `${activity.progress * 100}%`,
+                  backgroundColor: accentColor,
+                  borderRadius: 2,
+                }}
+              />
+            </View>
+          )}
+          {/* Chevron expandir */}
+          <View style={{ alignItems: "flex-start", marginTop: 2 }}>
+            <ThemedText style={{ marginLeft: 5, color: tokens.textSecondary, fontSize: 11 }}>
+              {expanded ? "∧" : "∨"}
+            </ThemedText>
+          </View>
+        </TouchableOpacity>
+
+        {/* Flecha derecha → navega a actividad */}
+        <TouchableOpacity
+          onPress={onNavigate}
+          style={{
+            paddingHorizontal: 12,
+            justifyContent: "center",
+            borderLeftWidth: 1,
+            borderLeftColor: tokens.borderLight,
+          }}
+        >
+          <ThemedText style={{ color: tokens.textSecondary, fontSize: 18 }}>›</ThemedText>
+        </TouchableOpacity>
+      </View>
+
+      {/* Tasks expandidas */}
+      {expanded && tasks.length > 0 && (
+        <View style={{ borderTopWidth: 1, borderTopColor: tokens.borderLight }}>
+          {tasks.map((task) => (
+            <TouchableOpacity
+              key={task.id}
+              onPress={() => updateTask(task.id, { completed: !task.completed })}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 10,
+                paddingVertical: 8,
+                paddingHorizontal: 12,
+                borderBottomWidth: 1,
+                borderBottomColor: tokens.borderLight,
+              }}
+            >
+              <Checkbox checked={task.completed} onToggle={() => updateTask(task.id, { completed: !task.completed })} />
+              <ThemedText
+                variant="metadata"
+                style={{
+                  flex: 1,
+                  color: task.completed ? tokens.textSecondary : tokens.textBody,
+                  textDecorationLine: task.completed ? "line-through" : "none",
+                }}
+              >
+                {task.title}
+              </ThemedText>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+      {expanded && tasks.length === 0 && (
+        <View style={{ padding: 10, borderTopWidth: 1, borderTopColor: tokens.borderLight }}>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
+            Sin tasks
+          </ThemedText>
+        </View>
+      )}
+    </View>
+  );
+}
 
 export default function CourseViewScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -51,8 +169,12 @@ export default function CourseViewScreen() {
         }}
       >
         <TouchableOpacity onPress={() => router.back()} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹</ThemedText>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Materias</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
+            ‹
+          </ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
+            Materias
+          </ThemedText>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push(`/courses/edit/${id}`)}>
           <ThemedText variant="body">✏️</ThemedText>
@@ -63,7 +185,8 @@ export default function CourseViewScreen() {
         {/* Course info */}
         <View style={{ gap: 4 }}>
           <ThemedText variant="title">
-            {course.emoji ? `${course.emoji} ` : ""}{course.name}
+            {course.emoji ? `${course.emoji} ` : ""}
+            {course.name}
           </ThemedText>
           {course.professor ? (
             <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
@@ -96,48 +219,13 @@ export default function CourseViewScreen() {
           <View style={{ gap: 8 }}>
             <SectionLabel>⏳ Pendientes · {pending.length}</SectionLabel>
             {pending.map((activity) => (
-              <TouchableOpacity
+              <ExpandableActivityCard
                 key={activity.id}
-                onPress={() => router.push(`/activities/${activity.id}`)}
-                style={{
-                  backgroundColor: tokens.surface,
-                  borderRadius: 10,
-                  borderWidth: 1,
-                  borderColor: tokens.borderLight,
-                  padding: 12,
-                  gap: 4,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                  <ThemedText variant="body" style={{ flex: 1 }}>{activity.name}</ThemedText>
-                  <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>›</ThemedText>
-                </View>
-                {activity.dueDate && (
-                  <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-                    vence {new Date(activity.dueDate).toLocaleDateString("es-AR", { day: "numeric", month: "short" })}
-                  </ThemedText>
-                )}
-                {/* Progress bar inline */}
-                {activity.progress > 0 && (
-                  <View
-                    style={{
-                      height: 3,
-                      backgroundColor: tokens.borderLight,
-                      borderRadius: 2,
-                      marginTop: 4,
-                    }}
-                  >
-                    <View
-                      style={{
-                        height: 3,
-                        width: `${activity.progress * 100}%`,
-                        backgroundColor: colors.accent,
-                        borderRadius: 2,
-                      }}
-                    />
-                  </View>
-                )}
-              </TouchableOpacity>
+                activity={activity}
+                accentColor={colors.accent}
+                tokens={tokens}
+                onNavigate={() => router.push(`/activities/${activity.id}`)}
+              />
             ))}
           </View>
         )}
@@ -160,7 +248,9 @@ export default function CourseViewScreen() {
                   borderBottomColor: tokens.borderLight,
                 }}
               >
-                <ThemedText variant="metadata" style={{ color: colors.accent }}>✓</ThemedText>
+                <ThemedText variant="metadata" style={{ color: colors.accent }}>
+                  ✓
+                </ThemedText>
                 <ThemedText
                   variant="body"
                   style={{ color: tokens.textSecondary, textDecorationLine: "line-through", flex: 1 }}

@@ -6,11 +6,11 @@ export const FontFamily = {
 } as const;
 
 export const FontSize = {
-  title: 19,
-  card: 15,
-  body: 13,
-  metadata: 11,
-  sectionLabel: 10,
+  title: 26,
+  card: 20,
+  body: 17,
+  metadata: 14,
+  sectionLabel: 12,
 } as const;
 
 export const FontWeight = {

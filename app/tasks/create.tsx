@@ -3,12 +3,14 @@ import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
-import { ThemedText, BottomSheet, SectionLabel, DatePickerModal } from "@/components/ui";
+import { ThemedText, Separator, BottomSheet, DatePickerModal, MaterialSection } from "@/components/ui";
 import { useTaskStore } from "@/stores/taskStore";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
+import { courseColors } from "@/theme/tokens";
 import { FontFamily, FontSize } from "@/theme/typography";
 import { formatDate } from "@/utils/dateUtils";
+import { MaterialLink } from "@/types/entities";
 
 export default function TaskCreateScreen() {
   const tokens = useTheme();
@@ -30,12 +32,16 @@ export default function TaskCreateScreen() {
     existing?.activityId ?? preselectedActivityId
   );
   const [activitySheetVisible, setActivitySheetVisible] = useState(false);
+  const [notesSheetVisible, setNotesSheetVisible] = useState(false);
+  const [notesEdit, setNotesEdit] = useState("");
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [links, setLinks] = useState<MaterialLink[]>(existing?.links ?? []);
 
   const selectedActivity = activities.find((a) => a.id === selectedActivityId);
   const selectedCourse = courses.find((c) => c.id === selectedActivity?.courseId);
+  const colors = selectedCourse ? courseColors[selectedCourse.color] : null;
 
-  const canSave = title.trim().length > 0 && !!selectedActivityId;
+  const canSave = title.trim().length > 0;
 
   async function handleSave() {
     if (!canSave) return;
@@ -44,37 +50,27 @@ export default function TaskCreateScreen() {
         title: title.trim(),
         notes: notes.trim() || undefined,
         dueDate: dueDate || undefined,
+        activityId: selectedActivityId,
+        links,
       });
     } else {
-      const existingTasks = useTaskStore
-        .getState()
-        .tasks.filter((t) => t.activityId === selectedActivityId);
+      const existingTasks = useTaskStore.getState().tasks.filter((t) => t.activityId === selectedActivityId);
       await addTask({
-        activityId: selectedActivityId!,
+        activityId: selectedActivityId,
         title: title.trim(),
         completed: false,
         order: existingTasks.length,
         notes: notes.trim() || undefined,
         dueDate: dueDate || undefined,
+        links,
       });
     }
     router.back();
   }
 
-  const inputStyle = {
-    borderWidth: 1.5,
-    borderColor: tokens.border,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    backgroundColor: tokens.surface,
-    color: tokens.textPrimary,
-    fontFamily: FontFamily.caveatRegular,
-    fontSize: FontSize.body,
-  };
-
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
+      {/* Header */}
       <View
         style={{
           paddingTop: insets.top + 8,
@@ -83,7 +79,8 @@ export default function TaskCreateScreen() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: tokens.background,
+          borderBottomWidth: 1,
+          borderBottomColor: tokens.borderLight,
         }}
       >
         <TouchableOpacity onPress={() => router.back()}>
@@ -98,49 +95,76 @@ export default function TaskCreateScreen() {
       </View>
 
       <ScrollView
-        contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: 40 }}
+        contentContainerStyle={{ padding: 16, gap: 12, paddingBottom: 40 }}
         keyboardShouldPersistTaps="handled"
       >
+        {/* Título */}
         <TextInput
           value={title}
           onChangeText={setTitle}
           placeholder="Nombre de la task..."
           placeholderTextColor={tokens.textSecondary}
-          style={[inputStyle, { fontSize: FontSize.card }]}
           autoFocus={!isEdit}
+          style={{
+            color: tokens.textPrimary,
+            fontFamily: FontFamily.caveatBold,
+            fontSize: FontSize.title,
+          }}
         />
 
-        {/* Activity selector */}
+        <Separator />
+
+        {/* Actividad */}
         <View style={{ gap: 6 }}>
-          <SectionLabel>Actividad</SectionLabel>
-          <TouchableOpacity
-            onPress={() => !isEdit && setActivitySheetVisible(true)}
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 8,
-              borderWidth: 1.5,
-              borderStyle: selectedActivityId ? "solid" : "dashed",
-              borderColor: selectedActivityId ? tokens.accent : tokens.border,
-              borderRadius: 999,
-              paddingHorizontal: 12,
-              paddingVertical: 6,
-              alignSelf: "flex-start",
-              backgroundColor: selectedActivityId ? tokens.accentLight : "transparent",
-            }}
-          >
-            <ThemedText
-              variant="metadata"
-              style={{ color: selectedActivityId ? tokens.accent : tokens.textSecondary }}
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            {selectedCourse ? (
+              <ThemedText variant="metadata" style={{ color: colors?.accent ?? tokens.accent, paddingLeft: 4 }}>
+                🏫 {selectedCourse.name}
+              </ThemedText>
+            ) : <View />}
+            <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
+              <ThemedText variant="metadata" style={{ color: dueDate ? tokens.textBody : tokens.textSecondary }}>
+                {dueDate ? `🗓 ${formatDate(dueDate)}` : "+ Programar Tarea"}
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flexDirection: "row", alignItems: "stretch", gap: 8 }}>
+            {selectedActivity && (
+              <TouchableOpacity
+                onPress={() => setActivitySheetVisible(true)}
+                style={{
+                  justifyContent: "center",
+                  paddingHorizontal: 8,
+                  backgroundColor: tokens.surfaceAlt,
+                  borderRadius: 8,
+                }}
+              >
+                <ThemedText style={{ fontSize: 18, color: tokens.textSecondary }}>↻</ThemedText>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              onPress={() => setActivitySheetVisible(true)}
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 8,
+                backgroundColor: tokens.surface,
+                borderRadius: 8,
+                padding: 12,
+                borderLeftWidth: 3,
+                borderLeftColor: colors?.accent ?? tokens.borderLight,
+              }}
             >
-              {selectedActivity ? `📋 ${selectedActivity.name}` : "📋 Actividad... ›"}
-            </ThemedText>
-          </TouchableOpacity>
-          {selectedCourse && (
-            <ThemedText variant="metadata" style={{ color: tokens.textSecondary, paddingLeft: 4 }}>
-              🏫 {selectedCourse.name}
-            </ThemedText>
-          )}
+              <ThemedText variant="body" style={{ flex: 1, color: selectedActivity ? tokens.textPrimary : tokens.textSecondary }}>
+                {selectedActivity ? `📋 ${selectedActivity.name}` : "📋 Seleccionar actividad..."}
+              </ThemedText>
+              <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>›</ThemedText>
+            </TouchableOpacity>
+          </View>
+
           {selectedActivity?.dueDate && (
             <ThemedText variant="metadata" style={{ color: tokens.textSecondary, paddingLeft: 4 }}>
               🗓 Actividad vence {formatDate(selectedActivity.dueDate)}
@@ -148,90 +172,104 @@ export default function TaskCreateScreen() {
           )}
         </View>
 
-        {/* Execution date */}
-        <View style={{ gap: 6 }}>
-          <SectionLabel>¿Cuándo realizarla? (opcional)</SectionLabel>
-          <TouchableOpacity
-            onPress={() => setDatePickerVisible(true)}
-            style={{
-              borderWidth: 1.5,
-              borderStyle: dueDate ? "solid" : "dashed",
-              borderColor: dueDate ? tokens.accent : tokens.border,
-              borderRadius: 8,
-              paddingHorizontal: 12,
-              paddingVertical: 8,
-              backgroundColor: tokens.surface,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <ThemedText variant="body" style={{ color: dueDate ? tokens.textPrimary : tokens.textSecondary }}>
-              {dueDate ? `🗓 ${formatDate(dueDate)}` : "🗓 Elegir fecha..."}
-            </ThemedText>
-            {dueDate ? (
-              <TouchableOpacity onPress={() => setDueDate("")}>
-                <ThemedText variant="body" style={{ color: tokens.textSecondary }}>✕</ThemedText>
-              </TouchableOpacity>
-            ) : (
-              <ThemedText variant="body" style={{ color: tokens.textSecondary }}>›</ThemedText>
-            )}
-          </TouchableOpacity>
-        </View>
+        <Separator />
 
-        {/* Notes */}
-        <View style={{ gap: 6 }}>
-          <SectionLabel>Notas (opcional)</SectionLabel>
-          <TextInput
-            value={notes}
-            onChangeText={setNotes}
-            placeholder="Agregar notas..."
-            placeholderTextColor={tokens.textSecondary}
-            style={[inputStyle, { height: 80, paddingTop: 10, textAlignVertical: "top", borderStyle: "dashed" }]}
-            multiline
-          />
-        </View>
+        {/* Material heredado de la actividad (readonly) */}
+        {(selectedActivity?.links ?? []).length > 0 && (
+          <>
+            <MaterialSection links={selectedActivity!.links!} readonlyLabel="de la actividad" />
+            <Separator />
+          </>
+        )}
+
+        {/* Material propio */}
+        <MaterialSection
+          links={links}
+          onAdd={(link) => setLinks((prev) => [...prev, link])}
+          onRemove={(i) => setLinks((prev) => prev.filter((_, idx) => idx !== i))}
+        />
+
+        <Separator />
+
+        {/* Notas */}
+        <TouchableOpacity
+          onPress={() => { setNotesEdit(notes); setNotesSheetVisible(true); }}
+          style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
+        >
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📓 NOTAS</ThemedText>
+          {notes ? (
+            <ThemedText variant="body">{notes}</ThemedText>
+          ) : (
+            <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
+              Tocar para agregar notas...
+            </ThemedText>
+          )}
+        </TouchableOpacity>
       </ScrollView>
 
+      {/* Activity picker */}
       <BottomSheet visible={activitySheetVisible} onClose={() => setActivitySheetVisible(false)}>
-        <View style={{ gap: 4 }}>
-          <ThemedText variant="card" style={{ marginBottom: 8 }}>Seleccionar actividad</ThemedText>
-          {activities.length === 0 ? (
-            <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-              No hay actividades. Creá una primero.
-            </ThemedText>
-          ) : (
-            activities.map((a) => {
-              const course = courses.find((c) => c.id === a.courseId);
-              return (
-                <TouchableOpacity
-                  key={a.id}
-                  onPress={() => {
-                    setSelectedActivityId(a.id);
-                    setActivitySheetVisible(false);
-                  }}
-                  style={{
-                    paddingVertical: 12,
-                    borderBottomWidth: 1,
-                    borderBottomColor: tokens.borderLight,
-                    gap: 2,
-                  }}
-                >
-                  <ThemedText
-                    variant="body"
-                    style={{ color: selectedActivityId === a.id ? tokens.accent : tokens.textPrimary }}
-                  >
-                    {a.name}
-                  </ThemedText>
-                  {course && (
-                    <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-                      {course.name}
-                    </ThemedText>
-                  )}
-                </TouchableOpacity>
-              );
-            })
-          )}
-        </View>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>Seleccionar actividad</ThemedText>
+        <TouchableOpacity
+          onPress={() => { setSelectedActivityId(undefined); setActivitySheetVisible(false); }}
+          style={{ paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: tokens.borderLight }}
+        >
+          <ThemedText variant="body" style={{ color: !selectedActivityId ? tokens.accent : tokens.textSecondary, fontStyle: "italic" }}>
+            Sin actividad
+          </ThemedText>
+        </TouchableOpacity>
+        {activities.map((a) => {
+            const course = courses.find((c) => c.id === a.courseId);
+            return (
+              <TouchableOpacity
+                key={a.id}
+                onPress={() => { setSelectedActivityId(a.id); setActivitySheetVisible(false); }}
+                style={{ paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: tokens.borderLight, gap: 2 }}
+              >
+                <ThemedText variant="body" style={{ color: selectedActivityId === a.id ? tokens.accent : tokens.textPrimary }}>
+                  {a.name}
+                </ThemedText>
+                {course && (
+                  <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{course.name}</ThemedText>
+                )}
+              </TouchableOpacity>
+            );
+        })}
+      </BottomSheet>
+
+      {/* Notes editor */}
+      <BottomSheet visible={notesSheetVisible} onClose={() => setNotesSheetVisible(false)}>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>Notas</ThemedText>
+        <TextInput
+          value={notesEdit}
+          onChangeText={setNotesEdit}
+          placeholder="Escribe tus notas aquí..."
+          placeholderTextColor={tokens.textSecondary}
+          multiline
+          autoFocus
+          style={{
+            backgroundColor: tokens.surfaceAlt,
+            borderRadius: 8,
+            padding: 12,
+            color: tokens.textPrimary,
+            fontFamily: FontFamily.caveatRegular,
+            fontSize: FontSize.body,
+            minHeight: 120,
+            textAlignVertical: "top",
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => { setNotes(notesEdit.trim()); setNotesSheetVisible(false); }}
+          style={{
+            marginTop: 12,
+            backgroundColor: tokens.textPrimary,
+            borderRadius: 8,
+            paddingVertical: 12,
+            alignItems: "center",
+          }}
+        >
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Listo</ThemedText>
+        </TouchableOpacity>
       </BottomSheet>
 
       <DatePickerModal

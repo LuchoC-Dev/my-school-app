@@ -1,10 +1,10 @@
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text } from "react-native"; // ScrollView usado en lista vertical
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
-import { SearchBar, EmptyState, SectionLabel, Chip } from "@/components/ui";
+import { SearchBar, EmptyState, SectionLabel, Chip, ChipRow } from "@/components/ui";
 import { ActivityCard } from "./ActivityCard";
 import { courseColors } from "@/theme/tokens";
 
@@ -46,11 +46,7 @@ export function ActivityListTab() {
           placeholder="Buscar actividad..."
           onGlobalSearch={() => router.push("/search")}
         />
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 14, gap: 6 }}
-        >
+        <ChipRow>
           <Chip label="Todas" active={filterCourseId === null} onPress={() => setFilterCourseId(null)} />
           {courses.map((c) => {
             const isActive = filterCourseId === c.id;
@@ -65,7 +61,7 @@ export function ActivityListTab() {
               />
             );
           })}
-        </ScrollView>
+        </ChipRow>
       </View>
       <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 80 }}>
         {pending.length > 0 && (

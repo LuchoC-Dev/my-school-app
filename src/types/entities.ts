@@ -59,7 +59,7 @@ export interface Activity {
 
 export interface Task {
   id: string;
-  activityId: string;
+  activityId?: string;
   title: string;
   completed: boolean;
   order: number;

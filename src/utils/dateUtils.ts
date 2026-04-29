@@ -12,6 +12,18 @@ export function now(): string {
   return new Date().toISOString();
 }
 
+/**
+ * Returns "overdue" | "today" | "upcoming" based on a YYYY-MM-DD (or ISO) date string.
+ * Compares date-only (ignores time).
+ */
+export function dueDateStatus(isoString: string): "overdue" | "today" | "upcoming" {
+  const today = localDateString();
+  const dateOnly = isoString.length >= 10 ? isoString.slice(0, 10) : isoString;
+  if (dateOnly < today) return "overdue";
+  if (dateOnly === today) return "today";
+  return "upcoming";
+}
+
 /** Returns local date as YYYY-MM-DD (avoids UTC shift issues) */
 export function localDateString(date: Date = new Date()): string {
   const y = date.getFullYear();

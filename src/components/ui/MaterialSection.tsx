@@ -95,10 +95,14 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
         {!readonly && !addingLink && (
           <View style={{ flexDirection: "row", gap: 12 }}>
             <TouchableOpacity onPress={handlePickFile}>
-              <ThemedText variant="metadata" style={{ color: tokens.accent }}>+ Archivo</ThemedText>
+              <ThemedText variant="metadata" style={{ color: tokens.accent }}>
+                + Archivo
+              </ThemedText>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setAddingLink(true)}>
-              <ThemedText variant="metadata" style={{ color: tokens.accent }}>+ Enlace</ThemedText>
+              <ThemedText variant="metadata" style={{ color: tokens.accent }}>
+                + Enlace
+              </ThemedText>
             </TouchableOpacity>
           </View>
         )}
@@ -135,7 +139,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
             <View style={{ flex: 1 }}>
               <ThemedText
                 variant="body"
-                style={{ color: hasUrl ? tokens.accent : tokens.textPrimary }}
+                style={{ color: hasUrl ? tokens.textBody : tokens.textBody }}
                 numberOfLines={1}
               >
                 {item.label}
@@ -148,7 +152,9 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
             </View>
             {!readonly && onRemove && (
               <TouchableOpacity onPress={() => onRemove(i)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                <ThemedText variant="metadata" style={{ color: tokens.destructive }}>✕</ThemedText>
+                <ThemedText variant="metadata" style={{ color: tokens.destructive }}>
+                  ✕
+                </ThemedText>
               </TouchableOpacity>
             )}
           </TouchableOpacity>
@@ -175,11 +181,22 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
             keyboardType="url"
           />
           <View style={{ flexDirection: "row", gap: 12, justifyContent: "flex-end" }}>
-            <TouchableOpacity onPress={() => { setAddingLink(false); setLabel(""); setUrl(""); }}>
-              <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
+            <TouchableOpacity
+              onPress={() => {
+                setAddingLink(false);
+                setLabel("");
+                setUrl("");
+              }}
+            >
+              <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
+                Cancelar
+              </ThemedText>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleConfirmLink} disabled={!label.trim() && !url.trim()}>
-              <ThemedText variant="metadata" style={{ color: (label.trim() || url.trim()) ? tokens.accent : tokens.border }}>
+              <ThemedText
+                variant="metadata"
+                style={{ color: label.trim() || url.trim() ? tokens.accent : tokens.border }}
+              >
                 Agregar
               </ThemedText>
             </TouchableOpacity>

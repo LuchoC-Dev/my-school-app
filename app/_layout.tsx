@@ -5,7 +5,7 @@ import {
   Caveat_700Bold,
   useFonts,
 } from "@expo-google-fonts/caveat";
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "@/theme/ThemeContext";
 
@@ -20,7 +20,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <StatusBar style="auto" />
-      <Slot />
+      <Stack screenOptions={{ headerShown: false }} />
     </ThemeProvider>
   );
 }

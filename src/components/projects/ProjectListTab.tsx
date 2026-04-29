@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import { useProjectStore } from "@/stores/projectStore";
 import { useCourseStore } from "@/stores/courseStore";
-import { SearchBar, EmptyState, SectionLabel, Chip } from "@/components/ui";
+import { SearchBar, EmptyState, SectionLabel, Chip, ChipRow } from "@/components/ui";
 import { ProjectCard } from "./ProjectCard";
 import { courseColors } from "@/theme/tokens";
 
@@ -46,11 +46,7 @@ export function ProjectListTab() {
           placeholder="Buscar proyecto..."
           onGlobalSearch={() => router.push("/search")}
         />
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 14, gap: 6 }}
-        >
+        <ChipRow>
           <Chip label="Todos" active={filterCourseId === null} onPress={() => setFilterCourseId(null)} />
           {courses.map((c) => {
             const isActive = filterCourseId === c.id;
@@ -65,7 +61,7 @@ export function ProjectListTab() {
               />
             );
           })}
-        </ScrollView>
+        </ChipRow>
       </View>
       <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 80 }}>
         {active.length > 0 && (

@@ -9,6 +9,8 @@ export type ColorTokens = {
   textBody: string;
   textInverse: string;
   destructive: string;
+  warning: string;
+  warningLight: string;
   accent: string;
   accentLight: string;
 };
@@ -24,6 +26,8 @@ export const lightTheme: ColorTokens = {
   textBody: "#4A4035",
   textInverse: "#FFFFFF",
   destructive: "#D94040",
+  warning: "#B45309",
+  warningLight: "#FEF3C7",
   accent: "#D97B3A",
   accentLight: "#F5E0CC",
 };
@@ -39,6 +43,8 @@ export const darkTheme: ColorTokens = {
   textBody: "#C8BBAA",
   textInverse: "#2A2016",
   destructive: "#F07070",
+  warning: "#FBBF24",
+  warningLight: "#3D2E00",
   accent: "#F0975A",
   accentLight: "#3D2A1A",
 };

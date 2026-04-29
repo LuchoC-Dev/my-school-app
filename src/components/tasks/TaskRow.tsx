@@ -14,15 +14,7 @@ interface TaskRowProps {
   onPress: () => void;
 }
 
-export function TaskRow({
-  task,
-  courseLabel,
-  activityLabel,
-  courseColor,
-  dueDate,
-  onToggle,
-  onPress,
-}: TaskRowProps) {
+export function TaskRow({ task, courseLabel, activityLabel, courseColor, dueDate, onToggle, onPress }: TaskRowProps) {
   const tokens = useTheme();
 
   return (
@@ -53,9 +45,7 @@ export function TaskRow({
           justifyContent: "center",
         }}
       >
-        {task.completed && (
-          <ThemedText style={{ color: tokens.textInverse, fontSize: 10 }}>✓</ThemedText>
-        )}
+        {task.completed && <ThemedText style={{ color: tokens.textInverse, fontSize: 10 }}>✓</ThemedText>}
       </TouchableOpacity>
 
       <View style={{ flex: 1, gap: 2 }}>
@@ -64,6 +54,7 @@ export function TaskRow({
           style={{
             color: task.completed ? tokens.textSecondary : tokens.textPrimary,
             textDecorationLine: task.completed ? "line-through" : "none",
+            marginBottom: 4,
           }}
         >
           {task.title}
@@ -78,10 +69,7 @@ export function TaskRow({
                 backgroundColor: courseColor ? `${courseColor}22` : tokens.surfaceAlt,
               }}
             >
-              <ThemedText
-                variant="metadata"
-                style={{ color: courseColor ?? tokens.textSecondary }}
-              >
+              <ThemedText variant="metadata" style={{ color: courseColor ?? tokens.textSecondary }}>
                 {courseLabel}
               </ThemedText>
             </View>

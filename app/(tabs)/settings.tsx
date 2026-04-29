@@ -1,13 +1,15 @@
-import { View, ScrollView, TouchableOpacity, Text, Alert } from "react-native";
+import { useState } from "react";
+import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useTheme } from "@/hooks/useTheme";
 import { AppHeader } from "@/components/navigation/AppHeader";
-import { ThemedText, Separator } from "@/components/ui";
+import { ThemedText, Separator, ConfirmModal } from "@/components/ui";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useCourseStore } from "@/stores/courseStore";
 import { useProjectStore } from "@/stores/projectStore";
 import { useActivityStore } from "@/stores/activityStore";
 import { useTaskStore } from "@/stores/taskStore";
+import { seedData } from "@/utils/seedData";
 
 function SectionLabel({ label }: { label: string }) {
   const tokens = useTheme();
@@ -85,25 +87,19 @@ export default function SettingsScreen() {
   const tokens = useTheme();
   const router = useRouter();
   const { userName, userAvatar } = useSettingsStore();
+  const [confirmStep, setConfirmStep] = useState<1 | 2 | "seed" | null>(null);
 
-  function handleClearData() {
-    Alert.alert(
-      "Borrar todos los datos",
-      "Esta acción es irreversible. Se eliminarán todas las materias, proyectos, actividades y tasks.",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Borrar todo",
-          style: "destructive",
-          onPress: () => {
-            useCourseStore.setState({ courses: [] });
-            useProjectStore.setState({ projects: [] });
-            useActivityStore.setState({ activities: [] });
-            useTaskStore.setState({ tasks: [] });
-          },
-        },
-      ]
-    );
+  function doClearData() {
+    useCourseStore.setState({ courses: [] });
+    useProjectStore.setState({ projects: [] });
+    useActivityStore.setState({ activities: [] });
+    useTaskStore.setState({ tasks: [] });
+    setConfirmStep(null);
+  }
+
+  async function doSeed() {
+    setConfirmStep(null);
+    await seedData();
   }
 
   return (
@@ -179,12 +175,16 @@ export default function SettingsScreen() {
           icon="📤"
           iconBg="#EDF7F0"
           label="Exportar datos"
-          onPress={() =>
-            Alert.alert("Próximamente", "La exportación de datos estará disponible en una próxima versión.")
-          }
+          onPress={() => {}}
+        />
+        <SettingsRow
+          icon="🧪"
+          iconBg="#F0F4FF"
+          label="Cargar datos de prueba"
+          onPress={() => setConfirmStep("seed")}
         />
         <TouchableOpacity
-          onPress={handleClearData}
+          onPress={() => setConfirmStep(1)}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -214,6 +214,7 @@ export default function SettingsScreen() {
         <Separator />
 
         <ThemedText
+
           variant="metadata"
           style={{
             color: tokens.textSecondary,
@@ -224,6 +225,38 @@ export default function SettingsScreen() {
           My School v0.1.0 — MVP
         </ThemedText>
       </ScrollView>
+
+      <ConfirmModal
+        visible={confirmStep === "seed"}
+        title="Cargar datos de prueba"
+        message="Se agregarán 4 materias, actividades, un proyecto y varias tasks de ejemplo."
+        confirmLabel="Cargar"
+        cancelLabel="Cancelar"
+        onCancel={() => setConfirmStep(null)}
+        onConfirm={doSeed}
+      />
+
+      <ConfirmModal
+        visible={confirmStep === 1}
+        title="Borrar todos los datos"
+        message="Esta acción es irreversible. Se eliminarán todas las materias, proyectos, actividades y tasks."
+        confirmLabel="Continuar"
+        cancelLabel="Cancelar"
+        destructive
+        onCancel={() => setConfirmStep(null)}
+        onConfirm={() => setConfirmStep(2)}
+      />
+
+      <ConfirmModal
+        visible={confirmStep === 2}
+        title="¿Estás seguro?"
+        message="No hay forma de recuperar los datos una vez borrados."
+        confirmLabel="Sí, borrar todo"
+        cancelLabel="Cancelar"
+        destructive
+        onCancel={() => setConfirmStep(null)}
+        onConfirm={doClearData}
+      />
     </View>
   );
 }

@@ -26,8 +26,10 @@ export const useTaskStore = create<TaskState>()(
         await taskRepository.create(task);
         set((s) => ({ tasks: [...s.tasks, task] }));
         // recalculate parent activity progress
-        const { useActivityStore } = await import("./activityStore");
-        useActivityStore.getState().recalculateProgress(data.activityId);
+        if (data.activityId) {
+          const { useActivityStore } = await import("./activityStore");
+          useActivityStore.getState().recalculateProgress(data.activityId);
+        }
         return task;
       },
 
@@ -35,8 +37,10 @@ export const useTaskStore = create<TaskState>()(
         const updated = await taskRepository.update(id, patch);
         if (!updated) return;
         set((s) => ({ tasks: s.tasks.map((t) => (t.id === id ? updated : t)) }));
-        const { useActivityStore } = await import("./activityStore");
-        useActivityStore.getState().recalculateProgress(updated.activityId);
+        if (updated.activityId) {
+          const { useActivityStore } = await import("./activityStore");
+          useActivityStore.getState().recalculateProgress(updated.activityId);
+        }
       },
 
       async remove(id) {
