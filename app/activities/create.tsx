@@ -3,6 +3,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, BottomSheet, SectionLabel, DatePickerModal } from "@/components/ui";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
@@ -33,6 +34,7 @@ export default function ActivityCreateScreen() {
   const [name, setName] = useState(existing?.name ?? "");
   const [type, setType] = useState<ActivityType>(existing?.type ?? "assignment");
   const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId ?? preselectedCourseId);
+  const goBack = useSmartBack(preselectedCourseId ? `/courses/${preselectedCourseId}` : "/(tabs)/activities");
   const [dueDate, setDueDate] = useState(existing?.dueDate ?? preselectedDueDate ?? "");
   const [courseSheetVisible, setCourseSheetVisible] = useState(false);
   const [typeSheetVisible, setTypeSheetVisible] = useState(false);
@@ -59,7 +61,7 @@ export default function ActivityCreateScreen() {
         dueDate: dueDate || undefined,
       });
     }
-    router.back();
+    goBack();
   }
 
   const inputStyle = {
@@ -86,7 +88,7 @@ export default function ActivityCreateScreen() {
           justifyContent: "space-between",
         }}
       >
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card">{isEdit ? "Editar actividad" : "Nueva actividad"}</ThemedText>

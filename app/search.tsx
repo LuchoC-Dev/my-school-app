@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, ScrollView, Text } from "react-nativ
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Chip } from "@/components/ui";
 import { useCourseStore } from "@/stores/courseStore";
 import { useProjectStore } from "@/stores/projectStore";
@@ -64,6 +65,7 @@ const TYPE_LABELS: Record<string, string> = {
 export default function SearchScreen() {
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack("/(tabs)/");
   const insets = useSafeAreaInsets();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
@@ -187,7 +189,7 @@ export default function SearchScreen() {
         alignItems: "center",
         gap: 8,
       }}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹ Volver</ThemedText>
         </TouchableOpacity>
 
@@ -219,7 +221,7 @@ export default function SearchScreen() {
           )}
         </View>
 
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
         </TouchableOpacity>
       </View>

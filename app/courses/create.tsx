@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText } from "@/components/ui";
 import { CourseColorPicker } from "@/components/courses/CourseColorPicker";
 import { CourseScheduleRow } from "@/components/courses/CourseScheduleRow";
@@ -22,6 +23,7 @@ const DAYS: WeekDay[] = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
 export default function CourseCreateScreen() {
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack("/(tabs)/");
   const insets = useSafeAreaInsets();
   const addCourse = useCourseStore((s) => s.add);
 
@@ -62,7 +64,7 @@ export default function CourseCreateScreen() {
       color,
       schedules,
     });
-    router.back();
+    goBack();
   }
 
   const inputStyle = {
@@ -91,7 +93,7 @@ export default function CourseCreateScreen() {
           backgroundColor: tokens.background,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
             Cancelar
           </ThemedText>

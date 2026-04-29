@@ -10,6 +10,7 @@ import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
 import { courseColors } from "@/theme/tokens";
 import { formatDate, dueDateStatus } from "@/utils/dateUtils";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { MaterialLink } from "@/types/entities";
 
 export default function TaskViewScreen() {
@@ -30,6 +31,7 @@ export default function TaskViewScreen() {
   const activity = useActivityStore((s) => s.activities.find((a) => a.id === task?.activityId));
   const courses = useCourseStore((s) => s.courses);
   const course = courses.find((c) => c.id === activity?.courseId);
+  const goBack = useSmartBack(activity ? `/activities/${activity.id}` : "/(tabs)/activities");
 
   if (!task) {
     return (
@@ -47,7 +49,7 @@ export default function TaskViewScreen() {
 
   async function handleDelete() {
     await removeTask(task!.id);
-    router.back();
+    goBack();
   }
 
   async function handleAddLink(link: MaterialLink) {
@@ -73,7 +75,7 @@ export default function TaskViewScreen() {
           borderBottomColor: tokens.borderLight,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
             ‹ Volver
           </ThemedText>

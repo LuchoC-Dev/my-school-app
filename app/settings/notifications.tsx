@@ -2,6 +2,7 @@ import { View, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
 import { useSettingsStore } from "@/stores/settingsStore";
 
@@ -38,6 +39,7 @@ function Toggle({ value, onToggle, disabled }: { value: boolean; onToggle: () =>
 export default function NotificationsScreen() {
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack("/(tabs)/settings");
   const insets = useSafeAreaInsets();
   const { notifications, setNotifications } = useSettingsStore();
 
@@ -56,7 +58,7 @@ export default function NotificationsScreen() {
         borderBottomWidth: 1,
         borderBottomColor: tokens.borderLight,
       }}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card" style={{ flex: 1 }}>🔔 Notificaciones</ThemedText>

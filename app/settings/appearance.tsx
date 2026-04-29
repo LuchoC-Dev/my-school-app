@@ -2,6 +2,7 @@ import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
 import { useThemeStore, ThemeMode } from "@/stores/themeStore";
 import { useSettingsStore, AccentColor, AppFontFamily } from "@/stores/settingsStore";
@@ -32,6 +33,7 @@ const FONT_OPTIONS: { value: AppFontFamily; label: string; sub: string }[] = [
 export default function AppearanceScreen() {
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack("/(tabs)/settings");
   const insets = useSafeAreaInsets();
   const { mode, setMode } = useThemeStore();
   const { accentColor, setAccentColor, fontScale, setFontScale, fontFamily, setFontFamily } = useSettingsStore();
@@ -49,7 +51,7 @@ export default function AppearanceScreen() {
         borderBottomWidth: 1,
         borderBottomColor: tokens.borderLight,
       }}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card" style={{ flex: 1 }}>🎨 Apariencia</ThemedText>

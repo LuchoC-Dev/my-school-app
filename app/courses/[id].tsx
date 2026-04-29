@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, SectionLabel, Separator, EmptyState, Checkbox } from "@/components/ui";
 import { useShallow } from "zustand/react/shallow";
 import { useCourseStore } from "@/stores/courseStore";
@@ -132,6 +133,7 @@ export default function CourseViewScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack("/(tabs)/");
   const insets = useSafeAreaInsets();
 
   const course = useCourseStore((s) => s.getById(id));
@@ -168,7 +170,7 @@ export default function CourseViewScreen() {
           borderBottomColor: tokens.borderLight,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+        <TouchableOpacity onPress={goBack} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
             ‹
           </ThemedText>

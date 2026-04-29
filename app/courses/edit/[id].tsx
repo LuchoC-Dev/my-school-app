@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, BottomSheet, SectionLabel } from "@/components/ui";
 import { CourseColorPicker } from "@/components/courses/CourseColorPicker";
 import { CourseScheduleRow } from "@/components/courses/CourseScheduleRow";
@@ -23,6 +24,7 @@ export default function CourseEditScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack(`/courses/${id}` as any);
   const insets = useSafeAreaInsets();
 
   const course = useCourseStore((s) => s.getById(id));
@@ -69,7 +71,7 @@ export default function CourseEditScreen() {
       color,
       schedules,
     });
-    router.back();
+    goBack();
   }
 
   function handleDelete() {
@@ -116,7 +118,7 @@ export default function CourseEditScreen() {
           backgroundColor: tokens.background,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card">Editar materia</ThemedText>

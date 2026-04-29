@@ -10,6 +10,7 @@ import { useCourseStore } from "@/stores/courseStore";
 import { courseColors } from "@/theme/tokens";
 import { FontFamily, FontSize } from "@/theme/typography";
 import { formatDate } from "@/utils/dateUtils";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { MaterialLink } from "@/types/entities";
 
 export default function TaskCreateScreen() {
@@ -31,6 +32,7 @@ export default function TaskCreateScreen() {
   const [selectedActivityId, setSelectedActivityId] = useState<string | undefined>(
     existing?.activityId ?? preselectedActivityId
   );
+  const goBack = useSmartBack(preselectedActivityId ? `/activities/${preselectedActivityId}` : "/(tabs)/activities");
   const [activitySheetVisible, setActivitySheetVisible] = useState(false);
   const [notesSheetVisible, setNotesSheetVisible] = useState(false);
   const [notesEdit, setNotesEdit] = useState("");
@@ -65,7 +67,7 @@ export default function TaskCreateScreen() {
         links,
       });
     }
-    router.back();
+    goBack();
   }
 
   return (
@@ -83,7 +85,7 @@ export default function TaskCreateScreen() {
           borderBottomColor: tokens.borderLight,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card">{isEdit ? "Editar task" : "Nueva task"}</ThemedText>

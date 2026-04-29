@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useShallow } from "zustand/react/shallow";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, SectionLabel, Separator, EmptyState, ProgressBar, BottomSheet, MaterialSection } from "@/components/ui";
 import { useActivityStore } from "@/stores/activityStore";
 import { useTaskStore } from "@/stores/taskStore";
@@ -35,6 +36,7 @@ export default function ActivityViewScreen() {
   const updateTask = useTaskStore((s) => s.update);
   const course = useCourseStore((s) => s.courses.find((c) => c.id === activity?.courseId));
   const courseId = activity?.courseId ?? "";
+  const goBack = useSmartBack(courseId ? `/courses/${courseId}` : "/(tabs)/activities");
   const projects = useProjectStore(useShallow((s) => s.projects.filter((p) => p.courseId === courseId)));
   const currentProject = useProjectStore((s) => s.projects.find((p) => p.id === activity?.projectId));
 
@@ -58,7 +60,7 @@ export default function ActivityViewScreen() {
 
   async function handleDelete() {
     await removeActivity(id);
-    router.back();
+    goBack();
   }
 
   async function handleAddLink(link: MaterialLink) {
@@ -89,7 +91,7 @@ export default function ActivityViewScreen() {
           borderBottomColor: tokens.borderLight,
         }}
       >
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹ Volver</ThemedText>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>

@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, Text, TextInput, Modal } from "reac
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { FontFamily, FontSize } from "@/theme/typography";
@@ -12,6 +13,7 @@ const AVATARS = ["🧑", "👩", "👨", "🧑‍💻", "👩‍💻", "👨‍�
 export default function AccountScreen() {
   const tokens = useTheme();
   const router = useRouter();
+  const goBack = useSmartBack("/(tabs)/settings");
   const insets = useSafeAreaInsets();
   const { userName, userAvatar, setUserName, setUserAvatar } = useSettingsStore();
 
@@ -39,7 +41,7 @@ export default function AccountScreen() {
         borderBottomWidth: 1,
         borderBottomColor: tokens.borderLight,
       }}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
         <ThemedText variant="card" style={{ flex: 1 }}>👤 Cuenta</ThemedText>
