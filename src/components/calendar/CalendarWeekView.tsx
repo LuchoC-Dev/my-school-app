@@ -1,4 +1,5 @@
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
@@ -9,6 +10,7 @@ import { ThemedText } from "@/components/ui";
 import { useRouter } from "expo-router";
 import { localDateString } from "@/utils/dateUtils";
 import { useSettingsStore } from "@/stores/settingsStore";
+import { FontSize } from "@/theme/typography";
 
 const DAY_NAMES_BY_JS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const WEEKEND_JS = [0, 6]; // JS getDay() values: 0=Dom, 6=Sáb
@@ -68,6 +70,16 @@ export function CalendarWeekView({
   const activities = useActivityStore(useShallow((s) => s.activities));
   const tasks = useTaskStore(useShallow((s) => s.tasks));
   const weekStartSetting = useSettingsStore((s) => s.weekStart);
+
+  const [expandedActivities, setExpandedActivities] = useState<Set<string>>(new Set());
+
+  function toggleActivity(actId: string) {
+    setExpandedActivities((prev) => {
+      const next = new Set(prev);
+      next.has(actId) ? next.delete(actId) : next.add(actId);
+      return next;
+    });
+  }
 
   const weekStartDate = getWeekStart(selectedDate, weekStartSetting);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStartDate, i));
@@ -152,16 +164,25 @@ export function CalendarWeekView({
                   </ThemedText>
                   <TouchableOpacity
                     onPress={() => router.push({ pathname: "/activities/create", params: { dueDate: date } })}
+                    style={{
+                      width: 26, height: 26, borderRadius: 13,
+                      borderWidth: 1.5,
+                      borderColor: isToday ? tokens.textInverse : tokens.border,
+                      alignItems: "center", justifyContent: "center",
+                      opacity: 0.7,
+                    }}
                   >
-                    <ThemedText
+                    <Text
                       style={{
-                        fontSize: 16,
-                        opacity: 0.5,
+                        fontSize: 18,
+                        lineHeight: 20,
+                        includeFontPadding: false,
+                        fontFamily: "System",
                         color: isToday ? tokens.textInverse : tokens.textPrimary,
                       }}
                     >
                       +
-                    </ThemedText>
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -183,18 +204,21 @@ export function CalendarWeekView({
                     const accentColor = colors?.accent ?? tokens.accent;
                     const actTasks = tasks.filter((t) => t.activityId === activity.id);
 
+                    const isExpanded = expandedActivities.has(activity.id);
+                    const completedCount = actTasks.filter((t) => t.completed).length;
+
                     return (
                       <View key={activity.id}>
                         {/* Activity row */}
                         <TouchableOpacity
                           onPress={() => router.push(`/activities/${activity.id}`)}
-                          style={{ flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 10, paddingVertical: 4 }}
+                          style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 10, paddingVertical: 6, borderTopWidth: 1, borderTopColor: tokens.borderLight }}
                         >
                           {/* Circular checkbox */}
                           <TouchableOpacity
                             onPress={() => {}}
                             style={{
-                              width: 14, height: 14, borderRadius: 7, flexShrink: 0,
+                              width: 18, height: 18, borderRadius: 9, flexShrink: 0,
                               borderWidth: 1.5, borderColor: accentColor,
                               backgroundColor: activity.status === "completed" ? accentColor : "transparent",
                               alignItems: "center", justifyContent: "center",
@@ -204,39 +228,55 @@ export function CalendarWeekView({
                               <ThemedText style={{ color: tokens.textInverse, fontSize: 8, lineHeight: 10 }}>✓</ThemedText>
                             )}
                           </TouchableOpacity>
-                          <ThemedText
-                            variant="metadata"
-                            style={{
-                              flex: 1, fontSize: 11,
-                              textDecorationLine: activity.status === "completed" ? "line-through" : "none",
-                              color: activity.status === "completed" ? tokens.textSecondary : tokens.textPrimary,
-                            }}
-                            numberOfLines={1}
-                          >
-                            {activity.name}
-                          </ThemedText>
+                          <View style={{ flex: 1, gap: 1 }}>
+                            <ThemedText
+                              variant="body"
+                              style={{
+                                textDecorationLine: activity.status === "completed" ? "line-through" : "none",
+                                color: activity.status === "completed" ? tokens.textSecondary : tokens.textPrimary,
+                              }}
+                              numberOfLines={1}
+                            >
+                              {activity.name}
+                            </ThemedText>
+                            {actTasks.length > 0 && !isExpanded && (
+                              <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
+                                {completedCount}/{actTasks.length} tasks
+                              </ThemedText>
+                            )}
+                          </View>
                           {course && (
                             <View style={{
                               borderWidth: 1, borderColor: accentColor, borderRadius: 999,
-                              paddingHorizontal: 5, paddingVertical: 1,
+                              paddingHorizontal: 6, paddingVertical: 2,
                             }}>
-                              <ThemedText style={{ fontSize: 9, color: accentColor }}>
-                                {course.name.length > 6 ? course.name.slice(0, 6) + "…" : course.name}
+                              <ThemedText style={{ fontSize: FontSize.metadata, color: accentColor }}>
+                                {course.name.length > 8 ? course.name.slice(0, 8) + "…" : course.name}
                               </ThemedText>
                             </View>
                           )}
+                          {actTasks.length > 0 && (
+                            <TouchableOpacity
+                              onPress={(e) => { e.stopPropagation?.(); toggleActivity(activity.id); }}
+                              style={{ width: 30, height: 30, borderRadius: 15, borderWidth: 1.5, borderColor: tokens.border, alignItems: "center", justifyContent: "center" }}
+                            >
+                              <Text style={{ fontSize: 14, includeFontPadding: false, fontFamily: "System", color: tokens.textSecondary }}>
+                                {isExpanded ? "▲" : "▼"}
+                              </Text>
+                            </TouchableOpacity>
+                          )}
                         </TouchableOpacity>
 
-                        {/* Task rows (children of this activity) */}
-                        {actTasks.map((task) => (
+                        {/* Task rows — only when expanded */}
+                        {isExpanded && actTasks.map((task) => (
                           <TouchableOpacity
                             key={task.id}
                             onPress={() => router.push(`/tasks/${task.id}`)}
-                            style={{ flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 10, paddingVertical: 3, paddingLeft: 20 }}
+                            style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 10, paddingVertical: 5, paddingLeft: 24 }}
                           >
                             {/* Square checkbox */}
                             <View style={{
-                              width: 14, height: 14, borderRadius: 3, flexShrink: 0,
+                              width: 18, height: 18, borderRadius: 4, flexShrink: 0,
                               borderWidth: 1.5, borderColor: accentColor,
                               backgroundColor: task.completed ? accentColor : "transparent",
                               alignItems: "center", justifyContent: "center",
@@ -247,12 +287,12 @@ export function CalendarWeekView({
                             </View>
                             <ThemedText
                               variant="metadata"
-                              style={{ flex: 1, fontSize: 11, color: tokens.textSecondary }}
+                              style={{ flex: 1, color: tokens.textSecondary }}
                               numberOfLines={1}
                             >
                               ↳ {task.title}
                             </ThemedText>
-                            <ThemedText style={{ fontSize: 9, color: tokens.borderLight }}>task</ThemedText>
+                            <ThemedText style={{ fontSize: FontSize.metadata, color: tokens.borderLight }}>task</ThemedText>
                           </TouchableOpacity>
                         ))}
                       </View>
@@ -267,10 +307,10 @@ export function CalendarWeekView({
                       <TouchableOpacity
                         key={task.id}
                         onPress={() => router.push(`/tasks/${task.id}`)}
-                        style={{ flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 10, paddingVertical: 4 }}
+                        style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 10, paddingVertical: 6, borderTopWidth: 1, borderTopColor: tokens.borderLight }}
                       >
                         <View style={{
-                          width: 14, height: 14, borderRadius: 3, flexShrink: 0,
+                          width: 18, height: 18, borderRadius: 4, flexShrink: 0,
                           borderWidth: 1.5, borderColor: accentColor,
                           backgroundColor: task.completed ? accentColor : "transparent",
                           alignItems: "center", justifyContent: "center",
@@ -280,13 +320,13 @@ export function CalendarWeekView({
                           )}
                         </View>
                         <ThemedText
-                          variant="metadata"
-                          style={{ flex: 1, fontSize: 11, color: tokens.textPrimary }}
+                          variant="body"
+                          style={{ flex: 1, color: tokens.textPrimary }}
                           numberOfLines={1}
                         >
                           {task.title}
                         </ThemedText>
-                        <ThemedText style={{ fontSize: 9, color: tokens.borderLight }}>task</ThemedText>
+                        <ThemedText style={{ fontSize: FontSize.metadata, color: tokens.borderLight }}>task</ThemedText>
                       </TouchableOpacity>
                     );
                   })}
