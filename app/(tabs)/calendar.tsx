@@ -52,7 +52,11 @@ export default function CalendarScreen() {
         <CalendarWeekView selectedDate={selectedDate} onSelectDate={setSelectedDate} />
       )}
       {viewType === "month" && (
-        <CalendarMonthView selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+        <CalendarMonthView
+          selectedDate={selectedDate}
+          onSelectDate={setSelectedDate}
+          onSwitchToDay={(d) => { setSelectedDate(d); setViewType("day"); }}
+        />
       )}
     </View>
   );

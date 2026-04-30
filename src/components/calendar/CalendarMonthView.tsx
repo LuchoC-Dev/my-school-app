@@ -12,7 +12,7 @@ import { formatDate, localDateString } from "@/utils/dateUtils";
 
 type MarkedDates = Record<string, { dots: { key: string; color: string }[]; selected?: boolean; selectedColor?: string }>;
 
-export function CalendarMonthView({ selectedDate, onSelectDate }: { selectedDate: string; onSelectDate: (d: string) => void }) {
+export function CalendarMonthView({ selectedDate, onSelectDate, onSwitchToDay }: { selectedDate: string; onSelectDate: (d: string) => void; onSwitchToDay?: (d: string) => void }) {
   const tokens = useTheme();
   const router = useRouter();
   const today = localDateString();
@@ -146,32 +146,46 @@ export function CalendarMonthView({ selectedDate, onSelectDate }: { selectedDate
           </ThemedText>
         ) : (
           <>
-            <ThemedText variant="metadata" style={{ color: tokens.textSecondary, marginBottom: 4 }}>
-              {formatDate(selectedDate)} · {itemsForDate.length} {itemsForDate.length === 1 ? "vencimiento" : "vencimientos"}
-            </ThemedText>
-            {itemsForDate.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => router.push(`/${item.type === "activity" ? "activities" : item.type === "project" ? "projects" : "tasks"}/${item.id}`)}
-                style={{
-                  borderRadius: 10,
-                  borderLeftWidth: 4,
-                  borderLeftColor: item.courseAccent,
-                  backgroundColor: tokens.surface,
-                  padding: 12,
-                  gap: 4,
-                }}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                  <Text style={{ fontSize: 14 }}>{item.type === "activity" ? "📝" : item.type === "project" ? "📁" : "☑️"}</Text>
-                  <ThemedText variant="body" style={{ flex: 1 }}>{item.name}</ThemedText>
-                  {item.status === "completed" && <Text style={{ fontSize: 12 }}>✅</Text>}
-                </View>
-                <ThemedText variant="metadata" style={{ color: item.courseAccent }}>
-                  🏫 {item.courseName}
-                </ThemedText>
-              </TouchableOpacity>
-            ))}
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
+              <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
+                {formatDate(selectedDate)} · {itemsForDate.length} {itemsForDate.length === 1 ? "vencimiento" : "vencimientos"}
+              </ThemedText>
+              {onSwitchToDay && (
+                <TouchableOpacity onPress={() => onSwitchToDay(selectedDate)}>
+                  <ThemedText variant="metadata" style={{ color: tokens.accent }}>Ver día ›</ThemedText>
+                </TouchableOpacity>
+              )}
+            </View>
+            {itemsForDate.map((item) => {
+              const typeLabel = item.type === "activity" ? "Actividad" : item.type === "project" ? "Proyecto" : "Task";
+              const typeBg = tokens.surfaceAlt;
+              const typeColor = tokens.textSecondary;
+              return (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => router.push(`/${item.type === "activity" ? "activities" : item.type === "project" ? "projects" : "tasks"}/${item.id}`)}
+                  style={{
+                    borderRadius: 10,
+                    borderLeftWidth: 4,
+                    borderLeftColor: item.courseAccent,
+                    backgroundColor: tokens.surface,
+                    padding: 12,
+                    gap: 4,
+                  }}
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                    <View style={{ borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2, backgroundColor: typeBg }}>
+                      <ThemedText variant="metadata" style={{ color: typeColor }}>{typeLabel}</ThemedText>
+                    </View>
+                    <ThemedText variant="body" style={{ flex: 1, textDecorationLine: item.status === "completed" ? "line-through" : "none", color: item.status === "completed" ? tokens.textSecondary : tokens.textPrimary }}>{item.name}</ThemedText>
+                    {item.status === "completed" && <Text style={{ fontSize: 12 }}>✅</Text>}
+                  </View>
+                  <ThemedText variant="metadata" style={{ color: item.courseAccent }}>
+                    🏫 {item.courseName}
+                  </ThemedText>
+                </TouchableOpacity>
+              );
+            })}
           </>
         )}
       </ScrollView>
