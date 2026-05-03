@@ -23,8 +23,8 @@ export function EmptyState({
 }: EmptyStateProps) {
   const tokens = useTheme();
   return (
-    <View className="flex-1 items-center justify-center px-8 gap-4">
-      <View className="items-center mb-2">{icon}</View>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 32, gap: 16 }}>
+      <View style={{ alignItems: "center", marginBottom: 8 }}>{icon}</View>
       <ThemedText variant="card" style={{ textAlign: "center" }}>
         {title}
       </ThemedText>

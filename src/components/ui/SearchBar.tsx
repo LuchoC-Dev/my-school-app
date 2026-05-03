@@ -18,7 +18,7 @@ export function SearchBar({
 }: SearchBarProps) {
   const tokens = useTheme();
   return (
-    <View className="flex-row items-center gap-2 px-3.5">
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14 }}>
       <TextInput
         value={value}
         onChangeText={onChangeText}

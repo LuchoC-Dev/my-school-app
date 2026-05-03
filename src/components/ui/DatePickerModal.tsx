@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, Modal } from "react-native";
-import { Calendar } from "react-native-calendars";
+import { CustomCalendar } from "./CustomCalendar";
 import { useTheme } from "@/hooks/useTheme";
 import { ThemedText } from "./ThemedText";
 import { localDateString } from "@/utils/dateUtils";
@@ -24,7 +24,7 @@ export function DatePickerModal({ visible, value, onConfirm, onCancel }: DatePic
       >
         <TouchableOpacity activeOpacity={1}>
           <View style={{ backgroundColor: tokens.surface, borderRadius: 16, overflow: "hidden" }}>
-            <Calendar
+            <CustomCalendar
               current={value ?? today}
               markedDates={value ? { [value]: { selected: true, selectedColor: tokens.accent } } : {}}
               onDayPress={(day) => onConfirm(day.dateString)}

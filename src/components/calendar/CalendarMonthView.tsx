@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Calendar, DateData } from "react-native-calendars";
+import { CustomCalendar } from "@/components/ui/CustomCalendar";
+type DateData = { dateString: string };
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
 import { useProjectStore } from "@/stores/projectStore";
@@ -111,9 +112,8 @@ export function CalendarMonthView({ selectedDate, onSelectDate, onSwitchToDay }:
 
   return (
     <View style={{ flex: 1 }}>
-      <Calendar
+      <CustomCalendar
         current={today}
-        markingType="multi-dot"
         markedDates={finalMarked}
         onDayPress={(day: DateData) => onSelectDate(day.dateString)}
         theme={{

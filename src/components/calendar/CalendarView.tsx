@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Calendar, DateData } from "react-native-calendars";
+import { CustomCalendar } from "@/components/ui/CustomCalendar";
+type DateData = { dateString: string };
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
 import { useProjectStore } from "@/stores/projectStore";
@@ -103,8 +104,7 @@ export function CalendarView({ selectedDate, onSelectDate }: { selectedDate: str
 
   return (
     <View style={{ flex: 1 }}>
-      <Calendar
-        markingType="multi-dot"
+      <CustomCalendar
         markedDates={finalMarked}
         onDayPress={(day: DateData) => onSelectDate(day.dateString)}
         theme={{
@@ -130,6 +130,7 @@ export function CalendarView({ selectedDate, onSelectDate }: { selectedDate: str
           textDayHeaderFontSize: 12,
         }}
       />
+
 
       <Separator />
 
