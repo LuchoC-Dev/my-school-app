@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Alert,
   Text,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTheme } from "@/hooks/useTheme";
@@ -129,6 +131,11 @@ export default function CourseEditScreen() {
         </TouchableOpacity>
       </View>
 
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={0}
+      >
       <ScrollView
         contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
         keyboardShouldPersistTaps="handled"
@@ -242,6 +249,7 @@ export default function CourseEditScreen() {
           <ThemedText variant="body" style={{ color: tokens.destructive }}>Eliminar materia</ThemedText>
         </TouchableOpacity>
       </ScrollView>
+      </KeyboardAvoidingView>
 
       {/* Day picker bottom sheet */}
       <BottomSheet visible={daySheetVisible} onClose={() => setDaySheetVisible(false)}>

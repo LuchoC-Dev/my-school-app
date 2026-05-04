@@ -5,6 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useTheme } from "@/hooks/useTheme";
@@ -109,6 +111,11 @@ export default function CourseCreateScreen() {
         </TouchableOpacity>
       </View>
 
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={0}
+      >
       <ScrollView
         contentContainerStyle={{ padding: 16, gap: 16, paddingBottom: 40 }}
         keyboardShouldPersistTaps="handled"
@@ -213,6 +220,7 @@ export default function CourseCreateScreen() {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
 
       {/* Day picker bottom sheet */}
       <BottomSheet visible={daySheetVisible} onClose={() => setDaySheetVisible(false)}>
