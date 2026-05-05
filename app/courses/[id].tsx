@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, SectionLabel, Separator, EmptyState, Checkbox } from "@/components/ui";
@@ -24,6 +25,7 @@ function ExpandableActivityCard({
   tokens: ColorTokens;
   onNavigate: () => void;
 }) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const tasks = useTaskStore(useShallow((s) => s.tasks.filter((t) => t.activityId === activity.id)));
   const updateTask = useTaskStore((s) => s.update);
@@ -121,7 +123,7 @@ function ExpandableActivityCard({
       {expanded && tasks.length === 0 && (
         <View style={{ padding: 10, borderTopWidth: 1, borderTopColor: tokens.borderLight }}>
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
-            Sin tasks
+            {t("courses.noTasks")}
           </ThemedText>
         </View>
       )}
@@ -130,6 +132,7 @@ function ExpandableActivityCard({
 }
 
 export default function CourseViewScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
@@ -144,7 +147,7 @@ export default function CourseViewScreen() {
     return (
       <View style={{ flex: 1, backgroundColor: tokens.background, alignItems: "center", justifyContent: "center" }}>
         <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-          Materia no encontrada
+          {t("courses.notFound")}
         </ThemedText>
       </View>
     );
@@ -172,7 +175,7 @@ export default function CourseViewScreen() {
       >
         <TouchableOpacity onPress={goBack} style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-            ‹ Volver
+            {t("common.back")}
           </ThemedText>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push(`/courses/edit/${id}`)}>
@@ -201,7 +204,7 @@ export default function CourseViewScreen() {
           {/* Schedules */}
           {course.schedules.length > 0 && (
             <View style={{ marginTop: 4, gap: 2 }}>
-              <SectionLabel>Horarios</SectionLabel>
+              <SectionLabel>{t("courses.schedulesSectionLabel")}</SectionLabel>
               {course.schedules.map((s, i) => (
                 <ThemedText key={i} variant="metadata" style={{ color: tokens.textSecondary }}>
                   {s.day} {s.from}–{s.to}
@@ -216,7 +219,7 @@ export default function CourseViewScreen() {
         {/* Pending activities */}
         {pending.length > 0 && (
           <View style={{ gap: 8 }}>
-            <SectionLabel>⏳ Pendientes · {pending.length}</SectionLabel>
+            <SectionLabel>{t("courses.pending", { count: pending.length })}</SectionLabel>
             {pending.map((activity) => (
               <ExpandableActivityCard
                 key={activity.id}
@@ -232,7 +235,7 @@ export default function CourseViewScreen() {
         {/* Completed activities */}
         {completed.length > 0 && (
           <View style={{ gap: 8 }}>
-            <SectionLabel>✅ Completadas · {completed.length}</SectionLabel>
+            <SectionLabel>{t("courses.completed", { count: completed.length })}</SectionLabel>
             {completed.map((activity) => (
               <TouchableOpacity
                 key={activity.id}
@@ -264,9 +267,9 @@ export default function CourseViewScreen() {
         {activities.length === 0 && (
           <EmptyState
             icon={<Text style={{ fontSize: 32 }}>📋</Text>}
-            title="Sin actividades"
-            description="Agregá una actividad, tarea o proyecto para esta materia."
-            ctaLabel="+ Agregar"
+            title={t("courses.noActivities")}
+            description={t("courses.noActivitiesDesc")}
+            ctaLabel={t("courses.addActivity")}
             onCta={() => router.push({ pathname: "/activities/create", params: { courseId: id } })}
           />
         )}

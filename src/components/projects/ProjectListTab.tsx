@@ -1,6 +1,7 @@
 import { View, ScrollView, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useProjectStore } from "@/stores/projectStore";
 import { useCourseStore } from "@/stores/courseStore";
@@ -9,6 +10,7 @@ import { ProjectCard } from "./ProjectCard";
 import { courseColors } from "@/theme/tokens";
 
 export function ProjectListTab() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const projects = useProjectStore((s) => s.projects);
@@ -47,7 +49,7 @@ export function ProjectListTab() {
           onGlobalSearch={() => router.push("/search")}
         />
         <ChipRow>
-          <Chip label="Todos" active={filterCourseId === null} onPress={() => setFilterCourseId(null)} />
+          <Chip label={t("common.all")} active={filterCourseId === null} onPress={() => setFilterCourseId(null)} />
           {courses.map((c) => {
             const isActive = filterCourseId === c.id;
             const accent = courseColors[c.color].accent;
@@ -57,7 +59,10 @@ export function ProjectListTab() {
                 label={c.name}
                 active={isActive}
                 onPress={() => setFilterCourseId(isActive ? null : c.id)}
-                style={{ borderColor: isActive ? accent : tokens.border, backgroundColor: isActive ? `${accent}22` : "transparent" }}
+                style={{
+                  borderColor: isActive ? accent : tokens.border,
+                  backgroundColor: isActive ? `${accent}22` : "transparent",
+                }}
               />
             );
           })}

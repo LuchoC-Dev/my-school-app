@@ -1,4 +1,5 @@
 import "../global.css";
+import "@/i18n";
 
 import {
   Caveat_400Regular,

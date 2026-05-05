@@ -1,6 +1,7 @@
 import { View, ScrollView, Text } from "react-native"; // ScrollView usado en lista vertical
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
@@ -9,6 +10,7 @@ import { ActivityCard } from "./ActivityCard";
 import { courseColors } from "@/theme/tokens";
 
 export function ActivityListTab() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const activities = useActivityStore((s) => s.activities);
@@ -47,7 +49,7 @@ export function ActivityListTab() {
           onGlobalSearch={() => router.push("/search")}
         />
         <ChipRow>
-          <Chip label="Todas" active={filterCourseId === null} onPress={() => setFilterCourseId(null)} />
+          <Chip label={t("common.all")} active={filterCourseId === null} onPress={() => setFilterCourseId(null)} />
           {courses.map((c) => {
             const isActive = filterCourseId === c.id;
             const accent = courseColors[c.color].accent;

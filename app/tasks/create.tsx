@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { ThemedText, Separator, BottomSheet, DatePickerModal, MaterialSection } from "@/components/ui";
 import { useTaskStore } from "@/stores/taskStore";
@@ -14,6 +15,7 @@ import { useSmartBack } from "@/hooks/useSmartBack";
 import { MaterialLink } from "@/types/entities";
 
 export default function TaskCreateScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -86,12 +88,12 @@ export default function TaskCreateScreen() {
         }}
       >
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("common.cancel")}</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card">{isEdit ? "Editar task" : "Nueva task"}</ThemedText>
+        <ThemedText variant="card">{isEdit ? t("tasks.edit") : t("tasks.create")}</ThemedText>
         <TouchableOpacity onPress={handleSave} disabled={!canSave}>
           <ThemedText variant="body" style={{ color: canSave ? tokens.accent : tokens.border }}>
-            {isEdit ? "Guardar" : "Crear"}
+            {isEdit ? t("common.save") : t("common.create")}
           </ThemedText>
         </TouchableOpacity>
       </View>
@@ -109,7 +111,7 @@ export default function TaskCreateScreen() {
         <TextInput
           value={title}
           onChangeText={setTitle}
-          placeholder="Nombre de la task..."
+          placeholder={t("tasks.namePlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           autoFocus={!isEdit}
           style={{
@@ -131,7 +133,7 @@ export default function TaskCreateScreen() {
             ) : <View />}
             <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
               <ThemedText variant="metadata" style={{ color: dueDate ? tokens.textBody : tokens.textSecondary }}>
-                {dueDate ? `🗓 ${formatDate(dueDate)}` : "+ Programar Tarea"}
+                {dueDate ? `🗓 ${formatDate(dueDate)}` : t("common.scheduleTask")}
               </ThemedText>
             </TouchableOpacity>
           </View>
@@ -166,7 +168,7 @@ export default function TaskCreateScreen() {
               }}
             >
               <ThemedText variant="body" style={{ flex: 1, color: selectedActivity ? tokens.textPrimary : tokens.textSecondary }}>
-                {selectedActivity ? `📋 ${selectedActivity.name}` : "📋 Seleccionar actividad..."}
+                {selectedActivity ? `📋 ${selectedActivity.name}` : `📋 ${t("common.selectActivity")}`}
               </ThemedText>
               <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>›</ThemedText>
             </TouchableOpacity>
@@ -174,7 +176,7 @@ export default function TaskCreateScreen() {
 
           {selectedActivity?.dueDate && (
             <ThemedText variant="metadata" style={{ color: tokens.textSecondary, paddingLeft: 4 }}>
-              🗓 Actividad vence {formatDate(selectedActivity.dueDate)}
+              {t("tasks.activityDue", { date: formatDate(selectedActivity.dueDate) })}
             </ThemedText>
           )}
         </View>
@@ -203,12 +205,12 @@ export default function TaskCreateScreen() {
           onPress={() => { setNotesEdit(notes); setNotesSheetVisible(true); }}
           style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
         >
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📓 NOTAS</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📓 {t("common.notes")}</ThemedText>
           {notes ? (
             <ThemedText variant="body">{notes}</ThemedText>
           ) : (
             <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
-              Tocar para agregar notas...
+              {t("common.tapToAddNotes")}
             </ThemedText>
           )}
         </TouchableOpacity>
@@ -217,13 +219,13 @@ export default function TaskCreateScreen() {
 
       {/* Activity picker */}
       <BottomSheet visible={activitySheetVisible} onClose={() => setActivitySheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Seleccionar actividad</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("tasks.selectActivity")}</ThemedText>
         <TouchableOpacity
           onPress={() => { setSelectedActivityId(undefined); setActivitySheetVisible(false); }}
           style={{ paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: tokens.borderLight }}
         >
           <ThemedText variant="body" style={{ color: !selectedActivityId ? tokens.accent : tokens.textSecondary, fontStyle: "italic" }}>
-            Sin actividad
+            {t("common.noActivity")}
           </ThemedText>
         </TouchableOpacity>
         {activities.map((a) => {
@@ -247,11 +249,11 @@ export default function TaskCreateScreen() {
 
       {/* Notes editor */}
       <BottomSheet visible={notesSheetVisible} onClose={() => setNotesSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Notas</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("tasks.notesTitle")}</ThemedText>
         <TextInput
           value={notesEdit}
           onChangeText={setNotesEdit}
-          placeholder="Escribe tus notas aquí..."
+          placeholder={t("common.writeNotes")}
           placeholderTextColor={tokens.textSecondary}
           multiline
           autoFocus
@@ -276,7 +278,7 @@ export default function TaskCreateScreen() {
             alignItems: "center",
           }}
         >
-          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Listo</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>{t("common.done")}</ThemedText>
         </TouchableOpacity>
       </BottomSheet>
 

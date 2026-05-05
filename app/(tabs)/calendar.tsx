@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { AppHeader } from "@/components/navigation/AppHeader";
 import { CalendarMonthView } from "@/components/calendar/CalendarMonthView";
@@ -12,6 +13,7 @@ import { useSettingsStore } from "@/stores/settingsStore";
 type CalendarViewType = "day" | "week" | "month";
 
 export default function CalendarScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const today = localDateString();
   const [selectedDate, setSelectedDate] = useState(today);
@@ -20,7 +22,7 @@ export default function CalendarScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
-      <AppHeader title="Calendario" />
+      <AppHeader title={t("calendar.title")} />
 
       {/* Sub-tabs */}
       <View style={{
@@ -32,7 +34,7 @@ export default function CalendarScreen() {
         borderBottomColor: tokens.borderLight,
       }}>
         {(["day", "week", "month"] as CalendarViewType[]).map((v) => {
-          const label = v === "day" ? "Día" : v === "week" ? "Semana" : "Mes";
+          const label = v === "day" ? t("calendar.day") : v === "week" ? t("calendar.week") : t("calendar.month");
           const active = viewType === v;
           return (
             <Chip

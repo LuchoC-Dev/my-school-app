@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, ScrollView, Text } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useTaskStore } from "@/stores/taskStore";
 import { useActivityStore } from "@/stores/activityStore";
@@ -11,6 +12,7 @@ import { courseColors } from "@/theme/tokens";
 import { formatDate } from "@/utils/dateUtils";
 
 export function TaskListTab() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const tasks = useTaskStore((s) => s.tasks);
@@ -59,7 +61,7 @@ export function TaskListTab() {
         {/* Course filter chips */}
         <ChipRow>
           <Chip
-            label="Todas"
+            label={t("common.all")}
             active={filterCourseId === null}
             onPress={() => setFilterCourseId(null)}
           />

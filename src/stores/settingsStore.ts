@@ -1,10 +1,18 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { zustandStorage } from "@/storage/storageAdapter";
+import { getLocales } from "expo-localization";
+import i18next from "@/i18n";
+
+function getDefaultLanguage(): "es" | "en" {
+  const code = getLocales()[0]?.languageCode ?? "es";
+  return code === "en" ? "en" : "es";
+}
 
 export type CalendarViewDefault = "day" | "week" | "month";
 export type WeekStartDay = "sun" | "mon" | "sat";
 export type AppFontFamily = "caveat" | "georgia" | "system";
+export type AppLanguage = "es" | "en";
 
 export type AccentColor =
   | "#2A2016"
@@ -48,6 +56,10 @@ interface SettingsState {
   setAccentColor: (c: AccentColor) => void;
   setFontScale: (s: number) => void;
   setFontFamily: (f: AppFontFamily) => void;
+
+  // Language
+  language: AppLanguage;
+  setLanguage: (lang: AppLanguage) => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -80,10 +92,21 @@ export const useSettingsStore = create<SettingsState>()(
       setAccentColor: (accentColor) => set({ accentColor }),
       setFontScale: (fontScale) => set({ fontScale }),
       setFontFamily: (fontFamily) => set({ fontFamily }),
+
+      language: getDefaultLanguage(),
+      setLanguage: (language) => {
+        set({ language });
+        i18next.changeLanguage(language);
+      },
     }),
     {
       name: "settings-store",
       storage: createJSONStorage(() => zustandStorage),
+      onRehydrateStorage: () => (state) => {
+        if (state?.language) {
+          i18next.changeLanguage(state.language);
+        }
+      },
     }
   )
 );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { AppHeader } from "@/components/navigation/AppHeader";
 import { ThemedText, Separator, ConfirmModal } from "@/components/ui";
@@ -84,6 +85,7 @@ function SettingsRow({
 }
 
 export default function SettingsScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const { userName, userAvatar } = useSettingsStore();
@@ -104,11 +106,11 @@ export default function SettingsScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
-      <AppHeader title="⚙️ Settings" />
+      <AppHeader title={t("settings.title")} />
 
       <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
         {/* CUENTA */}
-        <SectionLabel label="Cuenta" />
+        <SectionLabel label={t("settings.account")} />
         <TouchableOpacity
           onPress={() => router.push("/settings/account")}
           style={{
@@ -137,50 +139,58 @@ export default function SettingsScreen() {
           </View>
           <View style={{ flex: 1, minWidth: 0 }}>
             <ThemedText variant="body" style={{ fontWeight: "700" }}>{userName}</ThemedText>
-            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>Perfil local</ThemedText>
+            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{t("settings.localProfile")}</ThemedText>
           </View>
           <ThemedText style={{ color: tokens.textSecondary, fontSize: 16 }}>›</ThemedText>
         </TouchableOpacity>
 
         {/* GENERAL */}
-        <SectionLabel label="General" />
+        <SectionLabel label={t("settings.general")} />
         <SettingsRow
           icon="📅"
           iconBg="#EDF4FC"
-          label="Calendario"
+          label={t("settings.calendar")}
           onPress={() => router.push("/settings/general")}
         />
 
         {/* NOTIFICACIONES */}
-        <SectionLabel label="Notificaciones" />
+        <SectionLabel label={t("settings.notifications")} />
         <SettingsRow
           icon="🔔"
           iconBg="#FDF0E6"
-          label="Notificaciones"
+          label={t("settings.notifications")}
           onPress={() => router.push("/settings/notifications")}
         />
 
         {/* APARIENCIA */}
-        <SectionLabel label="Apariencia" />
+        <SectionLabel label={t("settings.appearance")} />
         <SettingsRow
           icon="🎨"
           iconBg="#F3F1FB"
-          label="Apariencia"
+          label={t("settings.appearance")}
           onPress={() => router.push("/settings/appearance")}
         />
 
+        {/* IDIOMA */}
+        <SettingsRow
+          icon="🌐"
+          iconBg="#EDF4FC"
+          label={t("settings.language")}
+          onPress={() => router.push("/settings/language")}
+        />
+
         {/* DATOS */}
-        <SectionLabel label="Datos" />
+        <SectionLabel label={t("settings.data")} />
         <SettingsRow
           icon="📤"
           iconBg="#EDF7F0"
-          label="Exportar datos"
+          label={t("settings.exportData")}
           onPress={() => {}}
         />
         <SettingsRow
           icon="🧪"
           iconBg="#F0F4FF"
-          label="Cargar datos de prueba"
+          label={t("settings.loadTestData")}
           onPress={() => setConfirmStep("seed")}
         />
         <TouchableOpacity
@@ -206,7 +216,7 @@ export default function SettingsScreen() {
             <Text style={{ fontSize: 15 }}>🗑️</Text>
           </View>
           <ThemedText variant="body" style={{ flex: 1, color: tokens.destructive, fontWeight: "600" }}>
-            Borrar todos los datos
+            {t("settings.deleteAll")}
           </ThemedText>
           <ThemedText style={{ color: tokens.destructive, fontSize: 16 }}>›</ThemedText>
         </TouchableOpacity>
@@ -214,7 +224,6 @@ export default function SettingsScreen() {
         <Separator />
 
         <ThemedText
-
           variant="metadata"
           style={{
             color: tokens.textSecondary,
@@ -222,26 +231,26 @@ export default function SettingsScreen() {
             paddingVertical: 12,
           }}
         >
-          My School v0.1.0 — MVP
+          {t("settings.version")}
         </ThemedText>
       </ScrollView>
 
       <ConfirmModal
         visible={confirmStep === "seed"}
-        title="Cargar datos de prueba"
-        message="Se agregarán 4 materias, actividades, un proyecto y varias tasks de ejemplo."
-        confirmLabel="Cargar"
-        cancelLabel="Cancelar"
+        title={t("settings.confirmSeed.title")}
+        message={t("settings.confirmSeed.message")}
+        confirmLabel={t("settings.confirmSeed.confirm")}
+        cancelLabel={t("common.cancel")}
         onCancel={() => setConfirmStep(null)}
         onConfirm={doSeed}
       />
 
       <ConfirmModal
         visible={confirmStep === 1}
-        title="Borrar todos los datos"
-        message="Esta acción es irreversible. Se eliminarán todas las materias, proyectos, actividades y tasks."
-        confirmLabel="Continuar"
-        cancelLabel="Cancelar"
+        title={t("settings.confirmDelete1.title")}
+        message={t("settings.confirmDelete1.message")}
+        confirmLabel={t("settings.confirmDelete1.confirm")}
+        cancelLabel={t("common.cancel")}
         destructive
         onCancel={() => setConfirmStep(null)}
         onConfirm={() => setConfirmStep(2)}
@@ -249,10 +258,10 @@ export default function SettingsScreen() {
 
       <ConfirmModal
         visible={confirmStep === 2}
-        title="¿Estás seguro?"
-        message="No hay forma de recuperar los datos una vez borrados."
-        confirmLabel="Sí, borrar todo"
-        cancelLabel="Cancelar"
+        title={t("settings.confirmDelete2.title")}
+        message={t("settings.confirmDelete2.message")}
+        confirmLabel={t("settings.confirmDelete2.confirm")}
+        cancelLabel={t("common.cancel")}
         destructive
         onCancel={() => setConfirmStep(null)}
         onConfirm={doClearData}

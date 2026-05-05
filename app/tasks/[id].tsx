@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, ScrollView, TouchableOpacity, TextInput } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { ThemedText, Separator, MaterialSection, BottomSheet, DatePickerModal } from "@/components/ui";
 import { FontFamily, FontSize } from "@/theme/typography";
@@ -14,6 +15,7 @@ import { useSmartBack } from "@/hooks/useSmartBack";
 import { MaterialLink } from "@/types/entities";
 
 export default function TaskViewScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
@@ -37,7 +39,7 @@ export default function TaskViewScreen() {
     return (
       <View style={{ flex: 1, backgroundColor: tokens.background, alignItems: "center", justifyContent: "center" }}>
         <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-          Task no encontrada
+          {t("tasks.notFound")}
         </ThemedText>
       </View>
     );
@@ -77,13 +79,13 @@ export default function TaskViewScreen() {
       >
         <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-            ‹ Volver
+            {t("common.back")}
           </ThemedText>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
           <TouchableOpacity onPress={handleDelete}>
             <ThemedText variant="body" style={{ color: tokens.destructive }}>
-              Eliminar
+              {t("common.delete")}
             </ThemedText>
           </TouchableOpacity>
         </View>
@@ -140,7 +142,7 @@ export default function TaskViewScreen() {
             )}
             <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
               <ThemedText variant="metadata" style={{ color: task.dueDate ? (dueDateStatus(task.dueDate) === "overdue" ? tokens.destructive : dueDateStatus(task.dueDate) === "today" ? tokens.warning : tokens.textBody) : tokens.textSecondary }}>
-                {task.dueDate ? `🗓 ${formatDate(task.dueDate)}` : "+ Programar Tarea"}
+                {task.dueDate ? `🗓 ${formatDate(task.dueDate)}` : t("common.scheduleTask")}
               </ThemedText>
             </TouchableOpacity>
           </View>
@@ -176,7 +178,7 @@ export default function TaskViewScreen() {
               }}
             >
               <ThemedText variant="body" style={{ flex: 1 }}>
-                {activity ? `📋 ${activity.name}` : "📋 Sin actividad"}
+                {activity ? `📋 ${activity.name}` : t("tasks.noActivity")}
               </ThemedText>
               {activity && (
                 <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>›</ThemedText>
@@ -186,7 +188,7 @@ export default function TaskViewScreen() {
 
           {activity?.dueDate && (
             <ThemedText variant="metadata" style={{ color: dueDateStatus(activity.dueDate) === "overdue" ? tokens.destructive : dueDateStatus(activity.dueDate) === "today" ? tokens.warning : tokens.textSecondary, paddingLeft: 4 }}>
-              🗓 Actividad vence {formatDate(activity.dueDate)}
+              {t("tasks.activityDue", { date: formatDate(activity.dueDate) })}
             </ThemedText>
           )}
         </View>
@@ -214,29 +216,29 @@ export default function TaskViewScreen() {
           style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
         >
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-            📓 NOTAS
+            📓 {t("common.notes")}
           </ThemedText>
           {task.notes ? (
             <ThemedText variant="body">{task.notes}</ThemedText>
           ) : (
             <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
-              Tocar para agregar notas...
+              {t("common.tapToAddNotes")}
             </ThemedText>
           )}
         </TouchableOpacity>
         <Separator />
         <ThemedText variant="metadata" style={{ color: tokens.borderLight }}>
-          Creada {formatDate(task.createdAt)}
+          {t("common.created")} {formatDate(task.createdAt)}
         </ThemedText>
       </ScrollView>
       <BottomSheet visible={activitySheetVisible} onClose={() => setActivitySheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Cambiar actividad</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("tasks.changeActivity")}</ThemedText>
         <TouchableOpacity
           onPress={() => { updateTask(id, { activityId: undefined }); setActivitySheetVisible(false); }}
           style={{ paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: tokens.borderLight }}
         >
           <ThemedText variant="body" style={{ color: !task.activityId ? tokens.accent : tokens.textSecondary, fontStyle: "italic" }}>
-            Sin actividad
+            {t("common.noActivity")}
           </ThemedText>
         </TouchableOpacity>
         {activities.map((a) => {

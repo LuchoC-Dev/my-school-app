@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { View, TextInput, TouchableOpacity, ScrollView, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Chip } from "@/components/ui";
@@ -13,10 +14,11 @@ import { courseColors } from "@/theme/tokens";
 import { FontFamily, FontSize } from "@/theme/typography";
 
 type FilterType = "all" | "courses" | "projects" | "activities" | "tasks";
+type ResultType = "course" | "project" | "activity" | "task";
 
 interface SearchResult {
   id: string;
-  type: "course" | "project" | "activity" | "task";
+  type: ResultType;
   title: string;
   breadcrumb: string;
   courseAccent: string;
@@ -50,19 +52,8 @@ function HighlightedText({ text, query, style }: { text: string; query: string; 
   );
 }
 
-const FILTERS: { value: FilterType; label: string }[] = [
-  { value: "all", label: "Todo" },
-  { value: "courses", label: "Materias" },
-  { value: "projects", label: "Projects" },
-  { value: "activities", label: "Activities" },
-  { value: "tasks", label: "Tasks" },
-];
-
-const TYPE_LABELS: Record<string, string> = {
-  course: "Materia", project: "Project", activity: "Activity", task: "Task",
-};
-
 export default function SearchScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const goBack = useSmartBack("/(tabs)/");
@@ -70,10 +61,27 @@ export default function SearchScreen() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
 
+  const FILTERS: { value: FilterType; label: string }[] = [
+    { value: "all", label: t("search.filters.all") },
+    { value: "courses", label: t("search.filters.courses") },
+    { value: "projects", label: t("search.filters.projects") },
+    { value: "activities", label: t("search.filters.activities") },
+    { value: "tasks", label: t("search.filters.tasks") },
+  ];
+
+  const TYPE_LABELS: Record<ResultType, string> = {
+    course: t("search.typeLabels.course"),
+    project: t("search.typeLabels.project"),
+    activity: t("search.typeLabels.activity"),
+    task: t("search.typeLabels.task"),
+  };
+
   const courses = useCourseStore((s) => s.courses);
   const projects = useProjectStore((s) => s.projects);
   const activities = useActivityStore((s) => s.activities);
   const tasks = useTaskStore((s) => s.tasks);
+
+  const noSubject = t("search.breadcrumb.noSubject");
 
   const results = useMemo<SearchResult[]>(() => {
     const q = query.trim().toLowerCase();
@@ -92,7 +100,7 @@ export default function SearchScreen() {
       if (!matches(c.name)) return;
       out.push({
         id: c.id, type: "course", title: c.name,
-        breadcrumb: "Materia",
+        breadcrumb: t("search.typeLabels.course"),
         courseAccent: courseColors[c.color]?.accent ?? tokens.accent,
         indent: 0, onPress: () => router.push(`/courses/${c.id}`),
       });
@@ -105,7 +113,7 @@ export default function SearchScreen() {
       if (matches(p.name)) {
         out.push({
           id: p.id, type: "project", title: p.name,
-          breadcrumb: `Project · ${course?.name ?? "Sin materia"}`,
+          breadcrumb: `${t("search.typeLabels.project")} · ${course?.name ?? noSubject}`,
           courseAccent: pAccent, indent: 0,
           onPress: () => router.push(`/projects/${p.id}`),
         });
@@ -114,19 +122,19 @@ export default function SearchScreen() {
         activities.filter((a) => a.projectId === p.id && matches(a.name)).forEach((a) => {
           out.push({
             id: a.id, type: "activity", title: a.name,
-            breadcrumb: `Activity · ${p.name} · ${course?.name ?? ""}`,
+            breadcrumb: `${t("search.typeLabels.activity")} · ${p.name} · ${course?.name ?? ""}`,
             courseAccent: pAccent, indent: 1,
             onPress: () => router.push(`/activities/${a.id}`),
           });
           added.add(`activity-${a.id}`);
-          tasks.filter((t) => t.activityId === a.id && matches(t.title)).forEach((t) => {
+          tasks.filter((tk) => tk.activityId === a.id && matches(tk.title)).forEach((tk) => {
             out.push({
-              id: t.id, type: "task", title: t.title,
-              breadcrumb: `Task · ${a.name} · ${course?.name ?? ""}`,
+              id: tk.id, type: "task", title: tk.title,
+              breadcrumb: `${t("search.typeLabels.task")} · ${a.name} · ${course?.name ?? ""}`,
               courseAccent: pAccent, indent: 2,
-              onPress: () => router.push(`/tasks/${t.id}`),
+              onPress: () => router.push(`/tasks/${tk.id}`),
             });
-            added.add(`task-${t.id}`);
+            added.add(`task-${tk.id}`);
           });
         });
       }
@@ -139,36 +147,36 @@ export default function SearchScreen() {
       const project = projects.find((p) => p.id === a.projectId);
       out.push({
         id: a.id, type: "activity", title: a.name,
-        breadcrumb: `Activity · ${project ? project.name + " · " : ""}${course?.name ?? "Sin materia"}`,
+        breadcrumb: `${t("search.typeLabels.activity")} · ${project ? project.name + " · " : ""}${course?.name ?? noSubject}`,
         courseAccent: aAccent, indent: 0,
         onPress: () => router.push(`/activities/${a.id}`),
       });
       added.add(`activity-${a.id}`);
-      tasks.filter((t) => t.activityId === a.id && matches(t.title)).forEach((t) => {
+      tasks.filter((tk) => tk.activityId === a.id && matches(tk.title)).forEach((tk) => {
         out.push({
-          id: t.id, type: "task", title: t.title,
-          breadcrumb: `Task · ${a.name} · ${course?.name ?? ""}`,
+          id: tk.id, type: "task", title: tk.title,
+          breadcrumb: `${t("search.typeLabels.task")} · ${a.name} · ${course?.name ?? ""}`,
           courseAccent: aAccent, indent: 1,
-          onPress: () => router.push(`/tasks/${t.id}`),
+          onPress: () => router.push(`/tasks/${tk.id}`),
         });
-        added.add(`task-${t.id}`);
+        added.add(`task-${tk.id}`);
       });
     });
 
     // Remaining tasks
-    tasks.filter((t) => matches(t.title) && !added.has(`task-${t.id}`)).forEach((t) => {
-      const activity = activities.find((a) => a.id === t.activityId);
+    tasks.filter((tk) => matches(tk.title) && !added.has(`task-${tk.id}`)).forEach((tk) => {
+      const activity = activities.find((a) => a.id === tk.activityId);
       const course = courses.find((c) => c.id === activity?.courseId);
       out.push({
-        id: t.id, type: "task", title: t.title,
-        breadcrumb: `Task · ${activity ? activity.name + " · " : ""}${course?.name ?? "Sin materia"}`,
+        id: tk.id, type: "task", title: tk.title,
+        breadcrumb: `${t("search.typeLabels.task")} · ${activity ? activity.name + " · " : ""}${course?.name ?? noSubject}`,
         courseAccent: accent(activity?.courseId), indent: 0,
-        onPress: () => router.push(`/tasks/${t.id}`),
+        onPress: () => router.push(`/tasks/${tk.id}`),
       });
     });
 
     return out;
-  }, [query, courses, projects, activities, tasks]);
+  }, [query, courses, projects, activities, tasks, t, noSubject]);
 
   const filtered = useMemo(() => {
     if (filter === "all") return results;
@@ -190,7 +198,7 @@ export default function SearchScreen() {
         gap: 8,
       }}>
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="body" style={{ color: tokens.accent }}>‹ Volver</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.accent }}>{t("search.back")}</ThemedText>
         </TouchableOpacity>
 
         <View style={{
@@ -203,7 +211,7 @@ export default function SearchScreen() {
           <TextInput
             value={query}
             onChangeText={setQuery}
-            placeholder="Buscar..."
+            placeholder={t("search.placeholder")}
             placeholderTextColor={tokens.textSecondary}
             autoFocus
             style={{
@@ -222,7 +230,7 @@ export default function SearchScreen() {
         </View>
 
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{t("search.cancel")}</ThemedText>
         </TouchableOpacity>
       </View>
 
@@ -244,7 +252,7 @@ export default function SearchScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 14, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.4 }}
         >
-          {filtered.length} {filtered.length === 1 ? "resultado" : "resultados"}
+          {t("search.result", { count: filtered.length })}
         </ThemedText>
       )}
 
@@ -254,13 +262,13 @@ export default function SearchScreen() {
           <View style={{ padding: 40, alignItems: "center", gap: 8 }}>
             <Text style={{ fontSize: 40 }}>🔍</Text>
             <ThemedText variant="body" style={{ color: tokens.textSecondary, textAlign: "center" }}>
-              Buscá materias, actividades,{"\n"}proyectos y tasks
+              {t("search.empty")}
             </ThemedText>
           </View>
         ) : filtered.length === 0 ? (
           <View style={{ padding: 40, alignItems: "center" }}>
             <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-              Sin resultados para "{query}"
+              {t("search.noResults", { query })}
             </ThemedText>
           </View>
         ) : (

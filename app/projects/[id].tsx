@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, Text, TextInput } from "react-nativ
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useShallow } from "zustand/react/shallow";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, SectionLabel, Separator, EmptyState, MaterialSection, BottomSheet, DatePickerModal } from "@/components/ui";
@@ -16,6 +17,7 @@ import { MaterialLink } from "@/types/entities";
 import { FontFamily, FontSize } from "@/theme/typography";
 
 export default function ProjectViewScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
@@ -37,7 +39,7 @@ export default function ProjectViewScreen() {
   if (!project) {
     return (
       <View style={{ flex: 1, backgroundColor: tokens.background, alignItems: "center", justifyContent: "center" }}>
-        <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Proyecto no encontrado</ThemedText>
+        <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("projects.notFound")}</ThemedText>
       </View>
     );
   }
@@ -82,10 +84,10 @@ export default function ProjectViewScreen() {
         }}
       >
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹ Volver</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("common.back")}</ThemedText>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleDelete}>
-          <ThemedText variant="body" style={{ color: tokens.destructive }}>Eliminar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.destructive }}>{t("projects.delete")}</ThemedText>
         </TouchableOpacity>
       </View>
 
@@ -109,7 +111,7 @@ export default function ProjectViewScreen() {
           ) : <View />}
           <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
             <ThemedText variant="metadata" style={{ color: project.dueDate ? dueDateColor : tokens.textSecondary }}>
-              {project.dueDate ? `🗓 ${formatDate(project.dueDate)}` : "+ Programar entrega"}
+              {project.dueDate ? `🗓 ${formatDate(project.dueDate)}` : t("common.schedule")}
             </ThemedText>
           </TouchableOpacity>
         </View>
@@ -119,12 +121,12 @@ export default function ProjectViewScreen() {
           onPress={() => { setDescEdit(project.description ?? ""); setDescSheetVisible(true); }}
           style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
         >
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 DESCRIPCIÓN</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 {t("common.description")}</ThemedText>
           {project.description ? (
             <ThemedText variant="body">{project.description}</ThemedText>
           ) : (
             <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
-              Tocar para agregar descripción...
+              {t("common.tapToAddDescription")}
             </ThemedText>
           )}
         </TouchableOpacity>
@@ -133,7 +135,7 @@ export default function ProjectViewScreen() {
 
         {pending.length > 0 && (
           <View style={{ gap: 8 }}>
-            <SectionLabel>Pendientes · {pending.length}</SectionLabel>
+            <SectionLabel>{t("projects.pending", { count: pending.length })}</SectionLabel>
             {pending.map((a) => (
               <ActivityCard key={a.id} activity={a} course={course} onPress={() => router.push(`/activities/${a.id}`)} />
             ))}
@@ -142,7 +144,7 @@ export default function ProjectViewScreen() {
 
         {completed.length > 0 && (
           <View style={{ gap: 8 }}>
-            <SectionLabel>Completadas · {completed.length}</SectionLabel>
+            <SectionLabel>{t("projects.completed", { count: completed.length })}</SectionLabel>
             {completed.map((a) => (
               <ActivityCard key={a.id} activity={a} course={course} onPress={() => router.push(`/activities/${a.id}`)} />
             ))}
@@ -152,9 +154,9 @@ export default function ProjectViewScreen() {
         {activities.length === 0 && (
           <EmptyState
             icon={<Text style={{ fontSize: 32 }}>📋</Text>}
-            title="Sin actividades"
-            description="Este proyecto todavía no tiene actividades."
-            ctaLabel="+ Nueva actividad"
+            title={t("projects.noActivities")}
+            description={t("projects.noActivitiesDesc")}
+            ctaLabel={t("projects.newActivity")}
             onCta={() => router.push({ pathname: "/activities/create", params: { courseId: project.courseId } })}
           />
         )}
@@ -166,7 +168,7 @@ export default function ProjectViewScreen() {
         <Separator />
 
         <ThemedText variant="metadata" style={{ color: tokens.borderLight }}>
-          Creado {formatDate(project.createdAt)}
+          {t("projects.createdAt", { date: formatDate(project.createdAt) })}
         </ThemedText>
       </ScrollView>
 
@@ -185,7 +187,7 @@ export default function ProjectViewScreen() {
 
       {/* Title editor */}
       <BottomSheet visible={titleSheetVisible} onClose={() => setTitleSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Editar nombre</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.editName")}</ThemedText>
         <TextInput
           value={titleEdit}
           onChangeText={setTitleEdit}
@@ -208,17 +210,17 @@ export default function ProjectViewScreen() {
           }}
           style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
         >
-          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Guardar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>{t("common.save")}</ThemedText>
         </TouchableOpacity>
       </BottomSheet>
 
       {/* Description editor */}
       <BottomSheet visible={descSheetVisible} onClose={() => setDescSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Descripción</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.descriptionTitle")}</ThemedText>
         <TextInput
           value={descEdit}
           onChangeText={setDescEdit}
-          placeholder="Escribe una descripción..."
+          placeholder={t("common.writeDescription")}
           placeholderTextColor={tokens.textSecondary}
           multiline
           autoFocus
@@ -240,7 +242,7 @@ export default function ProjectViewScreen() {
           }}
           style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
         >
-          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Guardar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>{t("common.save")}</ThemedText>
         </TouchableOpacity>
       </BottomSheet>
 

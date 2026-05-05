@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useTranslation } from "react-i18next";
 
 type DotMark = { key: string; color: string };
 type MarkedDate =
@@ -44,17 +45,15 @@ interface CustomCalendarProps {
   theme?: CalendarTheme;
 }
 
-const DAYS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
-const MONTHS = [
-  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
-];
 
 function toDateString(year: number, month: number, day: number): string {
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
 export function CustomCalendar({ current, markedDates = {}, onDayPress, theme = {} }: CustomCalendarProps) {
+  const { t } = useTranslation();
+  const DAYS: string[] = t("calendar.days", { returnObjects: true });
+  const MONTHS: string[] = t("calendar.months", { returnObjects: true });
   const today = new Date();
   const todayStr = toDateString(today.getFullYear(), today.getMonth() + 1, today.getDate());
 

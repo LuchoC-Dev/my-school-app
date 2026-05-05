@@ -9,6 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText } from "@/components/ui";
@@ -23,6 +24,7 @@ import { BottomSheet, SectionLabel } from "@/components/ui";
 const DAYS: WeekDay[] = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
 
 export default function CourseCreateScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const goBack = useSmartBack("/(tabs)/");
@@ -97,16 +99,16 @@ export default function CourseCreateScreen() {
       >
         <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.textSecondary }}>
-            Cancelar
+            {t("common.cancel")}
           </ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card">Nueva materia</ThemedText>
+        <ThemedText variant="card">{t("courses.create")}</ThemedText>
         <TouchableOpacity onPress={handleCreate} disabled={!name.trim()}>
           <ThemedText
             variant="body"
             style={{ color: name.trim() ? tokens.accent : tokens.border }}
           >
-            Crear
+            {t("common.create")}
           </ThemedText>
         </TouchableOpacity>
       </View>
@@ -124,7 +126,7 @@ export default function CourseCreateScreen() {
         <TextInput
           value={name}
           onChangeText={setName}
-          placeholder="Nombre de la materia..."
+          placeholder={t("courses.namePlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           style={[inputStyle, { fontSize: FontSize.card }]}
           autoFocus
@@ -134,7 +136,7 @@ export default function CourseCreateScreen() {
         <TextInput
           value={description}
           onChangeText={setDescription}
-          placeholder="Descripción (opcional)"
+          placeholder={t("courses.descPlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           style={[inputStyle, { height: 72, paddingTop: 10, textAlignVertical: "top" }]}
           multiline
@@ -144,20 +146,20 @@ export default function CourseCreateScreen() {
         <TextInput
           value={professor}
           onChangeText={setProfessor}
-          placeholder="Profesor/a (opcional)"
+          placeholder={t("courses.professorPlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           style={inputStyle}
         />
 
         {/* Color */}
         <View style={{ gap: 8 }}>
-          <SectionLabel>Color</SectionLabel>
+          <SectionLabel>{t("courses.color")}</SectionLabel>
           <CourseColorPicker value={color} onChange={setColor} />
         </View>
 
         {/* Schedules */}
         <View style={{ gap: 8 }}>
-          <SectionLabel>Horarios (opcional)</SectionLabel>
+          <SectionLabel>{t("courses.schedules")}</SectionLabel>
           {schedules.map((s, i) => (
             <CourseScheduleRow
               key={i}
@@ -182,7 +184,7 @@ export default function CourseCreateScreen() {
                 }}
               >
                 <ThemedText variant="body" style={{ color: pendingDay ? tokens.textPrimary : tokens.textSecondary }}>
-                  {pendingDay ?? "Día"}
+                  {pendingDay ?? t("courses.dayPlaceholder")}
                 </ThemedText>
               </TouchableOpacity>
               <TextInput
@@ -225,7 +227,7 @@ export default function CourseCreateScreen() {
       {/* Day picker bottom sheet */}
       <BottomSheet visible={daySheetVisible} onClose={() => setDaySheetVisible(false)}>
         <View style={{ gap: 4 }}>
-          <ThemedText variant="card" style={{ marginBottom: 8 }}>Día de la semana</ThemedText>
+          <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("courses.dayOfWeek")}</ThemedText>
           {DAYS.map((day) => (
             <TouchableOpacity
               key={day}

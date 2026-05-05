@@ -10,6 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, BottomSheet, SectionLabel } from "@/components/ui";
@@ -23,6 +24,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const DAYS: WeekDay[] = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"];
 
 export default function CourseEditScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
@@ -47,7 +49,7 @@ export default function CourseEditScreen() {
   if (!course) {
     return (
       <View style={{ flex: 1, backgroundColor: tokens.background, alignItems: "center", justifyContent: "center" }}>
-        <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Materia no encontrada</ThemedText>
+        <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("courses.notFound")}</ThemedText>
       </View>
     );
   }
@@ -78,12 +80,12 @@ export default function CourseEditScreen() {
 
   function handleDelete() {
     Alert.alert(
-      "Eliminar materia",
-      `¿Eliminar "${course.name}"? Se borrarán todas las actividades y proyectos asociados.`,
+      t("courses.deleteCourse"),
+      t("courses.deleteConfirm", { name: course.name }),
       [
-        { text: "Cancelar", style: "cancel" },
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Eliminar",
+          text: t("common.delete"),
           style: "destructive",
           onPress: async () => {
             await removeCourse(id);
@@ -121,12 +123,12 @@ export default function CourseEditScreen() {
         }}
       >
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("common.cancel")}</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card">Editar materia</ThemedText>
+        <ThemedText variant="card">{t("courses.edit")}</ThemedText>
         <TouchableOpacity onPress={handleSave} disabled={!name.trim()}>
           <ThemedText variant="body" style={{ color: name.trim() ? tokens.accent : tokens.border }}>
-            Guardar
+            {t("common.save")}
           </ThemedText>
         </TouchableOpacity>
       </View>
@@ -144,7 +146,7 @@ export default function CourseEditScreen() {
         <TextInput
           value={name}
           onChangeText={setName}
-          placeholder="Nombre de la materia..."
+          placeholder={t("courses.namePlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           style={[inputStyle, { fontSize: FontSize.card }]}
         />
@@ -153,7 +155,7 @@ export default function CourseEditScreen() {
         <TextInput
           value={description}
           onChangeText={setDescription}
-          placeholder="Descripción (opcional)"
+          placeholder={t("courses.descPlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           style={[inputStyle, { height: 72, paddingTop: 10, textAlignVertical: "top" }]}
           multiline
@@ -163,20 +165,20 @@ export default function CourseEditScreen() {
         <TextInput
           value={professor}
           onChangeText={setProfessor}
-          placeholder="Profesor/a (opcional)"
+          placeholder={t("courses.professorPlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           style={inputStyle}
         />
 
         {/* Color */}
         <View style={{ gap: 8 }}>
-          <SectionLabel>Color</SectionLabel>
+          <SectionLabel>{t("courses.color")}</SectionLabel>
           <CourseColorPicker value={color} onChange={setColor} />
         </View>
 
         {/* Schedules */}
         <View style={{ gap: 8 }}>
-          <SectionLabel>Horarios (opcional)</SectionLabel>
+          <SectionLabel>{t("courses.schedules")}</SectionLabel>
           {schedules.map((s, i) => (
             <CourseScheduleRow key={i} schedule={s} onRemove={() => removeSchedule(i)} />
           ))}
@@ -196,7 +198,7 @@ export default function CourseEditScreen() {
                 }}
               >
                 <ThemedText variant="body" style={{ color: pendingDay ? tokens.textPrimary : tokens.textSecondary }}>
-                  {pendingDay ?? "Día"}
+                  {pendingDay ?? t("courses.dayPlaceholder")}
                 </ThemedText>
               </TouchableOpacity>
               <TextInput
@@ -246,7 +248,7 @@ export default function CourseEditScreen() {
             borderColor: tokens.destructive,
           }}
         >
-          <ThemedText variant="body" style={{ color: tokens.destructive }}>Eliminar materia</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.destructive }}>{t("courses.deleteCourse")}</ThemedText>
         </TouchableOpacity>
       </ScrollView>
       </KeyboardAvoidingView>
@@ -254,7 +256,7 @@ export default function CourseEditScreen() {
       {/* Day picker bottom sheet */}
       <BottomSheet visible={daySheetVisible} onClose={() => setDaySheetVisible(false)}>
         <View style={{ gap: 4 }}>
-          <ThemedText variant="card" style={{ marginBottom: 8 }}>Día de la semana</ThemedText>
+          <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("courses.dayOfWeek")}</ThemedText>
           {DAYS.map((day) => (
             <TouchableOpacity
               key={day}

@@ -1,6 +1,7 @@
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
@@ -8,12 +9,6 @@ import { useThemeStore, ThemeMode } from "@/stores/themeStore";
 import { useSettingsStore, AccentColor, AppFontFamily } from "@/stores/settingsStore";
 import { lightTheme, darkTheme } from "@/theme/tokens";
 import { resolveFontTokens } from "@/theme/fontTokens";
-
-const THEME_OPTIONS: { value: ThemeMode; label: string; preview: string }[] = [
-  { value: "light", label: "Claro", preview: "#F5F0E8" },
-  { value: "dark", label: "Oscuro", preview: "#1C1710" },
-  { value: "system", label: "Sistema", preview: "system" },
-];
 
 const ACCENT_OPTIONS: AccentColor[] = [
   "#2A2016",
@@ -25,19 +20,26 @@ const ACCENT_OPTIONS: AccentColor[] = [
   "#C47FB0",
 ];
 
-const FONT_OPTIONS: { value: AppFontFamily; label: string; sub: string }[] = [
-  { value: "caveat", label: "Caveat", sub: "Manuscrita · títulos expresivos" },
-  { value: "georgia", label: "Georgia", sub: "Serif · elegante y clásica" },
-  { value: "system", label: "Sistema", sub: "Sans-serif · máxima legibilidad" },
-];
-
 export default function AppearanceScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const goBack = useSmartBack("/(tabs)/settings");
   const insets = useSafeAreaInsets();
   const { mode, setMode } = useThemeStore();
   const { accentColor, setAccentColor, fontScale, setFontScale, fontFamily, setFontFamily } = useSettingsStore();
+
+  const THEME_OPTIONS: { value: ThemeMode; label: string; preview: string }[] = [
+    { value: "light", label: t("appearance.themeLight"), preview: "#F5F0E8" },
+    { value: "dark", label: t("appearance.themeDark"), preview: "#1C1710" },
+    { value: "system", label: t("appearance.themeSystem"), preview: "system" },
+  ];
+
+  const FONT_OPTIONS: { value: AppFontFamily; label: string; sub: string }[] = [
+    { value: "caveat", label: "Caveat", sub: t("appearance.fontCaveatSub") },
+    { value: "georgia", label: "Georgia", sub: t("appearance.fontGeorgiaSub") },
+    { value: "system", label: t("appearance.themeSystem"), sub: t("appearance.fontSystemSub") },
+  ];
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
@@ -55,7 +57,7 @@ export default function AppearanceScreen() {
         <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card" style={{ flex: 1 }}>🎨 Apariencia</ThemedText>
+        <ThemedText variant="card" style={{ flex: 1 }}>{t("appearance.title")}</ThemedText>
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
@@ -64,7 +66,7 @@ export default function AppearanceScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Tema
+          {t("appearance.theme")}
         </ThemedText>
         <View style={{ flexDirection: "row", gap: 6, paddingHorizontal: 14, paddingBottom: 10 }}>
           {THEME_OPTIONS.map((opt) => {
@@ -124,7 +126,7 @@ export default function AppearanceScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 10, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Color de acento
+          {t("appearance.accentColor")}
         </ThemedText>
         <View style={{ flexDirection: "row", gap: 12, paddingHorizontal: 16, paddingBottom: 12, alignItems: "center" }}>
           {ACCENT_OPTIONS.map((color) => {
@@ -173,7 +175,7 @@ export default function AppearanceScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 10, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Tipografía
+          {t("appearance.typography")}
         </ThemedText>
         <View style={{ gap: 6, paddingHorizontal: 14, paddingBottom: 10 }}>
           {FONT_OPTIONS.map((opt) => {
@@ -217,7 +219,7 @@ export default function AppearanceScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 10, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Tamaño de texto
+          {t("appearance.textSize")}
         </ThemedText>
         <View style={{
           flexDirection: "row",
@@ -226,7 +228,7 @@ export default function AppearanceScreen() {
           paddingVertical: 10,
           gap: 8,
         }}>
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>A pequeño</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{t("appearance.textSizeSmall")}</ThemedText>
           <View style={{ flex: 1, position: "relative", height: 14, justifyContent: "center", marginHorizontal: 8 }}>
             <View style={{ height: 3, backgroundColor: tokens.borderLight, borderRadius: 999 }} />
             <View style={{
@@ -253,7 +255,7 @@ export default function AppearanceScreen() {
               borderColor: tokens.background,
             }} />
           </View>
-          <ThemedText style={{ fontSize: 18, fontWeight: "700", color: tokens.textSecondary }}>A grande</ThemedText>
+          <ThemedText style={{ fontSize: 18, fontWeight: "700", color: tokens.textSecondary }}>{t("appearance.textSizeLarge")}</ThemedText>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "center", gap: 16, paddingBottom: 10 }}>
           <TouchableOpacity
@@ -266,7 +268,7 @@ export default function AppearanceScreen() {
               borderColor: tokens.borderLight,
             }}
           >
-            <ThemedText variant="metadata">− Reducir</ThemedText>
+            <ThemedText variant="metadata">{t("appearance.decrease")}</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setFontScale(Math.min(1.2, Math.round((fontScale + 0.05) * 100) / 100))}
@@ -278,7 +280,7 @@ export default function AppearanceScreen() {
               borderColor: tokens.borderLight,
             }}
           >
-            <ThemedText variant="metadata">+ Aumentar</ThemedText>
+            <ThemedText variant="metadata">{t("appearance.increase")}</ThemedText>
           </TouchableOpacity>
         </View>
       </ScrollView>

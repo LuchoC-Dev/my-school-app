@@ -2,20 +2,22 @@ import React from "react";
 import { View, TouchableOpacity, Platform } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme, useFontTokens } from "@/hooks/useTheme";
 import { ThemedText } from "@/components/ui";
 
-const TABS = [
-  { name: "index", label: "Materias", icon: "📚" },
-  { name: "activities", label: "Actividades", icon: "✅" },
-  { name: "calendar", label: "Calendario", icon: "📅" },
-  { name: "settings", label: "Settings", icon: "⚙️" },
-];
-
 export function TabBar({ state, navigation }: BottomTabBarProps) {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const fonts = useFontTokens();
   const insets = useSafeAreaInsets();
+
+  const TABS = [
+    { name: "index", label: t("tabBar.courses"), icon: "📚" },
+    { name: "activities", label: t("tabBar.activities"), icon: "✅" },
+    { name: "calendar", label: t("tabBar.calendar"), icon: "📅" },
+    { name: "settings", label: t("tabBar.settings"), icon: "⚙️" },
+  ];
 
   return (
     <View

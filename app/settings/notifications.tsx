@@ -1,6 +1,7 @@
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
@@ -37,6 +38,7 @@ function Toggle({ value, onToggle, disabled }: { value: boolean; onToggle: () =>
 }
 
 export default function NotificationsScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const goBack = useSmartBack("/(tabs)/settings");
@@ -61,7 +63,7 @@ export default function NotificationsScreen() {
         <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card" style={{ flex: 1 }}>🔔 Notificaciones</ThemedText>
+        <ThemedText variant="card" style={{ flex: 1 }}>{t("notifications.title")}</ThemedText>
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
@@ -78,8 +80,8 @@ export default function NotificationsScreen() {
           padding: 12,
         }}>
           <View style={{ flex: 1 }}>
-            <ThemedText variant="body" style={{ fontWeight: "700" }}>Activar notificaciones</ThemedText>
-            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>Permite alertas de My School</ThemedText>
+            <ThemedText variant="body" style={{ fontWeight: "700" }}>{t("notifications.enable")}</ThemedText>
+            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{t("notifications.enableSub")}</ThemedText>
           </View>
           <Toggle
             value={notifications.master}
@@ -92,14 +94,14 @@ export default function NotificationsScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 10, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Por tipo
+          {t("notifications.byType")}
         </ThemedText>
 
         {[
-          { key: "tasks" as const, icon: "☑️", iconBg: "#FDF0E6", label: "Vencimiento de tasks", sub: "Antes de la fecha límite" },
-          { key: "activities" as const, icon: "○", iconBg: "#EDF4FC", label: "Vencimiento de activities", sub: "Antes de la fecha límite" },
-          { key: "projects" as const, icon: "📁", iconBg: "#F3F1FB", label: "Vencimiento de projects", sub: "Antes de la fecha límite" },
-          { key: "dailyReminder" as const, icon: "📅", iconBg: "#EDF7F0", label: "Recordatorio diario", sub: "Resumen de pendientes" },
+          { key: "tasks" as const, icon: "☑️", iconBg: "#FDF0E6", label: t("notifications.tasksDue"), sub: t("notifications.beforeDeadline") },
+          { key: "activities" as const, icon: "○", iconBg: "#EDF4FC", label: t("notifications.activitiesDue"), sub: t("notifications.beforeDeadline") },
+          { key: "projects" as const, icon: "📁", iconBg: "#F3F1FB", label: t("notifications.projectsDue"), sub: t("notifications.beforeDeadline") },
+          { key: "dailyReminder" as const, icon: "📅", iconBg: "#EDF7F0", label: t("notifications.dailyReminder"), sub: t("notifications.dailySub") },
         ].map((item) => (
           <View
             key={item.key}
@@ -142,13 +144,13 @@ export default function NotificationsScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 10, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Anticipación
+          {t("notifications.daysAhead")}
         </ThemedText>
         <ThemedText
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingBottom: 8, lineHeight: 18 }}
         >
-          Cuántos días antes del vencimiento recibís la alerta
+          {t("notifications.daysAheadDesc")}
         </ThemedText>
         <View style={{
           flexDirection: "row",
@@ -156,7 +158,7 @@ export default function NotificationsScreen() {
           paddingVertical: 9,
           paddingHorizontal: 16,
         }}>
-          <ThemedText variant="body" style={{ flex: 1, fontWeight: "600" }}>Días de anticipación</ThemedText>
+          <ThemedText variant="body" style={{ flex: 1, fontWeight: "600" }}>{t("notifications.daysAheadLabel")}</ThemedText>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
             <TouchableOpacity
               onPress={() => setNotifications({ daysAhead: Math.max(0, notifications.daysAhead - 1) })}

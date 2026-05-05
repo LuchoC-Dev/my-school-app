@@ -1,5 +1,6 @@
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { AppHeader } from "@/components/navigation/AppHeader";
 import { EmptyState, SearchBar } from "@/components/ui";
@@ -11,6 +12,7 @@ import { courseColors } from "@/theme/tokens";
 import { useState } from "react";
 
 export default function CoursesScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const courses = useCourseStore((s) => s.courses);
@@ -35,14 +37,14 @@ export default function CoursesScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
-      <AppHeader title="Mis Materias" />
+      <AppHeader title={t("courses.title")} />
 
       {courses.length === 0 ? (
         <EmptyState
           icon={<Text style={{ fontSize: 40 }}>🏫</Text>}
-          title="Sin materias"
-          description="Agregá tu primera materia para empezar a organizar tus actividades."
-          ctaLabel="+ Agregar materia"
+          title={t("courses.empty")}
+          description={t("courses.emptyDesc")}
+          ctaLabel={t("courses.addFirst")}
           onCta={() => router.push("/courses/create")}
         />
       ) : (
@@ -51,7 +53,7 @@ export default function CoursesScreen() {
             <SearchBar
               value={search}
               onChangeText={setSearch}
-              placeholder="Buscar materia..."
+              placeholder={t("courses.searchPlaceholder")}
             />
           </View>
           <ScrollView
@@ -89,7 +91,7 @@ export default function CoursesScreen() {
                   color: tokens.textSecondary,
                 }}
               >
-                + Nueva materia
+                {t("courses.newCard")}
               </Text>
             </TouchableOpacity>
           </ScrollView>

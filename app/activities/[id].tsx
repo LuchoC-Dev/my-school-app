@@ -3,6 +3,7 @@ import { View, ScrollView, TouchableOpacity, Text, TextInput } from "react-nativ
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useShallow } from "zustand/react/shallow";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, SectionLabel, Separator, EmptyState, ProgressBar, BottomSheet, MaterialSection, DatePickerModal } from "@/components/ui";
@@ -15,23 +16,8 @@ import { formatDate, dueDateStatus } from "@/utils/dateUtils";
 import { MaterialLink, ActivityType } from "@/types/entities";
 import { FontFamily, FontSize } from "@/theme/typography";
 
-const TYPE_LABELS: Record<string, string> = {
-  assignment: "Trabajo práctico",
-  exam: "Examen",
-  project: "Proyecto",
-  reading: "Lectura",
-  other: "Otro",
-};
-
-const ACTIVITY_TYPES: { value: ActivityType; label: string }[] = [
-  { value: "assignment", label: "Trabajo práctico" },
-  { value: "exam", label: "Examen" },
-  { value: "project", label: "Proyecto" },
-  { value: "reading", label: "Lectura" },
-  { value: "other", label: "Otro" },
-];
-
 export default function ActivityViewScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const tokens = useTheme();
   const router = useRouter();
@@ -56,10 +42,26 @@ export default function ActivityViewScreen() {
   const projects = useProjectStore(useShallow((s) => s.projects.filter((p) => p.courseId === courseId)));
   const currentProject = useProjectStore((s) => s.projects.find((p) => p.id === activity?.projectId));
 
+  const TYPE_LABELS: Record<string, string> = {
+    assignment: t("activities.types.assignment"),
+    exam: t("activities.types.exam"),
+    project: t("activities.types.project"),
+    reading: t("activities.types.reading"),
+    other: t("activities.types.other"),
+  };
+
+  const ACTIVITY_TYPES: { value: ActivityType; label: string }[] = [
+    { value: "assignment", label: t("activities.types.assignment") },
+    { value: "exam", label: t("activities.types.exam") },
+    { value: "project", label: t("activities.types.project") },
+    { value: "reading", label: t("activities.types.reading") },
+    { value: "other", label: t("activities.types.other") },
+  ];
+
   if (!activity) {
     return (
       <View style={{ flex: 1, backgroundColor: tokens.background, alignItems: "center", justifyContent: "center" }}>
-        <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Actividad no encontrada</ThemedText>
+        <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("activities.notFound")}</ThemedText>
       </View>
     );
   }
@@ -116,10 +118,10 @@ export default function ActivityViewScreen() {
         }}
       >
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>‹ Volver</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("common.back")}</ThemedText>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleDelete}>
-          <ThemedText variant="body" style={{ color: tokens.destructive }}>Eliminar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.destructive }}>{t("activities.delete")}</ThemedText>
         </TouchableOpacity>
       </View>
 
@@ -148,7 +150,7 @@ export default function ActivityViewScreen() {
           ) : <View />}
           <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
             <ThemedText variant="metadata" style={{ color: activity.dueDate ? dueDateColor : tokens.textSecondary }}>
-              {activity.dueDate ? `🗓 ${formatDate(activity.dueDate)}` : "+ Programar entrega"}
+              {activity.dueDate ? `🗓 ${formatDate(activity.dueDate)}` : t("common.schedule")}
             </ThemedText>
           </TouchableOpacity>
         </View>
@@ -175,7 +177,7 @@ export default function ActivityViewScreen() {
             }}
           >
             <ThemedText variant="metadata" style={{ color: currentProject ? tokens.accent : tokens.textSecondary }}>
-              {currentProject ? `📁 ${currentProject.name} ›` : "📁 Asignar a proyecto..."}
+              {currentProject ? `📁 ${currentProject.name} ›` : `📁 ${t("common.assignToProject")}`}
             </ThemedText>
           </TouchableOpacity>
         </View>
@@ -187,12 +189,12 @@ export default function ActivityViewScreen() {
           onPress={() => { setDescEdit(activity.description ?? ""); setDescSheetVisible(true); }}
           style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
         >
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 DESCRIPCIÓN</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 {t("common.description")}</ThemedText>
           {activity.description ? (
             <ThemedText variant="body">{activity.description}</ThemedText>
           ) : (
             <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
-              Tocar para agregar descripción...
+              {t("common.tapToAddDescription")}
             </ThemedText>
           )}
         </TouchableOpacity>
@@ -209,7 +211,7 @@ export default function ActivityViewScreen() {
           }}
         >
           <ThemedText variant="body" style={{ color: isCompleted ? tokens.textSecondary : tokens.textInverse }}>
-            {isCompleted ? "↩ Marcar como pendiente" : "✓ Marcar como completada"}
+            {isCompleted ? t("activities.markPending") : t("activities.markCompleted")}
           </ThemedText>
         </TouchableOpacity>
 
@@ -219,7 +221,7 @@ export default function ActivityViewScreen() {
         {tasks.length > 0 && (
           <View style={{ gap: 6 }}>
             <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-              {completedTasks.length}/{tasks.length} tasks completadas
+              {t("activities.tasksCompleted", { completed: completedTasks.length, total: tasks.length })}
             </ThemedText>
             <ProgressBar progress={activity.progress} accentColor={colors?.accent} />
           </View>
@@ -228,18 +230,18 @@ export default function ActivityViewScreen() {
         {/* Tasks */}
         <View style={{ gap: 6 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            <SectionLabel>Tasks</SectionLabel>
+            <SectionLabel>{t("tasks.tabLabel")}</SectionLabel>
             <TouchableOpacity onPress={() => router.push({ pathname: "/tasks/create", params: { activityId: id } })}>
-              <ThemedText variant="metadata" style={{ color: tokens.accent }}>+ Nueva</ThemedText>
+              <ThemedText variant="metadata" style={{ color: tokens.accent }}>{t("activities.new")}</ThemedText>
             </TouchableOpacity>
           </View>
 
           {tasks.length === 0 && (
             <EmptyState
               icon={<Text style={{ fontSize: 28 }}>☑️</Text>}
-              title="Sin tasks"
-              description="Agregá tasks para llevar el progreso."
-              ctaLabel="+ Nueva task"
+              title={t("activities.noTasks")}
+              description={t("activities.noTasksDesc")}
+              ctaLabel={t("activities.newTask")}
               onCta={() => router.push({ pathname: "/tasks/create", params: { activityId: id } })}
             />
           )}
@@ -281,7 +283,7 @@ export default function ActivityViewScreen() {
         <Separator />
 
         <ThemedText variant="metadata" style={{ color: tokens.borderLight }}>
-          Creada {formatDate(activity.createdAt)}
+          {t("common.created")} {formatDate(activity.createdAt)}
         </ThemedText>
       </ScrollView>
 
@@ -300,7 +302,7 @@ export default function ActivityViewScreen() {
 
       {/* Title editor */}
       <BottomSheet visible={titleSheetVisible} onClose={() => setTitleSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Editar nombre</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.editName")}</ThemedText>
         <TextInput
           value={titleEdit}
           onChangeText={setTitleEdit}
@@ -323,13 +325,13 @@ export default function ActivityViewScreen() {
           }}
           style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
         >
-          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Guardar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>{t("common.save")}</ThemedText>
         </TouchableOpacity>
       </BottomSheet>
 
       {/* Type picker */}
       <BottomSheet visible={typeSheetVisible} onClose={() => setTypeSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Tipo de actividad</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("activities.typeTitle")}</ThemedText>
         {ACTIVITY_TYPES.map((t) => (
           <TouchableOpacity
             key={t.value}
@@ -345,17 +347,17 @@ export default function ActivityViewScreen() {
 
       {/* Project picker */}
       <BottomSheet visible={projectSheetVisible} onClose={() => setProjectSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Mover a proyecto</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.moveToProject")}</ThemedText>
         {currentProject && (
           <TouchableOpacity
             onPress={() => handleMoveToProject(null)}
             style={{ paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: tokens.borderLight }}
           >
-            <ThemedText variant="body" style={{ color: tokens.destructive }}>✕ Sin proyecto</ThemedText>
+            <ThemedText variant="body" style={{ color: tokens.destructive }}>✕ {t("common.noProject")}</ThemedText>
           </TouchableOpacity>
         )}
         {projects.length === 0 && (
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>No hay proyectos para esta materia.</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("common.noProjectsForCourse")}</ThemedText>
         )}
         {projects.map((p) => (
           <TouchableOpacity
@@ -372,11 +374,11 @@ export default function ActivityViewScreen() {
 
       {/* Description editor */}
       <BottomSheet visible={descSheetVisible} onClose={() => setDescSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Descripción</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.descriptionTitle")}</ThemedText>
         <TextInput
           value={descEdit}
           onChangeText={setDescEdit}
-          placeholder="Escribe una descripción..."
+          placeholder={t("common.writeDescription")}
           placeholderTextColor={tokens.textSecondary}
           multiline
           autoFocus
@@ -395,7 +397,7 @@ export default function ActivityViewScreen() {
           onPress={() => { updateActivity(id, { description: descEdit.trim() || undefined }); setDescSheetVisible(false); }}
           style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
         >
-          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Guardar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>{t("common.save")}</ThemedText>
         </TouchableOpacity>
       </BottomSheet>
 

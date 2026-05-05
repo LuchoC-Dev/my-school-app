@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, TouchableOpacity, TextInput, Linking, Alert, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
+import { useTranslation } from "react-i18next";
 import { useTheme, useFontTokens } from "@/hooks/useTheme";
 import { ThemedText } from "./ThemedText";
 import { SectionLabel } from "./SectionLabel";
@@ -28,6 +29,7 @@ function getFileIcon(mimeType?: string): string {
 }
 
 export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: MaterialSectionProps) {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const fonts = useFontTokens();
   const readonly = !onAdd;
@@ -69,7 +71,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
         mimeType: asset.mimeType ?? undefined,
       });
     } catch {
-      Alert.alert("Error", "No se pudo adjuntar el archivo.");
+      Alert.alert(t("common.error"), t("common.errorAttachFile"));
     }
   }
 
@@ -86,23 +88,23 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
 
   function handleOpen(item: MaterialLink) {
     if (!item.url) return;
-    Linking.openURL(item.url).catch(() => Alert.alert("No se pudo abrir el elemento."));
+    Linking.openURL(item.url).catch(() => Alert.alert(t("common.errorOpenItem")));
   }
 
   return (
     <View style={{ gap: 8 }}>
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-        <SectionLabel>{readonlyLabel ? `Material · ${readonlyLabel}` : "Material"}</SectionLabel>
+        <SectionLabel>{readonlyLabel ? `${t("common.material")} · ${readonlyLabel}` : t("common.material")}</SectionLabel>
         {!readonly && !addingLink && (
           <View style={{ flexDirection: "row", gap: 12 }}>
             <TouchableOpacity onPress={handlePickFile}>
               <ThemedText variant="metadata" style={{ color: tokens.accent }}>
-                + Archivo
+                {t("common.addFile")}
               </ThemedText>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setAddingLink(true)}>
               <ThemedText variant="metadata" style={{ color: tokens.accent }}>
-                + Enlace
+                {t("common.addLink")}
               </ThemedText>
             </TouchableOpacity>
           </View>
@@ -111,7 +113,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
 
       {links.length === 0 && !addingLink && (
         <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-          {readonly ? "Sin material" : "Sin elementos todavía"}
+          {readonly ? t("common.noMaterial") : t("common.noMaterialYet")}
         </ThemedText>
       )}
 
@@ -167,7 +169,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
           <TextInput
             value={label}
             onChangeText={setLabel}
-            placeholder="Nombre del enlace (opcional)"
+            placeholder={t("common.linkNamePlaceholder")}
             placeholderTextColor={tokens.textSecondary}
             style={inputStyle}
             autoFocus
@@ -175,7 +177,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
           <TextInput
             value={url}
             onChangeText={setUrl}
-            placeholder="URL (ej: https://...)"
+            placeholder={t("common.urlPlaceholder")}
             placeholderTextColor={tokens.textSecondary}
             style={inputStyle}
             autoCapitalize="none"
@@ -190,7 +192,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
               }}
             >
               <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
-                Cancelar
+                {t("common.cancel")}
               </ThemedText>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleConfirmLink} disabled={!label.trim() && !url.trim()}>
@@ -198,7 +200,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
                 variant="metadata"
                 style={{ color: label.trim() || url.trim() ? tokens.accent : tokens.border }}
               >
-                Agregar
+                {t("common.add")}
               </ThemedText>
             </TouchableOpacity>
           </View>

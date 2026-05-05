@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { useShallow } from "zustand/react/shallow";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
 import { useTaskStore } from "@/stores/taskStore";
@@ -12,13 +13,7 @@ import { localDateString } from "@/utils/dateUtils";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { FontSize } from "@/theme/typography";
 
-const DAY_NAMES_BY_JS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const WEEKEND_JS = [0, 6]; // JS getDay() values: 0=Dom, 6=Sáb
-
-function getDayName(dateStr: string): string {
-  const d = new Date(dateStr + "T12:00:00");
-  return DAY_NAMES_BY_JS[d.getDay()];
-}
 
 function isWeekend(dateStr: string): boolean {
   const d = new Date(dateStr + "T12:00:00");
@@ -63,6 +58,8 @@ export function CalendarWeekView({
   selectedDate: string;
   onSelectDate: (d: string) => void;
 }) {
+  const { t } = useTranslation();
+  const DAY_NAMES_BY_JS: string[] = t("calendar.daysFull", { returnObjects: true });
   const tokens = useTheme();
   const router = useRouter();
   const today = localDateString();
@@ -150,7 +147,7 @@ export function CalendarWeekView({
                     color: isToday ? tokens.textInverse : isDayWeekend ? tokens.textSecondary : tokens.textPrimary,
                   }}
                 >
-                  {getDayName(date)}{isToday ? " · Hoy" : ""}
+                  {DAY_NAMES_BY_JS[new Date(date + "T12:00:00").getDay()]}{isToday ? ` · ${t("calendar.today")}` : ""}
                 </ThemedText>
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
                   <ThemedText

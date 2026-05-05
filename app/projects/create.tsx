@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, BottomSheet, Separator, DatePickerModal } from "@/components/ui";
@@ -13,6 +14,7 @@ import { formatDate, dueDateStatus } from "@/utils/dateUtils";
 import { courseColors } from "@/theme/tokens";
 
 export default function ProjectCreateScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -86,12 +88,12 @@ export default function ProjectCreateScreen() {
         }}
       >
         <TouchableOpacity onPress={() => goBack()}>
-          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>Cancelar</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textSecondary }}>{t("common.cancel")}</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card">{isEdit ? "Editar proyecto" : "Nuevo proyecto"}</ThemedText>
+        <ThemedText variant="card">{isEdit ? t("projects.edit") : t("projects.create")}</ThemedText>
         <TouchableOpacity onPress={handleSave} disabled={!canSave}>
           <ThemedText variant="body" style={{ color: canSave ? tokens.accent : tokens.border }}>
-            {isEdit ? "Guardar" : "Crear"}
+            {isEdit ? t("common.save") : t("common.create")}
           </ThemedText>
         </TouchableOpacity>
       </View>
@@ -106,7 +108,7 @@ export default function ProjectCreateScreen() {
         <TextInput
           value={name}
           onChangeText={setName}
-          placeholder="Nombre del proyecto..."
+          placeholder={t("projects.namePlaceholder")}
           placeholderTextColor={tokens.textSecondary}
           autoFocus={!isEdit}
           style={{
@@ -127,7 +129,7 @@ export default function ProjectCreateScreen() {
           ) : <View />}
           <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
             <ThemedText variant="metadata" style={{ color: dueDateColor }}>
-              {dueDate ? `🗓 ${formatDate(dueDate)}` : "+ Programar entrega"}
+              {dueDate ? `🗓 ${formatDate(dueDate)}` : t("common.schedule")}
             </ThemedText>
           </TouchableOpacity>
         </View>
@@ -143,7 +145,7 @@ export default function ProjectCreateScreen() {
           }}
         >
           <ThemedText variant="metadata" style={{ color: selectedCourseId ? tokens.accent : tokens.textSecondary }}>
-            {selectedCourse ? `🏫 ${selectedCourse.name} ›` : "🏫 Seleccionar materia..."}
+            {selectedCourse ? `🏫 ${selectedCourse.name} ›` : `🏫 ${t("common.selectCourse")}`}
           </ThemedText>
         </TouchableOpacity>
 
@@ -154,12 +156,12 @@ export default function ProjectCreateScreen() {
           onPress={() => { setDescEdit(description); setDescSheetVisible(true); }}
           style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
         >
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 DESCRIPCIÓN</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 {t("common.description")}</ThemedText>
           {description ? (
             <ThemedText variant="body">{description}</ThemedText>
           ) : (
             <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
-              Tocar para agregar descripción...
+              {t("common.tapToAddDescription")}
             </ThemedText>
           )}
         </TouchableOpacity>
@@ -168,7 +170,7 @@ export default function ProjectCreateScreen() {
 
       {/* Course picker */}
       <BottomSheet visible={courseSheetVisible} onClose={() => setCourseSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Seleccionar materia</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.selectCourse")}</ThemedText>
         {courses.map((c) => (
           <TouchableOpacity
             key={c.id}
@@ -184,11 +186,11 @@ export default function ProjectCreateScreen() {
 
       {/* Description editor */}
       <BottomSheet visible={descSheetVisible} onClose={() => setDescSheetVisible(false)}>
-        <ThemedText variant="card" style={{ marginBottom: 8 }}>Descripción</ThemedText>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>{t("common.descriptionTitle")}</ThemedText>
         <TextInput
           value={descEdit}
           onChangeText={setDescEdit}
-          placeholder="Escribe una descripción..."
+          placeholder={t("common.writeDescription")}
           placeholderTextColor={tokens.textSecondary}
           multiline
           autoFocus
@@ -207,7 +209,7 @@ export default function ProjectCreateScreen() {
           onPress={() => { setDescription(descEdit.trim()); setDescSheetVisible(false); }}
           style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
         >
-          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Listo</ThemedText>
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>{t("common.done")}</ThemedText>
         </TouchableOpacity>
       </BottomSheet>
 

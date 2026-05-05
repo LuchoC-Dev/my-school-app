@@ -1,29 +1,31 @@
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
 import { useSettingsStore, CalendarViewDefault, WeekStartDay } from "@/stores/settingsStore";
 
-const WEEK_START_OPTIONS: { value: WeekStartDay; label: string }[] = [
-  { value: "sun", label: "Dom" },
-  { value: "mon", label: "Lun" },
-  { value: "sat", label: "Sáb" },
-];
-
-const CALENDAR_VIEW_OPTIONS: { value: CalendarViewDefault; icon: string; label: string }[] = [
-  { value: "month", icon: "📅", label: "Mes" },
-  { value: "week", icon: "📆", label: "Semana" },
-  { value: "day", icon: "☀️", label: "Día" },
-];
-
 export default function GeneralScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const goBack = useSmartBack("/(tabs)/settings");
   const insets = useSafeAreaInsets();
   const { weekStart, setWeekStart, calendarViewDefault, setCalendarViewDefault } = useSettingsStore();
+
+  const WEEK_START_OPTIONS: { value: WeekStartDay; label: string }[] = [
+    { value: "sun", label: t("settings.weekStartOptions.sun") },
+    { value: "mon", label: t("settings.weekStartOptions.mon") },
+    { value: "sat", label: t("settings.weekStartOptions.sat") },
+  ];
+
+  const CALENDAR_VIEW_OPTIONS: { value: CalendarViewDefault; icon: string; label: string }[] = [
+    { value: "month", icon: "📅", label: t("settings.viewOptions.month") },
+    { value: "week", icon: "📆", label: t("settings.viewOptions.week") },
+    { value: "day", icon: "☀️", label: t("settings.viewOptions.day") },
+  ];
 
   return (
     <View style={{ flex: 1, backgroundColor: tokens.background }}>
@@ -41,7 +43,7 @@ export default function GeneralScreen() {
         <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card" style={{ flex: 1 }}>⚙️ General</ThemedText>
+        <ThemedText variant="card" style={{ flex: 1 }}>{t("settings.title")}</ThemedText>
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
@@ -57,7 +59,7 @@ export default function GeneralScreen() {
             letterSpacing: 0.5,
           }}
         >
-          Calendario
+          {t("settings.calendar")}
         </ThemedText>
 
         {/* Día de inicio de semana */}
@@ -66,7 +68,7 @@ export default function GeneralScreen() {
             variant="metadata"
             style={{ color: tokens.textSecondary, textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 6 }}
           >
-            Día de inicio de semana
+            {t("settings.weekStart")}
           </ThemedText>
           <View style={{ flexDirection: "row", gap: 6 }}>
             {WEEK_START_OPTIONS.map((opt) => {
@@ -108,7 +110,7 @@ export default function GeneralScreen() {
             variant="metadata"
             style={{ color: tokens.textSecondary, textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 6 }}
           >
-            Vista por defecto al abrir
+            {t("settings.defaultView")}
           </ThemedText>
           <View style={{ gap: 6 }}>
             {CALENDAR_VIEW_OPTIONS.map((opt) => {

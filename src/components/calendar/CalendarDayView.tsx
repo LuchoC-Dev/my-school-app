@@ -1,4 +1,5 @@
 import { View, ScrollView, TouchableOpacity } from "react-native";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useActivityStore } from "@/stores/activityStore";
 import { useCourseStore } from "@/stores/courseStore";
@@ -8,7 +9,6 @@ import { ThemedText } from "@/components/ui";
 import { useRouter } from "expo-router";
 import { formatDate, localDateString } from "@/utils/dateUtils";
 
-const WEEK_DAYS = ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"];
 const HOURS = Array.from({ length: 15 }, (_, i) => i + 7); // 07:00–21:00
 
 function addDays(dateStr: string, n: number): string {
@@ -17,18 +17,15 @@ function addDays(dateStr: string, n: number): string {
   return localDateString(d);
 }
 
-function getDayOfWeekLabel(dateStr: string): string {
-  const d = new Date(dateStr + "T12:00:00");
-  const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-  return days[d.getDay()];
-}
-
 function timeToMinutes(t: string): number {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 }
 
 export function CalendarDayView({ selectedDate, onSelectDate }: { selectedDate: string; onSelectDate: (d: string) => void }) {
+  const { t } = useTranslation();
+  const WEEK_DAYS: string[] = t("calendar.days", { returnObjects: true });
+  const DAY_NAMES: string[] = t("calendar.daysFull", { returnObjects: true });
   const tokens = useTheme();
   const router = useRouter();
   const today = localDateString();
@@ -71,7 +68,7 @@ export function CalendarDayView({ selectedDate, onSelectDate }: { selectedDate: 
 
         <View style={{ alignItems: "center" }}>
           <ThemedText variant="card" style={{ color: isToday ? tokens.accent : tokens.textPrimary }}>
-            {getDayOfWeekLabel(selectedDate)}
+            {DAY_NAMES[new Date(selectedDate + "T12:00:00").getDay()]}
           </ThemedText>
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
             {formatDate(selectedDate)}

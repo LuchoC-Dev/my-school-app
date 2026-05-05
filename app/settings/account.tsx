@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, ScrollView, TouchableOpacity, Text, TextInput, Modal } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "@/hooks/useTheme";
 import { useSmartBack } from "@/hooks/useSmartBack";
 import { ThemedText, Separator } from "@/components/ui";
@@ -11,6 +12,7 @@ import { FontFamily, FontSize } from "@/theme/typography";
 const AVATARS = ["🧑", "👩", "👨", "🧑‍💻", "👩‍💻", "👨‍💻", "🎓", "📚", "🦊", "🐼", "🐸", "⭐"];
 
 export default function AccountScreen() {
+  const { t } = useTranslation();
   const tokens = useTheme();
   const router = useRouter();
   const goBack = useSmartBack("/(tabs)/settings");
@@ -44,7 +46,7 @@ export default function AccountScreen() {
         <TouchableOpacity onPress={() => goBack()}>
           <ThemedText variant="body" style={{ color: tokens.accent }}>‹</ThemedText>
         </TouchableOpacity>
-        <ThemedText variant="card" style={{ flex: 1 }}>👤 Cuenta</ThemedText>
+        <ThemedText variant="card" style={{ flex: 1 }}>{t("account.title")}</ThemedText>
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
@@ -79,7 +81,7 @@ export default function AccountScreen() {
               <Text style={{ fontSize: 10 }}>✏️</Text>
             </View>
           </TouchableOpacity>
-          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>Tocar para cambiar avatar</ThemedText>
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{t("account.tapToChangeAvatar")}</ThemedText>
         </View>
 
         <Separator />
@@ -90,7 +92,7 @@ export default function AccountScreen() {
             variant="metadata"
             style={{ color: tokens.textSecondary, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 6 }}
           >
-            Nombre
+            {t("account.name")}
           </ThemedText>
           <View style={{
             backgroundColor: tokens.surface,
@@ -120,14 +122,14 @@ export default function AccountScreen() {
                   }}
                 />
                 <TouchableOpacity onPress={saveName}>
-                  <ThemedText variant="metadata" style={{ color: tokens.accent }}>Guardar</ThemedText>
+                  <ThemedText variant="metadata" style={{ color: tokens.accent }}>{t("account.save")}</ThemedText>
                 </TouchableOpacity>
               </>
             ) : (
               <>
                 <ThemedText variant="body" style={{ flex: 1 }}>{userName}</ThemedText>
                 <TouchableOpacity onPress={() => { setNameInput(userName); setEditingName(true); }}>
-                  <ThemedText variant="metadata" style={{ color: tokens.accent }}>Editar</ThemedText>
+                  <ThemedText variant="metadata" style={{ color: tokens.accent }}>{t("account.edit")}</ThemedText>
                 </TouchableOpacity>
               </>
             )}
@@ -141,7 +143,7 @@ export default function AccountScreen() {
           variant="metadata"
           style={{ color: tokens.textSecondary, paddingHorizontal: 16, paddingTop: 14, paddingBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}
         >
-          Próximamente
+          {t("account.comingSoon")}
         </ThemedText>
         <View style={{
           margin: 14,
@@ -154,7 +156,7 @@ export default function AccountScreen() {
           gap: 8,
         }}>
           <ThemedText variant="metadata" style={{ color: tokens.textSecondary, textAlign: "center", lineHeight: 20 }}>
-            Sincronización en la nube,{"\n"}múltiples perfiles y más
+            {t("account.comingSoonDesc")}
           </ThemedText>
           <View style={{
             borderWidth: 1.5,
@@ -163,7 +165,7 @@ export default function AccountScreen() {
             paddingHorizontal: 10,
             paddingVertical: 3,
           }}>
-            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>en desarrollo</ThemedText>
+            <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>{t("account.inDevelopment")}</ThemedText>
           </View>
         </View>
       </ScrollView>
@@ -182,7 +184,7 @@ export default function AccountScreen() {
             padding: 20,
             paddingBottom: insets.bottom + 20,
           }}>
-            <ThemedText variant="card" style={{ marginBottom: 16, textAlign: "center" }}>Elegí tu avatar</ThemedText>
+            <ThemedText variant="card" style={{ marginBottom: 16, textAlign: "center" }}>{t("account.chooseAvatar")}</ThemedText>
             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
               {AVATARS.map((emoji) => (
                 <TouchableOpacity
