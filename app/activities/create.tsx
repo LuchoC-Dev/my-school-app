@@ -41,6 +41,9 @@ export default function ActivityCreateScreen() {
   const courses = useCourseStore((s) => s.courses);
 
   const [name, setName] = useState(existing?.name ?? "");
+  const [description, setDescription] = useState(existing?.description ?? "");
+  const [descSheetVisible, setDescSheetVisible] = useState(false);
+  const [descEdit, setDescEdit] = useState("");
   const [type, setType] = useState<ActivityType>(existing?.type ?? "assignment");
   const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(existing?.courseId ?? preselectedCourseId);
   const [dueDate, setDueDate] = useState(existing?.dueDate ?? preselectedDueDate ?? "");
@@ -66,6 +69,7 @@ export default function ActivityCreateScreen() {
     if (isEdit && editId) {
       await updateActivity(editId, {
         name: name.trim(),
+        description: description.trim() || undefined,
         type,
         courseId: selectedCourseId!,
         dueDate: dueDate || undefined,
@@ -75,6 +79,7 @@ export default function ActivityCreateScreen() {
       await addActivity({
         courseId: selectedCourseId!,
         name: name.trim(),
+        description: description.trim() || undefined,
         type,
         status: "pending" as Status,
         dueDate: dueDate || undefined,
@@ -175,6 +180,23 @@ export default function ActivityCreateScreen() {
 
         <Separator />
 
+        {/* Description block */}
+        <TouchableOpacity
+          onPress={() => { setDescEdit(description); setDescSheetVisible(true); }}
+          style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
+        >
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 DESCRIPCIÓN</ThemedText>
+          {description ? (
+            <ThemedText variant="body">{description}</ThemedText>
+          ) : (
+            <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
+              Tocar para agregar descripción...
+            </ThemedText>
+          )}
+        </TouchableOpacity>
+
+        <Separator />
+
         {/* Material */}
         <MaterialSection
           links={links}
@@ -214,6 +236,35 @@ export default function ActivityCreateScreen() {
             </ThemedText>
           </TouchableOpacity>
         ))}
+      </BottomSheet>
+
+      {/* Description editor */}
+      <BottomSheet visible={descSheetVisible} onClose={() => setDescSheetVisible(false)}>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>Descripción</ThemedText>
+        <TextInput
+          value={descEdit}
+          onChangeText={setDescEdit}
+          placeholder="Escribe una descripción..."
+          placeholderTextColor={tokens.textSecondary}
+          multiline
+          autoFocus
+          style={{
+            backgroundColor: tokens.surfaceAlt,
+            borderRadius: 8,
+            padding: 12,
+            color: tokens.textPrimary,
+            fontFamily: FontFamily.caveatRegular,
+            fontSize: FontSize.body,
+            minHeight: 100,
+            textAlignVertical: "top",
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => { setDescription(descEdit.trim()); setDescSheetVisible(false); }}
+          style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
+        >
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Listo</ThemedText>
+        </TouchableOpacity>
       </BottomSheet>
 
       <DatePickerModal

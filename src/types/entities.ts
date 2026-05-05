@@ -48,6 +48,7 @@ export interface Activity {
   courseId: string;
   projectId?: string;
   name: string;
+  description?: string;
   type: ActivityType;
   status: Status;
   dueDate?: string;

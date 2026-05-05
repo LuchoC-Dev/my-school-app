@@ -40,6 +40,8 @@ export default function ActivityViewScreen() {
   const [projectSheetVisible, setProjectSheetVisible] = useState(false);
   const [titleSheetVisible, setTitleSheetVisible] = useState(false);
   const [titleEdit, setTitleEdit] = useState("");
+  const [descSheetVisible, setDescSheetVisible] = useState(false);
+  const [descEdit, setDescEdit] = useState("");
   const [typeSheetVisible, setTypeSheetVisible] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -177,6 +179,23 @@ export default function ActivityViewScreen() {
             </ThemedText>
           </TouchableOpacity>
         </View>
+
+        <Separator />
+
+        {/* Description block */}
+        <TouchableOpacity
+          onPress={() => { setDescEdit(activity.description ?? ""); setDescSheetVisible(true); }}
+          style={{ backgroundColor: tokens.surfaceAlt, borderRadius: 8, padding: 12, gap: 4 }}
+        >
+          <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>📝 DESCRIPCIÓN</ThemedText>
+          {activity.description ? (
+            <ThemedText variant="body">{activity.description}</ThemedText>
+          ) : (
+            <ThemedText variant="body" style={{ color: tokens.textSecondary, fontStyle: "italic" }}>
+              Tocar para agregar descripción...
+            </ThemedText>
+          )}
+        </TouchableOpacity>
 
         <Separator />
 
@@ -349,6 +368,35 @@ export default function ActivityViewScreen() {
             </ThemedText>
           </TouchableOpacity>
         ))}
+      </BottomSheet>
+
+      {/* Description editor */}
+      <BottomSheet visible={descSheetVisible} onClose={() => setDescSheetVisible(false)}>
+        <ThemedText variant="card" style={{ marginBottom: 8 }}>Descripción</ThemedText>
+        <TextInput
+          value={descEdit}
+          onChangeText={setDescEdit}
+          placeholder="Escribe una descripción..."
+          placeholderTextColor={tokens.textSecondary}
+          multiline
+          autoFocus
+          style={{
+            backgroundColor: tokens.surfaceAlt,
+            borderRadius: 8,
+            padding: 12,
+            color: tokens.textPrimary,
+            fontFamily: FontFamily.caveatRegular,
+            fontSize: FontSize.body,
+            minHeight: 100,
+            textAlignVertical: "top",
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => { updateActivity(id, { description: descEdit.trim() || undefined }); setDescSheetVisible(false); }}
+          style={{ marginTop: 12, backgroundColor: tokens.textPrimary, borderRadius: 8, paddingVertical: 12, alignItems: "center" }}
+        >
+          <ThemedText variant="body" style={{ color: tokens.textInverse }}>Guardar</ThemedText>
+        </TouchableOpacity>
       </BottomSheet>
 
       {/* Date picker */}
