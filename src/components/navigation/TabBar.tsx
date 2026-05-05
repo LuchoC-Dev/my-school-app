@@ -2,9 +2,8 @@ import React from "react";
 import { View, TouchableOpacity, Platform } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme, useFontTokens } from "@/hooks/useTheme";
 import { ThemedText } from "@/components/ui";
-import { FontFamily } from "@/theme/typography";
 
 const TABS = [
   { name: "index", label: "Materias", icon: "📚" },
@@ -15,6 +14,7 @@ const TABS = [
 
 export function TabBar({ state, navigation }: BottomTabBarProps) {
   const tokens = useTheme();
+  const fonts = useFontTokens();
   const insets = useSafeAreaInsets();
 
   return (
@@ -40,7 +40,7 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
             <ThemedText
               style={{
                 fontSize: 22,
-                fontFamily: FontFamily.system,
+                fontFamily: undefined,
               }}
             >
               {tab.icon}
@@ -49,7 +49,7 @@ export function TabBar({ state, navigation }: BottomTabBarProps) {
               variant="metadata"
               style={{
                 color: isFocused ? tokens.accent : tokens.textSecondary,
-                fontFamily: isFocused ? FontFamily.caveatBold : FontFamily.caveatRegular,
+                fontFamily: fonts.label,
               }}
             >
               {tab.label}

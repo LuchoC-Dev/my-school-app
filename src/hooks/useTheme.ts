@@ -1,1 +1,1 @@
-export { useThemeTokens as useTheme } from "@/theme/ThemeContext";
+export { useThemeTokens as useTheme, useFontTokens } from "@/theme/ThemeContext";

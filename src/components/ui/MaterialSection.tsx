@@ -2,11 +2,11 @@ import { useState } from "react";
 import { View, TouchableOpacity, TextInput, Linking, Alert, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme, useFontTokens } from "@/hooks/useTheme";
 import { ThemedText } from "./ThemedText";
 import { SectionLabel } from "./SectionLabel";
 import { MaterialLink } from "@/types/entities";
-import { FontFamily, FontSize } from "@/theme/typography";
+import { FontSize } from "@/theme/typography";
 
 interface MaterialSectionProps {
   links: MaterialLink[];
@@ -29,6 +29,7 @@ function getFileIcon(mimeType?: string): string {
 
 export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: MaterialSectionProps) {
   const tokens = useTheme();
+  const fonts = useFontTokens();
   const readonly = !onAdd;
   const [addingLink, setAddingLink] = useState(false);
   const [label, setLabel] = useState("");
@@ -42,7 +43,7 @@ export function MaterialSection({ links, onAdd, onRemove, readonlyLabel }: Mater
     paddingVertical: 6,
     backgroundColor: tokens.surface,
     color: tokens.textPrimary,
-    fontFamily: FontFamily.caveatRegular,
+    fontFamily: fonts.body,
     fontSize: FontSize.body,
   };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, ViewStyle } from "react-native";
-import { useTheme } from "@/hooks/useTheme";
-import { FontFamily, FontSize } from "@/theme/typography";
+import { useTheme, useFontTokens } from "@/hooks/useTheme";
+import { FontSize } from "@/theme/typography";
 
 interface ChipProps {
   label: string;
@@ -12,6 +12,7 @@ interface ChipProps {
 
 export function Chip({ label, active = false, onPress, style }: ChipProps) {
   const tokens = useTheme();
+  const fonts = useFontTokens();
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -30,7 +31,7 @@ export function Chip({ label, active = false, onPress, style }: ChipProps) {
       <Text
         style={{
           fontSize: FontSize.body,
-          fontFamily: FontFamily.caveatRegular,
+          fontFamily: fonts.label,
           color: active ? tokens.textInverse : tokens.textBody,
         }}
       >

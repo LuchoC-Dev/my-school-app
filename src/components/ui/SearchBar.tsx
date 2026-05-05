@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TextInput, TouchableOpacity, Text } from "react-native";
-import { useTheme } from "@/hooks/useTheme";
-import { FontFamily, FontSize } from "@/theme/typography";
+import { useTheme, useFontTokens } from "@/hooks/useTheme";
+import { FontSize } from "@/theme/typography";
 
 interface SearchBarProps {
   value: string;
@@ -17,6 +17,7 @@ export function SearchBar({
   placeholder = "Buscar...",
 }: SearchBarProps) {
   const tokens = useTheme();
+  const fonts = useFontTokens();
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14 }}>
       <TextInput
@@ -33,7 +34,7 @@ export function SearchBar({
           borderColor: tokens.border,
           backgroundColor: tokens.surface,
           color: tokens.textPrimary,
-          fontFamily: FontFamily.caveatRegular,
+          fontFamily: fonts.body,
           fontSize: FontSize.body,
         }}
       />
@@ -42,7 +43,7 @@ export function SearchBar({
           <Text
             style={{
               color: tokens.accent,
-              fontFamily: FontFamily.caveatRegular,
+              fontFamily: fonts.body,
               fontSize: FontSize.body,
             }}
           >

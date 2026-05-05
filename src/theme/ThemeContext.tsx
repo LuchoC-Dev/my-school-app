@@ -1,6 +1,7 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { useColorScheme } from "react-native";
 import { ColorTokens, lightTheme, darkTheme } from "./tokens";
+import { FontTokens, resolveFontTokens } from "./fontTokens";
 import { useThemeStore } from "@/stores/themeStore";
 import { useSettingsStore, AccentColor } from "@/stores/settingsStore";
 
@@ -16,11 +17,13 @@ const accentLightMap: Record<AccentColor, string> = {
 };
 
 const ThemeContext = createContext<ColorTokens | null>(null);
+const FontThemeContext = createContext<FontTokens | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const mode = useThemeStore((s) => s.mode);
   const systemScheme = useColorScheme();
   const accentColor = useSettingsStore((s) => s.accentColor);
+  const fontFamily = useSettingsStore((s) => s.fontFamily);
 
   const base: ColorTokens =
     mode === "system"
@@ -37,13 +40,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     accentLight: accentLightMap[accentColor] ?? base.accentLight,
   };
 
+  const fonts = resolveFontTokens(fontFamily);
+
   return (
-    <ThemeContext.Provider value={resolved}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={resolved}>
+      <FontThemeContext.Provider value={fonts}>
+        {children}
+      </FontThemeContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 
 export function useThemeTokens(): ColorTokens {
   const ctx = useContext(ThemeContext);
   if (!ctx) throw new Error("useThemeTokens must be used within ThemeProvider");
+  return ctx;
+}
+
+export function useFontTokens(): FontTokens {
+  const ctx = useContext(FontThemeContext);
+  if (!ctx) throw new Error("useFontTokens must be used within ThemeProvider");
   return ctx;
 }

@@ -7,6 +7,7 @@ import { ThemedText, Separator } from "@/components/ui";
 import { useThemeStore, ThemeMode } from "@/stores/themeStore";
 import { useSettingsStore, AccentColor, AppFontFamily } from "@/stores/settingsStore";
 import { lightTheme, darkTheme } from "@/theme/tokens";
+import { resolveFontTokens } from "@/theme/fontTokens";
 
 const THEME_OPTIONS: { value: ThemeMode; label: string; preview: string }[] = [
   { value: "light", label: "Claro", preview: "#F5F0E8" },
@@ -25,9 +26,9 @@ const ACCENT_OPTIONS: AccentColor[] = [
 ];
 
 const FONT_OPTIONS: { value: AppFontFamily; label: string; sub: string }[] = [
-  { value: "caveat", label: "Caveat", sub: "Handwritten · actual" },
-  { value: "georgia", label: "Georgia", sub: "Serif · clásica" },
-  { value: "system", label: "System", sub: "Sans-serif · legible" },
+  { value: "caveat", label: "Caveat", sub: "Manuscrita · títulos expresivos" },
+  { value: "georgia", label: "Georgia", sub: "Serif · elegante y clásica" },
+  { value: "system", label: "Sistema", sub: "Sans-serif · máxima legibilidad" },
 ];
 
 export default function AppearanceScreen() {
@@ -197,7 +198,7 @@ export default function AppearanceScreen() {
                     fontSize: 15,
                     fontWeight: "700",
                     color: tokens.textPrimary,
-                    fontFamily: opt.value === "caveat" ? "Caveat_700Bold" : opt.value === "georgia" ? "Georgia" : undefined,
+                    fontFamily: resolveFontTokens(opt.value).heading,
                   }}>
                     {opt.label}
                   </Text>

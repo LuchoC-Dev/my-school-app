@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, ViewStyle } from "react-native";
-import { useTheme } from "@/hooks/useTheme";
-import { FontFamily, FontSize } from "@/theme/typography";
+import { useTheme, useFontTokens } from "@/hooks/useTheme";
+import { FontSize } from "@/theme/typography";
 
 interface ButtonProps {
   label: string;
@@ -13,6 +13,7 @@ interface ButtonProps {
 
 export function Button({ label, variant = "primary", onPress, style, disabled }: ButtonProps) {
   const tokens = useTheme();
+  const fonts = useFontTokens();
 
   const isPrimary = variant === "primary";
 
@@ -47,7 +48,7 @@ export function Button({ label, variant = "primary", onPress, style, disabled }:
       <Text
         style={{
           fontSize: FontSize.body,
-          fontFamily: FontFamily.caveatBold,
+          fontFamily: fonts.label,
           color: isPrimary ? tokens.textInverse : tokens.textSecondary,
         }}
       >
