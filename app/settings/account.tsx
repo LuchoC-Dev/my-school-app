@@ -161,7 +161,7 @@ export default function AccountScreen() {
             borderColor: tokens.borderLight,
             borderRadius: 999,
             paddingHorizontal: 10,
-            paddingVertical: 2,
+            paddingVertical: 3,
           }}>
             <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>en desarrollo</ThemedText>
           </View>

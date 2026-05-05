@@ -65,7 +65,7 @@ export function TaskRow({ task, courseLabel, activityLabel, courseColor, dueDate
               style={{
                 borderRadius: 999,
                 paddingHorizontal: 6,
-                paddingVertical: 1,
+                paddingVertical: 3,
                 backgroundColor: courseColor ? `${courseColor}22` : tokens.surfaceAlt,
               }}
             >
@@ -79,7 +79,7 @@ export function TaskRow({ task, courseLabel, activityLabel, courseColor, dueDate
               style={{
                 borderRadius: 999,
                 paddingHorizontal: 6,
-                paddingVertical: 1,
+                paddingVertical: 3,
                 backgroundColor: tokens.surfaceAlt,
               }}
             >

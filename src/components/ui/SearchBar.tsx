@@ -27,8 +27,8 @@ export function SearchBar({
         placeholderTextColor={tokens.textSecondary}
         style={{
           flex: 1,
-          height: 36,
           paddingHorizontal: 12,
+          paddingVertical: 8,
           borderRadius: 999,
           borderWidth: 1.5,
           borderColor: tokens.border,

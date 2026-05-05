@@ -174,7 +174,7 @@ export function CalendarMonthView({ selectedDate, onSelectDate, onSwitchToDay }:
                   }}
                 >
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                    <View style={{ borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2, backgroundColor: typeBg }}>
+                    <View style={{ borderRadius: 999, paddingHorizontal: 7, paddingVertical: 3, backgroundColor: typeBg }}>
                       <ThemedText variant="metadata" style={{ color: typeColor }}>{typeLabel}</ThemedText>
                     </View>
                     <ThemedText variant="body" style={{ flex: 1, textDecorationLine: item.status === "completed" ? "line-through" : "none", color: item.status === "completed" ? tokens.textSecondary : tokens.textPrimary }}>{item.name}</ThemedText>

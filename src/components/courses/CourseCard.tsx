@@ -61,7 +61,7 @@ export function CourseCard({ course, pendingCount, completedCount, onPress }: Co
               backgroundColor: tokens.surfaceAlt,
               borderRadius: 999,
               paddingHorizontal: 8,
-              paddingVertical: 2,
+              paddingVertical: 3,
             }}
           >
             <ThemedText variant="metadata" style={{ color: tokens.warning }}>
@@ -75,7 +75,7 @@ export function CourseCard({ course, pendingCount, completedCount, onPress }: Co
               backgroundColor: tokens.surfaceAlt,
               borderRadius: 999,
               paddingHorizontal: 8,
-              paddingVertical: 2,
+              paddingVertical: 3,
             }}
           >
             <ThemedText variant="metadata" style={{ color: tokens.textSecondary }}>
