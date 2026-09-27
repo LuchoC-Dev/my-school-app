@@ -14,8 +14,8 @@ Funciona 100% local: no hay backend, cuentas ni sincronización. Los datos queda
 
 ## ✨ Funcionalidades
 
-- **Materias**: nombre, emoji, profesor, descripción, color identificatorio y horarios de cursada.
-- **Proyectos, actividades y tareas** con fecha de entrega, estado y descripción. Las actividades y tareas pueden estar dentro de un proyecto/actividad o sueltas bajo la materia.
+- **Materias**: nombre, profesor, descripción, color identificatorio y horarios de cursada.
+- **Proyectos, actividades y tareas** con fecha de entrega, estado, descripción o notas y material adjunto (links). Las actividades pueden pertenecer a un proyecto o ir sueltas en la materia; las tareas pueden pertenecer a una actividad o ir sueltas.
 - **Progreso** de proyectos y actividades calculado a partir de sus tareas completadas.
 - **Edición inline** desde las pantallas de detalle.
 - **Calendario** con vistas de día, semana y mes; los ítems con fecha se muestran con el color de su materia.
@@ -117,8 +117,8 @@ Las pantallas leen y modifican datos a través de **stores de Zustand**. Los sto
 
 | Documento | Descripción |
 |-----------|-------------|
-| [`docs/project.md`](./docs/project.md) | Visión general del producto y alcance del MVP |
-| [`docs/architecture.md`](./docs/architecture.md) | Jerarquía de datos, modelos y reglas de negocio |
+| [`docs/project.md`](./docs/project.md) | Visión general, stack, estado actual y alcance del MVP |
+| [`docs/architecture.md`](./docs/architecture.md) | Jerarquía de datos, modelos, reglas de negocio y arquitectura técnica |
 | [`docs/navigation.md`](./docs/navigation.md) | Estructura de navegación y flujos entre pantallas |
 | [`docs/screens.md`](./docs/screens.md) | Inventario de pantallas con sus wireframes |
 | [`docs/design-system.md`](./docs/design-system.md) | Tokens de color, temas y lineamientos visuales |
