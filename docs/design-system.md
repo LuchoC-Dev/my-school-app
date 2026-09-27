@@ -2,104 +2,108 @@
 
 ## Tokens de color
 
-Los colores se definen como tokens semánticos. El valor concreto de cada token depende del tema activo (claro / oscuro / sistema). El agente de implementación debe mapear estos tokens al sistema de theming elegido (ej: React Native Paper themes, styled-components ThemeProvider, o un Context propio).
+Los colores se definen como tokens semánticos en `src/theme/tokens.ts` (`ColorTokens`), con un valor para tema claro y otro para oscuro. `ThemeProvider` (`src/theme/ThemeContext.tsx`) resuelve el tema activo y los componentes los leen con `useTheme()`.
 
 ### Tokens base
-| Token | Rol |
-|---|---|
-| `color.background` | Fondo general de la app |
-| `color.surface` | Fondo de cards, tab bar |
-| `color.surface.alt` | Fondo de campos seleccionados / activos |
-| `color.border` | Bordes de inputs, chips, separadores normales |
-| `color.border.light` | Separadores suaves |
-| `color.text.primary` | Texto principal |
-| `color.text.secondary` | Labels, placeholders, metadata |
-| `color.text.body` | Texto de cuerpo secundario |
-| `color.text.inverse` | Texto sobre fondos oscuros (ej: botón primario) |
-| `color.destructive` | Acciones destructivas |
+| Token | Rol | Claro | Oscuro |
+|---|---|---|---|
+| `background` | Fondo general de la app | `#F5F0E8` | `#1A1510` |
+| `surface` | Fondo de cards, tab bar | `#FFFFFF` | `#2A2016` |
+| `surfaceAlt` | Fondo de campos seleccionados / activos | `#EDE8DF` | `#332A1E` |
+| `border` | Bordes de inputs, chips, separadores normales | `#C8BFB0` | `#4A3F32` |
+| `borderLight` | Separadores suaves | `#E0D9CE` | `#3D3228` |
+| `textPrimary` | Texto principal | `#2A2016` | `#F5F0E8` |
+| `textSecondary` | Labels, placeholders, metadata | `#7A6F62` | `#A89880` |
+| `textBody` | Texto de cuerpo secundario | `#4A4035` | `#C8BBAA` |
+| `textInverse` | Texto sobre fondos oscuros (ej: botón primario) | `#FFFFFF` | `#2A2016` |
+| `destructive` | Texto y bordes de acciones irreversibles | `#D94040` | `#F07070` |
+| `warning` / `warningLight` | Avisos y fechas próximas a vencer | `#B45309` / `#FEF3C7` | `#FBBF24` / `#3D2E00` |
+| `accent` / `accentLight` | Acento global de la UI | ver abajo | ver abajo |
 
-### Tokens de acento (materias)
-Cada materia tiene un color asignado por el usuario al crearla. Los tokens de acento se derivan de ese color:
+### Acento global
+En Settings → Apariencia el usuario elige el color de acento de la UI (botones, elementos activos, links) entre 7 opciones. `ThemeProvider` pisa `accent` con el color elegido y `accentLight` con su versión pastel precalculada. Por defecto: naranja `#D4753A`.
 
-| Token | Rol |
-|---|---|
-| `color.accent` | Color principal del acento |
-| `color.accent.light` | Versión de fondo suave (para badges, chips) |
+### Colores por materia
+Cada materia tiene un color elegido al crearla, independiente del acento global. Se definen en `courseColors` (`src/theme/tokens.ts`):
 
-Los colores disponibles para elegir al crear una materia son: naranja, azul, violeta, verde (4 opciones en el MVP).
-
-### Token de acento global
-En Settings → Apariencia el usuario puede cambiar el color de acento global de la UI (botones, elementos activos, links). Este es independiente del color por materia.
-
-### Token destructivo
-| Token | Rol |
-|---|---|
-| `color.destructive` | Texto y bordes de acciones irreversibles |
+| Color | `accent` | `accentLight` |
+|---|---|---|
+| orange | `#D97B3A` | `#F5E0CC` |
+| blue | `#3A7BD9` | `#CCE0F5` |
+| violet | `#7B3AD9` | `#E0CCF5` |
+| green | `#3AD97B` | `#CCF5E0` |
 
 ## Temas
 
-Tres opciones configurables en Settings → Apariencia: **Claro · Oscuro · Sistema**.
-
-Los wireframes están diseñados en tema claro. Los valores concretos de cada token por tema los define el agente de implementación al elegir la librería de theming.
+Tres opciones en Settings → Apariencia: **Claro · Oscuro · Sistema** (por defecto: Sistema). Se guarda en `themeStore`. El fondo del root se pinta con el token `background` para evitar el flash blanco al cargar.
 
 ## Tipografía
 
-- **Fuente principal**: Caveat (Google Fonts) — handwritten
-- **Alternativas configurables**: Georgia (serif), fuente del sistema (sans-serif)
-- La fuente activa se configura en Settings → Apariencia
+### Font themes
+La familia se elige en Settings → Apariencia y se resuelve en `src/theme/fontTokens.ts` a roles semánticos (`heading`, `body`, `label`, `caption`, `mono`), accesibles con `useFontTokens()`:
+
+| Opción | Headings | Body | UI (labels) |
+|---|---|---|---|
+| Manuscrita (por defecto) | Caveat Bold | Caveat Regular | Caveat Regular |
+| Serif | Georgia | Georgia | sistema |
+| Sistema | sistema | sistema | sistema |
 
 ### Escala
-| Rol | Tamaño | Peso |
-|---|---|---|
-| Screen title | 19 | 700 |
-| Card title | 15 | 700 |
-| Body / list item | 13 | 400–600 |
-| Metadata / labels | 10–11 | 400–700 |
-| Section label | 10 | 700, uppercase, letter-spacing 0.4px |
+Definida en `src/theme/typography.ts` y aplicada por `ThemedText` según su `variant`. Todos los tamaños se multiplican por el tamaño de texto elegido por el usuario (`fontScale`, 0.85–1.2).
+
+| Variant | Tamaño | Peso | Fuente |
+|---|---|---|---|
+| `title` | 26 | 700 | heading |
+| `card` | 20 | 700 | heading |
+| `body` | 17 | 400 | body |
+| `metadata` | 14 | 400 | body |
+| `section-label` | 12 | 700, uppercase, letter-spacing 0.4 | heading |
 
 ## Componentes recurrentes
 
+Los componentes base viven en `src/components/ui` (`Button`, `Chip`, `ChipRow`, `Checkbox`, `ProgressBar`, `SearchBar`, `EmptyState`, `SectionLabel`, `Separator`, `ConfirmModal`, `BottomSheet`, `DatePickerModal`, `CustomCalendar`, `MaterialSection`, `ThemedText`).
+
 ### Tab bar (navegación principal)
-3 tabs fijos: **Materias** 🏫 · **Actividades** 📋 · **Calendario** 📅
+4 tabs fijos: **Materias** 📚 · **Actividades** ✅ · **Calendario** 📅 · **Ajustes** ⚙️ (`src/components/navigation/TabBar.tsx`). La tab activa se marca con `accent`.
 
 ### Header de pantalla
 ```
 [Título con ícono]        [Botón icónico opcional]
 ```
-Padding 10 14. Título en screen title.
+Padding 10 14. Título con `ThemedText variant="title"` (`src/components/navigation/AppHeader.tsx`).
 
 ### Section label
-Texto 10px, uppercase, bold, `color.text.secondary`, letter-spacing 0.4px.
+`ThemedText variant="section-label"` en `textSecondary`.
 
 ### Separadores
-- Sólido: 1px `color.border.light`, margen horizontal 14
-- Dashed: 1px dashed `color.border`, margen horizontal 14
+- Sólido: 1px `borderLight`, margen horizontal 14
+- Dashed: 1px dashed `border`, margen horizontal 14
 
 ### Chips de filtro
-Border-radius pill, borde 1.5px. Activo: fondo `color.text.primary`, texto `color.text.inverse`. Inactivo: borde `color.border`, texto `color.text.body`.
+Border-radius pill, borde 1.5px. Activo: fondo `textPrimary`, texto `textInverse`. Inactivo: borde `border`, texto `textBody`.
 
 ### Tags de tipo
 Border-radius pill, borde 1.5px, sin fondo. Color según el acento de la materia.
 
 ### Botón primario
-Fondo `color.text.primary`, texto `color.text.inverse`, border-radius 10, padding 12, full width.
+Fondo `textPrimary`, texto `textInverse`, border-radius 10, padding 12, full width.
 
 ### Botón secundario / dashed
-Borde dashed `color.border`, border-radius pill, texto `color.text.secondary`. Para acciones opcionales.
+Borde dashed `border`, border-radius pill, texto `textSecondary`. Para acciones opcionales.
 
 ### Toggle
-On: fondo `color.text.primary`. Off: fondo `color.border`.
+On: fondo `textPrimary`. Off: fondo `border`.
 
 ### Search bar
-Border-radius pill, borde 1.5px `color.border`. Con link "Buscar en todo →" al lado en `color.accent`.
+Border-radius pill, borde 1.5px `border`. Con link "Buscar en todo →" al lado en `accent`.
 
 ### Empty state
-Ícono grande centrado + título bold + descripción en `color.text.secondary` + CTA.
+Ícono grande centrado + título bold + descripción en `textSecondary` + CTA.
 - CTA botón primario si la acción es obligatoria (ej: crear primera materia)
 - CTA dashed si es opcional (ej: crear project)
 
 ### Checkbox de task
-Círculo 17×17. Completado: fondo `color.text.primary` con ✓ en `color.text.inverse`.
+Círculo 17×17. Completado: fondo `textPrimary` con ✓ en `textInverse`.
 
 ### Progress bar
-3px alto, fondo `color.border.light`, relleno `color.accent`, border-radius pill.
+3px alto, fondo `borderLight`, relleno `accent`, border-radius pill.
